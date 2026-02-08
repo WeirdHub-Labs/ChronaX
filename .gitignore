@@ -1,0 +1,5 @@
+.gradle/
+build/
+paper-api/
+paper-server/
+*.patch.rej
