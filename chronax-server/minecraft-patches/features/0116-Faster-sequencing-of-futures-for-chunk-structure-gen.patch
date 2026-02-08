@@ -7,7 +7,7 @@ Replace `thenApply` with `thenCompose`. Once one task is completed then the next
 to prevent blocking threads while waiting to complete all tasks. But may cause the sequence of future compose disorder.
 
 diff --git a/net/minecraft/Util.java b/net/minecraft/Util.java
-index 138a58c5e5698b926b01e0170733dc3dbc5589ec..64372e0fd4eb7018fc36d0feb667c296ea48f927 100644
+index 138a58c..64372e0 100644
 --- a/net/minecraft/Util.java
 +++ b/net/minecraft/Util.java
 @@ -625,17 +625,39 @@ public class Util {
@@ -51,7 +51,7 @@ index 138a58c5e5698b926b01e0170733dc3dbc5589ec..64372e0fd4eb7018fc36d0feb667c296
          CompletableFuture<List<V>> completableFuture = new CompletableFuture<>();
          return fallibleSequence(completableFutures, completableFuture::completeExceptionally).applyToEither(completableFuture, Function.identity());
 diff --git a/net/minecraft/server/ReloadableServerRegistries.java b/net/minecraft/server/ReloadableServerRegistries.java
-index 512d59188ff43e34463e2845aa8a174792c407a7..ca84304526050176ca7406f7a13c144798a0ed74 100644
+index 512d591..ca84304 100644
 --- a/net/minecraft/server/ReloadableServerRegistries.java
 +++ b/net/minecraft/server/ReloadableServerRegistries.java
 @@ -50,7 +50,7 @@ public class ReloadableServerRegistries {
@@ -64,7 +64,7 @@ index 512d59188ff43e34463e2845aa8a174792c407a7..ca84304526050176ca7406f7a13c1447
              list2 -> createAndValidateFullContext(registryAccess, provider, (List<WritableRegistry<?>>)list2), backgroundExecutor
          );
 diff --git a/net/minecraft/world/level/chunk/ChunkGeneratorStructureState.java b/net/minecraft/world/level/chunk/ChunkGeneratorStructureState.java
-index 619b98e42e254c0c260c171a26a2472ddf59b885..f07a5416e5dc7e9a798a78ce9573a0c42bc59d04 100644
+index 619b98e..f07a541 100644
 --- a/net/minecraft/world/level/chunk/ChunkGeneratorStructureState.java
 +++ b/net/minecraft/world/level/chunk/ChunkGeneratorStructureState.java
 @@ -255,7 +255,7 @@ public class ChunkGeneratorStructureState {

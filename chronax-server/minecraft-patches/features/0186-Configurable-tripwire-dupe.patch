@@ -9,7 +9,7 @@ Note: this is different from Paper's skip-tripwire-hook-placement-validation, th
 handles tripwire hook dupe
 
 diff --git a/net/minecraft/world/level/block/TripWireHookBlock.java b/net/minecraft/world/level/block/TripWireHookBlock.java
-index 8a3a8b0fdf9545a41501dc992c6982d9c8ce7b66..af6a189b618c11573cd63e69bcd7ad4467e82fa6 100644
+index 8a3a8b0..af6a189 100644
 --- a/net/minecraft/world/level/block/TripWireHookBlock.java
 +++ b/net/minecraft/world/level/block/TripWireHookBlock.java
 @@ -201,7 +201,7 @@ public class TripWireHookBlock extends Block {

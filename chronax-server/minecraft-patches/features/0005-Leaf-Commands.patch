@@ -18,7 +18,7 @@ Leaf config v3 move to new key
 ...
 
 diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
-index 8077719592eb826ac656ff73214b165f60deb729..b615dd89bbbb4c1a027c63ca714ebf8cb80e0c4d 100644
+index 8077719..b615dd8 100644
 --- a/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/net/minecraft/server/dedicated/DedicatedServer.java
 @@ -197,6 +197,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface

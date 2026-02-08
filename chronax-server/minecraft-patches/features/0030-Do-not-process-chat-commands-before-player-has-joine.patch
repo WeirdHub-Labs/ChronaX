@@ -13,7 +13,7 @@ As part of: EmpireCraft (https://github.com/starlis/empirecraft)
 Licensed under: MIT (https://opensource.org/licenses/MIT)
 
 diff --git a/net/minecraft/server/level/ServerPlayer.java b/net/minecraft/server/level/ServerPlayer.java
-index cdeac61ab3322e1dc375d1496d088407885df6b1..3ef933e32bbc1b1bfd37b05eb39061b40af8f0c4 100644
+index cdeac61..3ef933e 100644
 --- a/net/minecraft/server/level/ServerPlayer.java
 +++ b/net/minecraft/server/level/ServerPlayer.java
 @@ -424,6 +424,7 @@ public class ServerPlayer extends Player implements ca.spottedleaf.moonrise.patc
@@ -25,7 +25,7 @@ index cdeac61ab3322e1dc375d1496d088407885df6b1..3ef933e32bbc1b1bfd37b05eb39061b4
      public @Nullable com.destroystokyo.paper.event.entity.PlayerNaturallySpawnCreaturesEvent playerNaturallySpawnedEvent; // Paper - PlayerNaturallySpawnCreaturesEvent
      public @Nullable org.bukkit.event.player.PlayerQuitEvent.QuitReason quitReason = null; // Paper - Add API for quit reason; there are a lot of changes to do if we change all methods leading to the event
 diff --git a/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 57ed8c8d482ecd9573bf2a74cc0a453ede22c898..c6efe5551ee1c8b93af2abf620d1e1b47168d58e 100644
+index 57ed8c8..c6efe55 100644
 --- a/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 @@ -2524,7 +2524,7 @@ public class ServerGamePacketListenerImpl
@@ -38,7 +38,7 @@ index 57ed8c8d482ecd9573bf2a74cc0a453ede22c898..c6efe5551ee1c8b93af2abf620d1e1b4
              // CraftBukkit start
              if (sync) {
 diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
-index 6c4aaa63f1171df770d97aca47a84ce95bb2d0d0..846dc90d2722695757cc9213b19b83d8f6c0dd6f 100644
+index 6c4aaa6..846dc90 100644
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
 @@ -335,6 +335,8 @@ public abstract class PlayerList {

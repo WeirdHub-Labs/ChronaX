@@ -5,7 +5,7 @@ Subject: [PATCH] Optimize ThreadedTicketLevelPropagator
 
 
 diff --git a/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/ThreadedTicketLevelPropagator.java b/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/ThreadedTicketLevelPropagator.java
-index 310a8f80debadd64c2d962ebf83b7d0505ce6e42..878f8beb769e87f1de70e7be963e88678a89dd0a 100644
+index 310a8f8..878f8be 100644
 --- a/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/ThreadedTicketLevelPropagator.java
 +++ b/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/ThreadedTicketLevelPropagator.java
 @@ -998,6 +998,7 @@ public abstract class ThreadedTicketLevelPropagator {

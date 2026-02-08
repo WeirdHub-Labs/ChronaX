@@ -5,7 +5,7 @@ Subject: [PATCH] Optimize SynchedEntityData#packDirty
 
 
 diff --git a/net/minecraft/network/syncher/SynchedEntityData.java b/net/minecraft/network/syncher/SynchedEntityData.java
-index f1ab0e66e7d464f7f31a7a360528ed97cdda0aa0..7ca540c70cd40815c0d4c18c2cae28a4cfd88e86 100644
+index f1ab0e6..7ca540c 100644
 --- a/net/minecraft/network/syncher/SynchedEntityData.java
 +++ b/net/minecraft/network/syncher/SynchedEntityData.java
 @@ -84,7 +84,15 @@ public class SynchedEntityData {

@@ -5,7 +5,7 @@ Subject: [PATCH] optimize PalettedContainer#get
 
 
 diff --git a/net/minecraft/world/level/chunk/PalettedContainer.java b/net/minecraft/world/level/chunk/PalettedContainer.java
-index 49220967392331dd9928a539da6e6052b007e318..dd26ee1c377709d77709d449e98694d047afaa09 100644
+index 4922096..dd26ee1 100644
 --- a/net/minecraft/world/level/chunk/PalettedContainer.java
 +++ b/net/minecraft/world/level/chunk/PalettedContainer.java
 @@ -48,6 +48,18 @@ public class PalettedContainer<T> implements PaletteResize<T>, PalettedContainer

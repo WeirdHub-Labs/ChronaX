@@ -37,7 +37,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 diff --git a/net/minecraft/commands/Commands.java b/net/minecraft/commands/Commands.java
-index 2408a65d64847d13476b2bf77bdf56f205d28795..a41a6cbf08a636309b2e4cf527ab8922a09f784c 100644
+index 2408a65..a41a6cb 100644
 --- a/net/minecraft/commands/Commands.java
 +++ b/net/minecraft/commands/Commands.java
 @@ -58,7 +58,6 @@ import net.minecraft.server.commands.CloneCommands;
@@ -91,7 +91,7 @@ index 2408a65d64847d13476b2bf77bdf56f205d28795..a41a6cbf08a636309b2e4cf527ab8922
                  contextConsumer.accept(executionContext1);
                  executionContext1.runCommandQueue();
 diff --git a/net/minecraft/commands/execution/ExecutionContext.java b/net/minecraft/commands/execution/ExecutionContext.java
-index 18c7fff36ca26a659fa8ea022c93ea65f3199181..5844db9e913ccb6a351907875aea2f37c3b4ceea 100644
+index 18c7fff..5844db9 100644
 --- a/net/minecraft/commands/execution/ExecutionContext.java
 +++ b/net/minecraft/commands/execution/ExecutionContext.java
 @@ -20,7 +20,6 @@ public class ExecutionContext<T> implements AutoCloseable {
@@ -124,7 +124,7 @@ index 18c7fff36ca26a659fa8ea022c93ea65f3199181..5844db9e913ccb6a351907875aea2f37
  
      public int forkLimit() {
 diff --git a/net/minecraft/commands/execution/tasks/BuildContexts.java b/net/minecraft/commands/execution/tasks/BuildContexts.java
-index 569abbea01f585990d2017c68580257275bbb06d..46cf0f3ab7146ba2f37eb1a3ef97eca864219eae 100644
+index 569abbe..46cf0f3 100644
 --- a/net/minecraft/commands/execution/tasks/BuildContexts.java
 +++ b/net/minecraft/commands/execution/tasks/BuildContexts.java
 @@ -42,9 +42,6 @@ public class BuildContexts<T extends ExecutionCommandSource<T>> {
@@ -148,7 +148,7 @@ index 569abbea01f585990d2017c68580257275bbb06d..46cf0f3ab7146ba2f37eb1a3ef97eca8
  
          if (list.isEmpty()) {
 diff --git a/net/minecraft/commands/execution/tasks/ExecuteCommand.java b/net/minecraft/commands/execution/tasks/ExecuteCommand.java
-index 18071dcc69cc28471dddb7de94e803ec1e5fc2e4..e30bb9c4046200c1a6e4e917d15b205f5e0f21c3 100644
+index 18071dc..e30bb9c 100644
 --- a/net/minecraft/commands/execution/tasks/ExecuteCommand.java
 +++ b/net/minecraft/commands/execution/tasks/ExecuteCommand.java
 @@ -23,7 +23,6 @@ public class ExecuteCommand<T extends ExecutionCommandSource<T>> implements Unbo
@@ -169,7 +169,7 @@ index 18071dcc69cc28471dddb7de94e803ec1e5fc2e4..e30bb9c4046200c1a6e4e917d15b205f
      }
  }
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
-index c4c7491dfee075e2c75f11631558bed89061f4f6..a084ac0399e5b3a321ad53fcfb3d7052192d2a36 100644
+index c4c7491..a084ac0 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
 @@ -114,19 +114,8 @@ import net.minecraft.util.TimeUtil;
@@ -536,7 +536,7 @@ index c4c7491dfee075e2c75f11631558bed89061f4f6..a084ac0399e5b3a321ad53fcfb3d7052
      public static class TickTimes {
          private final long[] times;
 diff --git a/net/minecraft/server/ReloadableServerResources.java b/net/minecraft/server/ReloadableServerResources.java
-index c891715968193f2ab4579b4a2b4aeeae6a210070..42326fc40b834c944e714fec91811d5c39dbe40c 100644
+index c891715..42326fc 100644
 --- a/net/minecraft/server/ReloadableServerResources.java
 +++ b/net/minecraft/server/ReloadableServerResources.java
 @@ -99,7 +99,7 @@ public class ReloadableServerResources {
@@ -549,7 +549,7 @@ index c891715968193f2ab4579b4a2b4aeeae6a210070..42326fc40b834c944e714fec91811d5c
                          .done()
                          .thenApply(object -> reloadableServerResources);
 diff --git a/net/minecraft/server/ServerFunctionManager.java b/net/minecraft/server/ServerFunctionManager.java
-index e3cb5d9cd0332c32df82fa6aef37401c523e8af0..10c79570432491bfb2bbfedf0491ab2b803d0c71 100644
+index e3cb5d9..10c7957 100644
 --- a/net/minecraft/server/ServerFunctionManager.java
 +++ b/net/minecraft/server/ServerFunctionManager.java
 @@ -14,8 +14,6 @@ import net.minecraft.commands.execution.ExecutionContext;
@@ -591,7 +591,7 @@ index e3cb5d9cd0332c32df82fa6aef37401c523e8af0..10c79570432491bfb2bbfedf0491ab2b
      }
  
 diff --git a/net/minecraft/server/commands/DebugCommand.java b/net/minecraft/server/commands/DebugCommand.java
-index a78213464c5c365c6395fdf1295cb406c618d33b..fcc19c00b913d0a864f54f3833dac47fa2734239 100644
+index a782134..fcc19c0 100644
 --- a/net/minecraft/server/commands/DebugCommand.java
 +++ b/net/minecraft/server/commands/DebugCommand.java
 @@ -67,6 +67,8 @@ public class DebugCommand {
@@ -629,7 +629,7 @@ index a78213464c5c365c6395fdf1295cb406c618d33b..fcc19c00b913d0a864f54f3833dac47f
  
      static class TraceCustomExecutor
 diff --git a/net/minecraft/server/commands/PerfCommand.java b/net/minecraft/server/commands/PerfCommand.java
-index b10cb4a73df58a5fe64e88868733ba41616f59e4..ffbbd3c766046405b279692e5db83ce502c3d779 100644
+index b10cb4a..ffbbd3c 100644
 --- a/net/minecraft/server/commands/PerfCommand.java
 +++ b/net/minecraft/server/commands/PerfCommand.java
 @@ -42,6 +42,9 @@ public class PerfCommand {
@@ -681,7 +681,7 @@ index b10cb4a73df58a5fe64e88868733ba41616f59e4..ffbbd3c766046405b279692e5db83ce5
          String string = String.format(
              Locale.ROOT, "%s-%s-%s", Util.getFilenameFormattedDateTime(), server.getWorldData().getLevelName(), SharedConstants.getCurrentVersion().id()
 diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
-index b615dd89bbbb4c1a027c63ca714ebf8cb80e0c4d..95974662877830cb6251b769e01b2b9c70f77c60 100644
+index b615dd8..9597466 100644
 --- a/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/net/minecraft/server/dedicated/DedicatedServer.java
 @@ -791,12 +791,6 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
@@ -698,7 +698,7 @@ index b615dd89bbbb4c1a027c63ca714ebf8cb80e0c4d..95974662877830cb6251b769e01b2b9c
      public SampleLogger getTickTimeLogger() {
          return this.tickTimeLogger;
 diff --git a/net/minecraft/server/level/ChunkGenerationTask.java b/net/minecraft/server/level/ChunkGenerationTask.java
-index 4221af18f5087badb5cd8c7cf66ab3312edf0394..f102afff61d5577a0f5002f2a52335bd4810f150 100644
+index 4221af1..f102aff 100644
 --- a/net/minecraft/server/level/ChunkGenerationTask.java
 +++ b/net/minecraft/server/level/ChunkGenerationTask.java
 @@ -5,8 +5,6 @@ import java.util.List;
@@ -728,7 +728,7 @@ index 4221af18f5087badb5cd8c7cf66ab3312edf0394..f102afff61d5577a0f5002f2a52335bd
  
      private int getRadiusForLayer(ChunkStatus status, boolean needsGeneration) {
 diff --git a/net/minecraft/server/level/ChunkMap.java b/net/minecraft/server/level/ChunkMap.java
-index eb352aa4296abc3ed4cf31c590bc0be66daf4de3..edda52a8430386238be4963e8ea2406f0c2d4df3 100644
+index eb352aa..edda52a 100644
 --- a/net/minecraft/server/level/ChunkMap.java
 +++ b/net/minecraft/server/level/ChunkMap.java
 @@ -62,8 +62,6 @@ import net.minecraft.util.CsvOutput;
@@ -757,7 +757,7 @@ index eb352aa4296abc3ed4cf31c590bc0be66daf4de3..edda52a8430386238be4963e8ea2406f
  
      public boolean hasWork() {
 diff --git a/net/minecraft/server/level/ServerChunkCache.java b/net/minecraft/server/level/ServerChunkCache.java
-index 2882cd829d4d8e1f8615f085f6908efcdf68ac62..6020b71802babb35ef60aca65afe9c2612c05bb7 100644
+index 2882cd8..6020b71 100644
 --- a/net/minecraft/server/level/ServerChunkCache.java
 +++ b/net/minecraft/server/level/ServerChunkCache.java
 @@ -26,8 +26,6 @@ import net.minecraft.network.protocol.Packet;
@@ -889,7 +889,7 @@ index 2882cd829d4d8e1f8615f085f6908efcdf68ac62..6020b71802babb35ef60aca65afe9c26
          }
  
 diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
-index 5c098d89e6a878f59b606306926413468a10e99f..9238db4c47d5297d992139988631ab38a5967a89 100644
+index 5c098d8..9238db4 100644
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -75,8 +75,6 @@ import net.minecraft.util.Mth;
@@ -1079,7 +1079,7 @@ index 5c098d89e6a878f59b606306926413468a10e99f..9238db4c47d5297d992139988631ab38
              for (Entity entity : passengerEntity.getPassengers()) {
                  this.tickPassenger(passengerEntity, entity, isActive); // Paper - EAR 2
 diff --git a/net/minecraft/server/level/ServerPlayer.java b/net/minecraft/server/level/ServerPlayer.java
-index 35efaa78b62a38e3d9e4a50baa227c0ff5098ff6..cdeac61ab3322e1dc375d1496d088407885df6b1 100644
+index 35efaa7..cdeac61 100644
 --- a/net/minecraft/server/level/ServerPlayer.java
 +++ b/net/minecraft/server/level/ServerPlayer.java
 @@ -106,8 +106,6 @@ import net.minecraft.util.HashOps;
@@ -1115,7 +1115,7 @@ index 35efaa78b62a38e3d9e4a50baa227c0ff5098ff6..cdeac61ab3322e1dc375d1496d088407
                  this.stopUsingItem();
                  this.connection.send(new ClientboundPlayerAbilitiesPacket(this.getAbilities()));
 diff --git a/net/minecraft/server/network/ServerCommonPacketListenerImpl.java b/net/minecraft/server/network/ServerCommonPacketListenerImpl.java
-index 58215f4a156e4cf57338e78975be7b6abfd961db..dc55800b006f3ad67c94108af915b645e33a75dd 100644
+index 58215f4..dc55800 100644
 --- a/net/minecraft/server/network/ServerCommonPacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerCommonPacketListenerImpl.java
 @@ -26,7 +26,6 @@ import net.minecraft.network.protocol.cookie.ServerboundCookieResponsePacket;
@@ -1144,7 +1144,7 @@ index 58215f4a156e4cf57338e78975be7b6abfd961db..dc55800b006f3ad67c94108af915b645
  
      private boolean checkIfClosed(long time) {
 diff --git a/net/minecraft/server/packs/resources/ProfiledReloadInstance.java b/net/minecraft/server/packs/resources/ProfiledReloadInstance.java
-index f0e2bca572c6f1790772980cd3ec651e9077382d..954e4103c9c359bc13c9a07bec885af90df14cb5 100644
+index f0e2bca..954e410 100644
 --- a/net/minecraft/server/packs/resources/ProfiledReloadInstance.java
 +++ b/net/minecraft/server/packs/resources/ProfiledReloadInstance.java
 @@ -9,8 +9,6 @@ import java.util.concurrent.TimeUnit;
@@ -1171,7 +1171,7 @@ index f0e2bca572c6f1790772980cd3ec651e9077382d..954e4103c9c359bc13c9a07bec885af9
      }
  
 diff --git a/net/minecraft/server/packs/resources/ReloadableResourceManager.java b/net/minecraft/server/packs/resources/ReloadableResourceManager.java
-index 51cec338f5948b69ad1cff896ce19dc3adb74380..be7fd9e55957ba6fa70c711d1ea4d42e3bbfd752 100644
+index 51cec33..be7fd9e 100644
 --- a/net/minecraft/server/packs/resources/ReloadableResourceManager.java
 +++ b/net/minecraft/server/packs/resources/ReloadableResourceManager.java
 @@ -43,7 +43,7 @@ public class ReloadableResourceManager implements ResourceManager, AutoCloseable
@@ -1184,7 +1184,7 @@ index 51cec338f5948b69ad1cff896ce19dc3adb74380..be7fd9e55957ba6fa70c711d1ea4d42e
  
      @Override
 diff --git a/net/minecraft/server/packs/resources/ResourceManagerReloadListener.java b/net/minecraft/server/packs/resources/ResourceManagerReloadListener.java
-index 407bd4b8026869bc14ee5e79ff80e7bdd1a07bcb..6e2a3d4171dbb2a30ba18f165723691713fac0f6 100644
+index 407bd4b..6e2a3d4 100644
 --- a/net/minecraft/server/packs/resources/ResourceManagerReloadListener.java
 +++ b/net/minecraft/server/packs/resources/ResourceManagerReloadListener.java
 @@ -3,20 +3,13 @@ package net.minecraft.server.packs.resources;
@@ -1210,7 +1210,7 @@ index 407bd4b8026869bc14ee5e79ff80e7bdd1a07bcb..6e2a3d4171dbb2a30ba18f1657236917
  
      void onResourceManagerReload(ResourceManager resourceManager);
 diff --git a/net/minecraft/server/packs/resources/SimplePreparableReloadListener.java b/net/minecraft/server/packs/resources/SimplePreparableReloadListener.java
-index 64b0508ef21952c65b0b967b756b2a4c64d96899..b6b03fbbd669e6331b30255df5419611c38e0495 100644
+index 64b0508..b6b03fb 100644
 --- a/net/minecraft/server/packs/resources/SimplePreparableReloadListener.java
 +++ b/net/minecraft/server/packs/resources/SimplePreparableReloadListener.java
 @@ -2,7 +2,6 @@ package net.minecraft.server.packs.resources;
@@ -1234,7 +1234,7 @@ index 64b0508ef21952c65b0b967b756b2a4c64d96899..b6b03fbbd669e6331b30255df5419611
  
      protected abstract T prepare(ResourceManager resourceManager, ProfilerFiller profiler);
 diff --git a/net/minecraft/world/entity/Entity.java b/net/minecraft/world/entity/Entity.java
-index 613d412374b0ec465364565f9f445cc32385097a..04425c357eedda8049d3e1780011b274ce3ec575 100644
+index 613d412..04425c3 100644
 --- a/net/minecraft/world/entity/Entity.java
 +++ b/net/minecraft/world/entity/Entity.java
 @@ -80,8 +80,6 @@ import net.minecraft.tags.TagKey;
@@ -1360,7 +1360,7 @@ index 613d412374b0ec465364565f9f445cc32385097a..04425c357eedda8049d3e1780011b274
          }
      }
 diff --git a/net/minecraft/world/entity/LivingEntity.java b/net/minecraft/world/entity/LivingEntity.java
-index a3b985cc454b2c62e7642f7eb05de590ecde9272..9fee96683e2738745aedd57ee3665701ab682db5 100644
+index a3b985c..9fee966 100644
 --- a/net/minecraft/world/entity/LivingEntity.java
 +++ b/net/minecraft/world/entity/LivingEntity.java
 @@ -69,8 +69,6 @@ import net.minecraft.tags.FluidTags;
@@ -1470,7 +1470,7 @@ index a3b985cc454b2c62e7642f7eb05de590ecde9272..9fee96683e2738745aedd57ee3665701
          // Purpur start - Ridables
          if (this.xo != this.getX() || this.yo != this.getY() || this.zo != this.getZ() || this.yRotO != this.getYRot() || this.xRotO != this.getXRot()) {
 diff --git a/net/minecraft/world/entity/Mob.java b/net/minecraft/world/entity/Mob.java
-index 035eb50335daa88679672cba550ed87ac3fa5873..b2026e29a0633f971bf551fad8be7161bb6293f3 100644
+index 035eb50..b2026e2 100644
 --- a/net/minecraft/world/entity/Mob.java
 +++ b/net/minecraft/world/entity/Mob.java
 @@ -26,8 +26,6 @@ import net.minecraft.sounds.SoundEvent;
@@ -1559,7 +1559,7 @@ index 035eb50335daa88679672cba550ed87ac3fa5873..b2026e29a0633f971bf551fad8be7161
      }
  
 diff --git a/net/minecraft/world/entity/ai/goal/GoalSelector.java b/net/minecraft/world/entity/ai/goal/GoalSelector.java
-index 859b859d29b637200cf7c9a0bd52d9f712413e3d..653c58c7637c46c8b46a5082f671324a2221d431 100644
+index 859b859..653c58c 100644
 --- a/net/minecraft/world/entity/ai/goal/GoalSelector.java
 +++ b/net/minecraft/world/entity/ai/goal/GoalSelector.java
 @@ -6,8 +6,6 @@ import java.util.EnumSet;
@@ -1613,7 +1613,7 @@ index 859b859d29b637200cf7c9a0bd52d9f712413e3d..653c58c7637c46c8b46a5082f671324a
  
      public Set<WrappedGoal> getAvailableGoals() {
 diff --git a/net/minecraft/world/entity/ai/navigation/PathNavigation.java b/net/minecraft/world/entity/ai/navigation/PathNavigation.java
-index dd1a95111d965bcd7f53be9d4224dd213e4e0705..24dd92449f70144c79f25bf24942ebd666655ed2 100644
+index dd1a951..24dd924 100644
 --- a/net/minecraft/world/entity/ai/navigation/PathNavigation.java
 +++ b/net/minecraft/world/entity/ai/navigation/PathNavigation.java
 @@ -10,8 +10,6 @@ import net.minecraft.core.Vec3i;
@@ -1640,7 +1640,7 @@ index dd1a95111d965bcd7f53be9d4224dd213e4e0705..24dd92449f70144c79f25bf24942ebd6
                  this.targetPos = path.getTarget();
                  this.reachRange = accuracy;
 diff --git a/net/minecraft/world/entity/ai/sensing/Sensing.java b/net/minecraft/world/entity/ai/sensing/Sensing.java
-index c569074403b1d8b443aaa98ba9cf9bbd0e98bd2d..b1aa7294f9479f45fcde77c5ea46db9f62370abf 100644
+index c569074..b1aa729 100644
 --- a/net/minecraft/world/entity/ai/sensing/Sensing.java
 +++ b/net/minecraft/world/entity/ai/sensing/Sensing.java
 @@ -2,8 +2,6 @@ package net.minecraft.world.entity.ai.sensing;
@@ -1664,7 +1664,7 @@ index c569074403b1d8b443aaa98ba9cf9bbd0e98bd2d..b1aa7294f9479f45fcde77c5ea46db9f
                  this.seen.add(id);
              } else {
 diff --git a/net/minecraft/world/entity/animal/HappyGhast.java b/net/minecraft/world/entity/animal/HappyGhast.java
-index fb37669b4d66bb853eabf2d15a369d7ad5a2dbb9..9763a5e24e0fed9b49b6ac59911f6c9f8e893db5 100644
+index fb37669..9763a5e 100644
 --- a/net/minecraft/world/entity/animal/HappyGhast.java
 +++ b/net/minecraft/world/entity/animal/HappyGhast.java
 @@ -14,8 +14,6 @@ import net.minecraft.sounds.SoundEvents;
@@ -1691,7 +1691,7 @@ index fb37669b4d66bb853eabf2d15a369d7ad5a2dbb9..9763a5e24e0fed9b49b6ac59911f6c9f
  
          this.checkRestriction();
 diff --git a/net/minecraft/world/entity/animal/allay/Allay.java b/net/minecraft/world/entity/animal/allay/Allay.java
-index f372d8b21282e8fdd00dd19eb14ce6ee45b358b0..dd10b0535baf48aea47020d890f102800b0af11a 100644
+index f372d8b..dd10b05 100644
 --- a/net/minecraft/world/entity/animal/allay/Allay.java
 +++ b/net/minecraft/world/entity/animal/allay/Allay.java
 @@ -25,8 +25,6 @@ import net.minecraft.tags.GameEventTags;
@@ -1719,7 +1719,7 @@ index f372d8b21282e8fdd00dd19eb14ce6ee45b358b0..dd10b0535baf48aea47020d890f10280
      }
  
 diff --git a/net/minecraft/world/entity/animal/armadillo/Armadillo.java b/net/minecraft/world/entity/animal/armadillo/Armadillo.java
-index 0da5c51c4830cf1826261f4d8877303b34c6cb87..6fbeaff7178a21338920d6738767033260b7a726 100644
+index 0da5c51..6fbeaff 100644
 --- a/net/minecraft/world/entity/animal/armadillo/Armadillo.java
 +++ b/net/minecraft/world/entity/animal/armadillo/Armadillo.java
 @@ -23,8 +23,6 @@ import net.minecraft.util.ByIdMap;
@@ -1746,7 +1746,7 @@ index 0da5c51c4830cf1826261f4d8877303b34c6cb87..6fbeaff7178a21338920d67387670332
              this.forceDrops = true; // CraftBukkit
              if (this.dropFromGiftLootTable(level, BuiltInLootTables.ARMADILLO_SHED, this::spawnAtLocation)) {
 diff --git a/net/minecraft/world/entity/animal/axolotl/Axolotl.java b/net/minecraft/world/entity/animal/axolotl/Axolotl.java
-index 40e4cc14f10bd465ee7bee124e7e194c74c070b4..deb2fdea7be9dda1c4b267ac25326bb9b05ae739 100644
+index 40e4cc1..deb2fde 100644
 --- a/net/minecraft/world/entity/animal/axolotl/Axolotl.java
 +++ b/net/minecraft/world/entity/animal/axolotl/Axolotl.java
 @@ -31,8 +31,6 @@ import net.minecraft.util.ByIdMap;
@@ -1774,7 +1774,7 @@ index 40e4cc14f10bd465ee7bee124e7e194c74c070b4..deb2fdea7be9dda1c4b267ac25326bb9
              Optional<Integer> memory = this.getBrain().getMemory(MemoryModuleType.PLAY_DEAD_TICKS);
              this.setPlayingDead(memory.isPresent() && memory.get() > 0);
 diff --git a/net/minecraft/world/entity/animal/camel/Camel.java b/net/minecraft/world/entity/animal/camel/Camel.java
-index 0c698241b10f84afb17ae10d3661a90bc62ec243..949b6c563658e6e46ac5842d6f088ecae6d4cd0c 100644
+index 0c69824..949b6c5 100644
 --- a/net/minecraft/world/entity/animal/camel/Camel.java
 +++ b/net/minecraft/world/entity/animal/camel/Camel.java
 @@ -18,8 +18,6 @@ import net.minecraft.tags.BlockTags;
@@ -1802,7 +1802,7 @@ index 0c698241b10f84afb17ae10d3661a90bc62ec243..949b6c563658e6e46ac5842d6f088eca
      }
  
 diff --git a/net/minecraft/world/entity/animal/frog/Frog.java b/net/minecraft/world/entity/animal/frog/Frog.java
-index 8d6da6ce15c266c7b4b9763a37516d2b160f1b85..f67d18f32f73e0e6be35939781bd0bd0188cdfbd 100644
+index 8d6da6c..f67d18f 100644
 --- a/net/minecraft/world/entity/animal/frog/Frog.java
 +++ b/net/minecraft/world/entity/animal/frog/Frog.java
 @@ -28,8 +28,6 @@ import net.minecraft.tags.ItemTags;
@@ -1830,7 +1830,7 @@ index 8d6da6ce15c266c7b4b9763a37516d2b160f1b85..f67d18f32f73e0e6be35939781bd0bd0
      }
  
 diff --git a/net/minecraft/world/entity/animal/frog/Tadpole.java b/net/minecraft/world/entity/animal/frog/Tadpole.java
-index 40b57095812fc1dd2ed14da4933fc949afd855b2..e5cefb1d327053761a8c2195c6f39128a23520c1 100644
+index 40b5709..e5cefb1 100644
 --- a/net/minecraft/world/entity/animal/frog/Tadpole.java
 +++ b/net/minecraft/world/entity/animal/frog/Tadpole.java
 @@ -12,8 +12,6 @@ import net.minecraft.server.level.ServerLevel;
@@ -1858,7 +1858,7 @@ index 40b57095812fc1dd2ed14da4933fc949afd855b2..e5cefb1d327053761a8c2195c6f39128
      }
  
 diff --git a/net/minecraft/world/entity/animal/goat/Goat.java b/net/minecraft/world/entity/animal/goat/Goat.java
-index 979befb6a51c855e439d7576db57abf1143731be..d8b726fb954a3b8ca20f3f500e4087d5936e7646 100644
+index 979befb..d8b726f 100644
 --- a/net/minecraft/world/entity/animal/goat/Goat.java
 +++ b/net/minecraft/world/entity/animal/goat/Goat.java
 @@ -20,8 +20,6 @@ import net.minecraft.tags.ItemTags;
@@ -1886,7 +1886,7 @@ index 979befb6a51c855e439d7576db57abf1143731be..d8b726fb954a3b8ca20f3f500e4087d5
      }
  
 diff --git a/net/minecraft/world/entity/animal/sniffer/Sniffer.java b/net/minecraft/world/entity/animal/sniffer/Sniffer.java
-index 745c821facbbf0e9641e371bb26a8d6abde7a813..71e7931f7007f73b552bbc2cbc8e843e10b40b43 100644
+index 745c821..71e7931 100644
 --- a/net/minecraft/world/entity/animal/sniffer/Sniffer.java
 +++ b/net/minecraft/world/entity/animal/sniffer/Sniffer.java
 @@ -29,8 +29,6 @@ import net.minecraft.tags.BlockTags;
@@ -1913,7 +1913,7 @@ index 745c821facbbf0e9641e371bb26a8d6abde7a813..71e7931f7007f73b552bbc2cbc8e843e
      }
  
 diff --git a/net/minecraft/world/entity/monster/Zoglin.java b/net/minecraft/world/entity/monster/Zoglin.java
-index e37c6dcbe62cba2cb7f33ac1792d539f9b07aa24..2a905e8cdf22f9d7f38cc41c1474e80f704d0cb1 100644
+index e37c6dc..2a905e8 100644
 --- a/net/minecraft/world/entity/monster/Zoglin.java
 +++ b/net/minecraft/world/entity/monster/Zoglin.java
 @@ -14,8 +14,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
@@ -1938,7 +1938,7 @@ index e37c6dcbe62cba2cb7f33ac1792d539f9b07aa24..2a905e8cdf22f9d7f38cc41c1474e80f
      }
  
 diff --git a/net/minecraft/world/entity/monster/breeze/Breeze.java b/net/minecraft/world/entity/monster/breeze/Breeze.java
-index 4e47a1e6d1dcf15a316ff6bed6c03e9c42777853..793db0e9977fe64e7cdbe5b337deb6d8e32f0627 100644
+index 4e47a1e..793db0e 100644
 --- a/net/minecraft/world/entity/monster/breeze/Breeze.java
 +++ b/net/minecraft/world/entity/monster/breeze/Breeze.java
 @@ -12,8 +12,6 @@ import net.minecraft.sounds.SoundEvent;
@@ -1965,7 +1965,7 @@ index 4e47a1e6d1dcf15a316ff6bed6c03e9c42777853..793db0e9977fe64e7cdbe5b337deb6d8
      }
  
 diff --git a/net/minecraft/world/entity/monster/creaking/Creaking.java b/net/minecraft/world/entity/monster/creaking/Creaking.java
-index 1b01d2b37dd221d5832cb68c072af9863aeb6868..775c11f658b81379784f7e5bdfdc8105b3410480 100644
+index 1b01d2b..775c11f 100644
 --- a/net/minecraft/world/entity/monster/creaking/Creaking.java
 +++ b/net/minecraft/world/entity/monster/creaking/Creaking.java
 @@ -16,8 +16,6 @@ import net.minecraft.server.level.ServerLevel;
@@ -1989,7 +1989,7 @@ index 1b01d2b37dd221d5832cb68c072af9863aeb6868..775c11f658b81379784f7e5bdfdc8105
      }
  
 diff --git a/net/minecraft/world/entity/monster/hoglin/Hoglin.java b/net/minecraft/world/entity/monster/hoglin/Hoglin.java
-index 6062167a25d9d66c0264624f0761bcb9d47f0c77..952fba6d141576089e563e829cae4a177f19d639 100644
+index 6062167..952fba6 100644
 --- a/net/minecraft/world/entity/monster/hoglin/Hoglin.java
 +++ b/net/minecraft/world/entity/monster/hoglin/Hoglin.java
 @@ -15,8 +15,6 @@ import net.minecraft.sounds.SoundEvents;
@@ -2014,7 +2014,7 @@ index 6062167a25d9d66c0264624f0761bcb9d47f0c77..952fba6d141576089e563e829cae4a17
          if (this.isConverting()) {
              this.timeInOverworld++;
 diff --git a/net/minecraft/world/entity/monster/piglin/Piglin.java b/net/minecraft/world/entity/monster/piglin/Piglin.java
-index b5ab1ea7ebf1e1a67f51f53f92fbc2a84506174a..03b6640c95c86ea9f6219d6e39feffa4643dd648 100644
+index b5ab1ea..03b6640 100644
 --- a/net/minecraft/world/entity/monster/piglin/Piglin.java
 +++ b/net/minecraft/world/entity/monster/piglin/Piglin.java
 @@ -16,8 +16,6 @@ import net.minecraft.tags.ItemTags;
@@ -2039,7 +2039,7 @@ index b5ab1ea7ebf1e1a67f51f53f92fbc2a84506174a..03b6640c95c86ea9f6219d6e39feffa4
          super.customServerAiStep(level);
      }
 diff --git a/net/minecraft/world/entity/monster/piglin/PiglinBrute.java b/net/minecraft/world/entity/monster/piglin/PiglinBrute.java
-index 70ee15527fa6f30783d6a58bb767b18124f25c53..c4eb58d0b0c51e930f9cb72e1de0103902badba7 100644
+index 70ee155..c4eb58d 100644
 --- a/net/minecraft/world/entity/monster/piglin/PiglinBrute.java
 +++ b/net/minecraft/world/entity/monster/piglin/PiglinBrute.java
 @@ -8,8 +8,6 @@ import net.minecraft.server.level.ServerLevel;
@@ -2064,7 +2064,7 @@ index 70ee15527fa6f30783d6a58bb767b18124f25c53..c4eb58d0b0c51e930f9cb72e1de01039
          PiglinBruteAi.maybePlayActivitySound(this);
          super.customServerAiStep(level);
 diff --git a/net/minecraft/world/entity/monster/warden/Warden.java b/net/minecraft/world/entity/monster/warden/Warden.java
-index bc691e17a974a3b4175ceb34f7e40291f1f1f83c..091b9cc338e37efbecdd4187a9824dae7bff2af9 100644
+index bc691e1..091b9cc 100644
 --- a/net/minecraft/world/entity/monster/warden/Warden.java
 +++ b/net/minecraft/world/entity/monster/warden/Warden.java
 @@ -27,8 +27,6 @@ import net.minecraft.tags.TagKey;
@@ -2089,7 +2089,7 @@ index bc691e17a974a3b4175ceb34f7e40291f1f1f83c..091b9cc338e37efbecdd4187a9824dae
          if ((this.tickCount + this.getId()) % 120 == 0) {
              applyDarknessAround(level, this.position(), this, 20);
 diff --git a/net/minecraft/world/entity/npc/Villager.java b/net/minecraft/world/entity/npc/Villager.java
-index cab85afb6a460297511b0d391364670124d5a3f3..db5c287161c50bafd672b9cb439b3a06b1ff16d7 100644
+index cab85af..db5c287 100644
 --- a/net/minecraft/world/entity/npc/Villager.java
 +++ b/net/minecraft/world/entity/npc/Villager.java
 @@ -35,8 +35,6 @@ import net.minecraft.stats.Stats;
@@ -2119,7 +2119,7 @@ index cab85afb6a460297511b0d391364670124d5a3f3..db5c287161c50bafd672b9cb439b3a06
              this.assignProfessionWhenSpawned = false;
          }
 diff --git a/net/minecraft/world/level/Level.java b/net/minecraft/world/level/Level.java
-index e37635e452a38140099ba0a1fd5fcc6e8eaea2cd..9a0cd86cffaaa974c0e4dfeec646cbb9a0a3431c 100644
+index e37635e..9a0cd86 100644
 --- a/net/minecraft/world/level/Level.java
 +++ b/net/minecraft/world/level/Level.java
 @@ -35,8 +35,6 @@ import net.minecraft.util.AbortableIterationConsumer;
@@ -2182,7 +2182,7 @@ index e37635e452a38140099ba0a1fd5fcc6e8eaea2cd..9a0cd86cffaaa974c0e4dfeec646cbb9
              if (maxCount != Integer.MAX_VALUE) {
                  ((ca.spottedleaf.moonrise.patches.chunk_system.level.ChunkSystemLevel)this).moonrise$getEntityLookup().getEntities(byType, boundingBox, into, predicate, maxCount);
 diff --git a/net/minecraft/world/level/NaturalSpawner.java b/net/minecraft/world/level/NaturalSpawner.java
-index f0f5aa48af099c8244cd59da2c1dac6744a41abe..102d88fc2989f80a39826e50ee706d853bfb2c5e 100644
+index f0f5aa4..102d88f 100644
 --- a/net/minecraft/world/level/NaturalSpawner.java
 +++ b/net/minecraft/world/level/NaturalSpawner.java
 @@ -23,8 +23,6 @@ import net.minecraft.tags.BlockTags;
@@ -2214,7 +2214,7 @@ index f0f5aa48af099c8244cd59da2c1dac6744a41abe..102d88fc2989f80a39826e50ee706d85
  
      // Paper start - Add mobcaps commands
 diff --git a/net/minecraft/world/level/ServerExplosion.java b/net/minecraft/world/level/ServerExplosion.java
-index b80924fbe054b00fe5117df896358e330f41e993..1669c21534a453c9cf16b992df7a6bf276dea887 100644
+index b80924f..1669c21 100644
 --- a/net/minecraft/world/level/ServerExplosion.java
 +++ b/net/minecraft/world/level/ServerExplosion.java
 @@ -13,8 +13,6 @@ import net.minecraft.Util;
@@ -2238,7 +2238,7 @@ index b80924fbe054b00fe5117df896358e330f41e993..1669c21534a453c9cf16b992df7a6bf2
  
          if (this.fire) {
 diff --git a/net/minecraft/world/level/chunk/LevelChunk.java b/net/minecraft/world/level/chunk/LevelChunk.java
-index 75578e6ed7233a03d9b6cd3c6d3997f1c6148392..b88254fb3c12b99684c6ede1ae8a6671ffbe9ad6 100644
+index 75578e6..b88254f 100644
 --- a/net/minecraft/world/level/chunk/LevelChunk.java
 +++ b/net/minecraft/world/level/chunk/LevelChunk.java
 @@ -24,8 +24,6 @@ import net.minecraft.network.protocol.game.ClientboundLevelChunkPacketData;
@@ -2282,7 +2282,7 @@ index 75578e6ed7233a03d9b6cd3c6d3997f1c6148392..b88254fb3c12b99684c6ede1ae8a6671
                          // Paper start - Prevent block entity and entity crashes
                          final String msg = String.format("BlockEntity threw exception at %s:%s,%s,%s", LevelChunk.this.getLevel().getWorld().getName(), this.getPos().getX(), this.getPos().getY(), this.getPos().getZ());
 diff --git a/net/minecraft/world/level/pathfinder/PathFinder.java b/net/minecraft/world/level/pathfinder/PathFinder.java
-index 81de6c1bbef1cafd3036e736dd305fbedc8368c6..c2baadcdceb1df6a881d6f73aa4eb4dd264bcdfe 100644
+index 81de6c1..c2baadc 100644
 --- a/net/minecraft/world/level/pathfinder/PathFinder.java
 +++ b/net/minecraft/world/level/pathfinder/PathFinder.java
 @@ -12,9 +12,6 @@ import java.util.function.Function;
@@ -2314,7 +2314,7 @@ index 81de6c1bbef1cafd3036e736dd305fbedc8368c6..c2baadcdceb1df6a881d6f73aa4eb4dd
          // Paper end - Perf: remove streams and optimize collection
      }
 diff --git a/net/minecraft/world/ticks/LevelTicks.java b/net/minecraft/world/ticks/LevelTicks.java
-index 7ea0273018b1a364a5e2b7bf57da840383c8ffa5..9dc03a8fff08111b6a68aa94d658f1e965ef0d25 100644
+index 7ea0273..9dc03a8 100644
 --- a/net/minecraft/world/ticks/LevelTicks.java
 +++ b/net/minecraft/world/ticks/LevelTicks.java
 @@ -23,8 +23,6 @@ import net.minecraft.Util;

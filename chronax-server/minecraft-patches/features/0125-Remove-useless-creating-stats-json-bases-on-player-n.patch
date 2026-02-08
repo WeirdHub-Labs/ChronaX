@@ -5,7 +5,7 @@ Subject: [PATCH] Remove useless creating stats json bases on player name logic
 
 
 diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
-index e0ae31621ececc54b9e38e524c2b56ffb02949a1..b2dc262b0b5af75f8f6f5447aa9c21527b65205a 100644
+index e0ae316..b2dc262 100644
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
 @@ -1548,6 +1548,8 @@ public abstract class PlayerList {

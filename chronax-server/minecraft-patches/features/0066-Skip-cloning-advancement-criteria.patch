@@ -13,7 +13,7 @@ As part of: Mirai (https://github.com/etil2jz/Mirai)
 Licensed under: GPL-3.0 (https://www.gnu.org/licenses/gpl-3.0.html)
 
 diff --git a/net/minecraft/advancements/Advancement.java b/net/minecraft/advancements/Advancement.java
-index ac6a85ddf6eb326b3fd53341a4a5db7bd00b7ce2..7f7ad8492dc848e9549d1e05f6d800ebb0788dc4 100644
+index ac6a85d..7f7ad84 100644
 --- a/net/minecraft/advancements/Advancement.java
 +++ b/net/minecraft/advancements/Advancement.java
 @@ -61,7 +61,7 @@ public record Advancement(

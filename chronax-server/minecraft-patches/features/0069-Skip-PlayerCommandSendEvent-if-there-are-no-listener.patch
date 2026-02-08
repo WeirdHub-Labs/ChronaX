@@ -37,7 +37,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 diff --git a/net/minecraft/commands/Commands.java b/net/minecraft/commands/Commands.java
-index a41a6cbf08a636309b2e4cf527ab8922a09f784c..287c0936930ff4f3ca6dc2a4cbfc796a120fe4c0 100644
+index a41a6cb..287c093 100644
 --- a/net/minecraft/commands/Commands.java
 +++ b/net/minecraft/commands/Commands.java
 @@ -512,6 +512,7 @@ public class Commands {

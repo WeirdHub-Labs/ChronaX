@@ -5,7 +5,7 @@ Subject: [PATCH] Avoid useless deque clear on LevelTicks#cleanupAfterTick
 
 
 diff --git a/net/minecraft/world/ticks/LevelTicks.java b/net/minecraft/world/ticks/LevelTicks.java
-index 9dc03a8fff08111b6a68aa94d658f1e965ef0d25..0f3848bf82f35fa3988267c7bfa18e1b34d97b66 100644
+index 9dc03a8..0f3848b 100644
 --- a/net/minecraft/world/ticks/LevelTicks.java
 +++ b/net/minecraft/world/ticks/LevelTicks.java
 @@ -182,7 +182,7 @@ public class LevelTicks<T> implements LevelTickAccess<T> {

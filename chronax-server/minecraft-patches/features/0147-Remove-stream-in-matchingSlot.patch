@@ -5,7 +5,7 @@ Subject: [PATCH] Remove stream in matchingSlot
 
 
 diff --git a/net/minecraft/world/item/enchantment/Enchantment.java b/net/minecraft/world/item/enchantment/Enchantment.java
-index 0460da0124d2c48b7fed45fa182537fd8059135d..08c49c078d03ff142cc74b7ee7103bf3ccf41dc4 100644
+index 0460da0..08c49c0 100644
 --- a/net/minecraft/world/item/enchantment/Enchantment.java
 +++ b/net/minecraft/world/item/enchantment/Enchantment.java
 @@ -126,7 +126,15 @@ public record Enchantment(Component description, Enchantment.EnchantmentDefiniti

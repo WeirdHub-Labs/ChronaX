@@ -5,7 +5,7 @@ Subject: [PATCH] fix temptation lookups
 
 
 diff --git a/io/papermc/paper/entity/temptation/GlobalTemptationLookup.java b/io/papermc/paper/entity/temptation/GlobalTemptationLookup.java
-index 5f5cdfc538ba9aa6666c019df6706015234d7bae..2dfec8f6d0fe833e5f06cf2165ae14bf54cc7b84 100644
+index 5f5cdfc..2dfec8f 100644
 --- a/io/papermc/paper/entity/temptation/GlobalTemptationLookup.java
 +++ b/io/papermc/paper/entity/temptation/GlobalTemptationLookup.java
 @@ -24,6 +24,7 @@ public class GlobalTemptationLookup {
@@ -70,7 +70,7 @@ index 5f5cdfc538ba9aa6666c019df6706015234d7bae..2dfec8f6d0fe833e5f06cf2165ae14bf
      }
  }
 diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
-index 6cdad6d24cf57a86954e29c6f25849ac43215848..56a46a1b9bf7356d9c97d203b6ceff41df9ca7aa 100644
+index 6cdad6d..56a46a1 100644
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -942,7 +942,7 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe
@@ -83,7 +83,7 @@ index 6cdad6d24cf57a86954e29c6f25849ac43215848..56a46a1b9bf7356d9c97d203b6ceff41
                  .forEach(
                      entity -> {
 diff --git a/net/minecraft/world/entity/ai/goal/TemptGoal.java b/net/minecraft/world/entity/ai/goal/TemptGoal.java
-index 0c9a355344463ea85a3b724d22d53638b1e42394..7cb94eb75a1de0cef02d4953ee5896bd5e3c7abd 100644
+index 0c9a355..7cb94eb 100644
 --- a/net/minecraft/world/entity/ai/goal/TemptGoal.java
 +++ b/net/minecraft/world/entity/ai/goal/TemptGoal.java
 @@ -64,21 +64,25 @@ public class TemptGoal extends Goal {
@@ -119,7 +119,7 @@ index 0c9a355344463ea85a3b724d22d53638b1e42394..7cb94eb75a1de0cef02d4953ee5896bd
                              d = d1;
                              nearestPlayer = player;
 diff --git a/net/minecraft/world/entity/ai/sensing/TemptingSensor.java b/net/minecraft/world/entity/ai/sensing/TemptingSensor.java
-index a88b644c7480bfa66526c697455771eb7f86ad67..58c22828b62323ed99b7b1a9e3c1196aaf619786 100644
+index a88b644..58c2282 100644
 --- a/net/minecraft/world/entity/ai/sensing/TemptingSensor.java
 +++ b/net/minecraft/world/entity/ai/sensing/TemptingSensor.java
 @@ -35,11 +35,11 @@ public class TemptingSensor extends Sensor<PathfinderMob> {
@@ -154,7 +154,7 @@ index a88b644c7480bfa66526c697455771eb7f86ad67..58c22828b62323ed99b7b1a9e3c1196a
                          d = d1;
                          nearestPlayer = player;
 diff --git a/net/minecraft/world/entity/animal/AbstractCow.java b/net/minecraft/world/entity/animal/AbstractCow.java
-index 832a9a56fbf870e4242d4a59ab58ed43881fdccd..48441154ff7cbfea714ba88ac31910d0419644a8 100644
+index 832a9a5..4844115 100644
 --- a/net/minecraft/world/entity/animal/AbstractCow.java
 +++ b/net/minecraft/world/entity/animal/AbstractCow.java
 @@ -40,7 +40,7 @@ public abstract class AbstractCow extends Animal {

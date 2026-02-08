@@ -14,7 +14,7 @@ under 2048 villagers situation.
 And ~93.92% improvement (~1382ms -> ~84ms), under 512 villagers situation.
 
 diff --git a/net/minecraft/world/entity/ai/behavior/TradeWithVillager.java b/net/minecraft/world/entity/ai/behavior/TradeWithVillager.java
-index 72cca4897f9697573fd6987a5f0d2df52761b8c3..04eea77cf84aaeb781608e48f2aa32f344689889 100644
+index 72cca48..04eea77 100644
 --- a/net/minecraft/world/entity/ai/behavior/TradeWithVillager.java
 +++ b/net/minecraft/world/entity/ai/behavior/TradeWithVillager.java
 @@ -77,9 +77,19 @@ public class TradeWithVillager extends Behavior<Villager> {
@@ -41,7 +41,7 @@ index 72cca4897f9697573fd6987a5f0d2df52761b8c3..04eea77cf84aaeb781608e48f2aa32f3
  
      private static void throwHalfStack(Villager villager, Set<Item> stack, LivingEntity entity) {
 diff --git a/net/minecraft/world/entity/npc/Villager.java b/net/minecraft/world/entity/npc/Villager.java
-index e67f8940e2f5eb58dff3208bbc1602a1adfe4778..0d3684a205d34e7f69451f640145a9633c99e57e 100644
+index e67f894..0d3684a 100644
 --- a/net/minecraft/world/entity/npc/Villager.java
 +++ b/net/minecraft/world/entity/npc/Villager.java
 @@ -971,7 +971,17 @@ public class Villager extends AbstractVillager implements ReputationEventHandler

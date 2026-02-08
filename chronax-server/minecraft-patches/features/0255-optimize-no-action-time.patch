@@ -5,7 +5,7 @@ Subject: [PATCH] optimize no action time
 
 
 diff --git a/net/minecraft/world/entity/monster/Monster.java b/net/minecraft/world/entity/monster/Monster.java
-index 04d5910d736dee2a88a2602f4a98495459277157..22fd0fe972a732aae409f0a0ab2aa5756a9b06ce 100644
+index 04d5910..22fd0fe 100644
 --- a/net/minecraft/world/entity/monster/Monster.java
 +++ b/net/minecraft/world/entity/monster/Monster.java
 @@ -46,6 +46,12 @@ public abstract class Monster extends PathfinderMob implements Enemy {

@@ -31,7 +31,7 @@ vain. Throttling spawn attempts in suspected spawnproof chunks improves
 performance without noticeably advantaging or disadvantaging the mob farm.
 
 diff --git a/net/minecraft/world/level/NaturalSpawner.java b/net/minecraft/world/level/NaturalSpawner.java
-index 102d88fc2989f80a39826e50ee706d853bfb2c5e..838146e997a2033c3d2a96602a252178093d263e 100644
+index 102d88f..838146e 100644
 --- a/net/minecraft/world/level/NaturalSpawner.java
 +++ b/net/minecraft/world/level/NaturalSpawner.java
 @@ -158,10 +158,21 @@ public final class NaturalSpawner {
@@ -163,7 +163,7 @@ index 102d88fc2989f80a39826e50ee706d853bfb2c5e..838146e997a2033c3d2a96602a252178
  
      private static boolean isRightDistanceToPlayerAndSpawnPoint(ServerLevel level, ChunkAccess chunk, BlockPos.MutableBlockPos pos, double distance) {
 diff --git a/net/minecraft/world/level/chunk/ChunkAccess.java b/net/minecraft/world/level/chunk/ChunkAccess.java
-index 686c031ec73acc80683aaa39a78fe9221f0215a6..30e01669f46ea31d580a0f526d7799f3ce10b326 100644
+index 686c031..30e0166 100644
 --- a/net/minecraft/world/level/chunk/ChunkAccess.java
 +++ b/net/minecraft/world/level/chunk/ChunkAccess.java
 @@ -92,6 +92,7 @@ public abstract class ChunkAccess implements BiomeManager.NoiseBiomeSource, Ligh
@@ -175,7 +175,7 @@ index 686c031ec73acc80683aaa39a78fe9221f0215a6..30e01669f46ea31d580a0f526d7799f3
      // Paper start - rewrite chunk system
      private volatile ca.spottedleaf.moonrise.patches.starlight.light.SWMRNibbleArray[] blockNibbles;
 diff --git a/net/minecraft/world/level/chunk/storage/SerializableChunkData.java b/net/minecraft/world/level/chunk/storage/SerializableChunkData.java
-index e04d3479383cd480cf35ed7ac3c82e7f6fb69e28..08b98e60518027a6d0aa99d03ba02982355ffa76 100644
+index e04d347..08b98e6 100644
 --- a/net/minecraft/world/level/chunk/storage/SerializableChunkData.java
 +++ b/net/minecraft/world/level/chunk/storage/SerializableChunkData.java
 @@ -94,6 +94,7 @@ public record SerializableChunkData(

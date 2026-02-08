@@ -5,7 +5,7 @@ Subject: [PATCH] thread unsafe chunk map
 
 
 diff --git a/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/ChunkHolderManager.java b/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/ChunkHolderManager.java
-index f1e1e96a425ae0186164b3ae6caca226fdd7e12e..68f31c3f2003afe1096b8eeb26a2d2a64af2a85a 100644
+index f1e1e96..68f31c3 100644
 --- a/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/ChunkHolderManager.java
 +++ b/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/ChunkHolderManager.java
 @@ -78,6 +78,7 @@ public final class ChunkHolderManager {
@@ -81,7 +81,7 @@ index f1e1e96a425ae0186164b3ae6caca226fdd7e12e..68f31c3f2003afe1096b8eeb26a2d2a6
  
      // note: never call while inside the chunk system, this will absolutely break everything
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
-index 540a1af9f4e0cf69ff987105a34d92a35e669fb0..c7af60b6d1920d8784ec3ff0e6791dcd0708a259 100644
+index 540a1af..c7af60b 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
 @@ -1768,6 +1768,8 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
@@ -105,7 +105,7 @@ index 540a1af9f4e0cf69ff987105a34d92a35e669fb0..c7af60b6d1920d8784ec3ff0e6791dcd
          } catch (java.lang.InterruptedException | java.util.concurrent.ExecutionException e) {
              throw new RuntimeException(e); // Propagate exception
 diff --git a/net/minecraft/server/level/ServerChunkCache.java b/net/minecraft/server/level/ServerChunkCache.java
-index bd4c98e9ec41a2bd608e2e2245c503be3171ceee..f6bcd33400ccfc146f508ffd7f8b673439eb5211 100644
+index bd4c98e..f6bcd33 100644
 --- a/net/minecraft/server/level/ServerChunkCache.java
 +++ b/net/minecraft/server/level/ServerChunkCache.java
 @@ -77,6 +77,7 @@ public class ServerChunkCache extends ChunkSource implements ca.spottedleaf.moon
@@ -190,7 +190,7 @@ index bd4c98e9ec41a2bd608e2e2245c503be3171ceee..f6bcd33400ccfc146f508ffd7f8b6734
              return ret;
          }
 diff --git a/net/minecraft/world/level/Level.java b/net/minecraft/world/level/Level.java
-index 28e2c4f211de1a3a9d95342965699917db613782..e900060907ce7612b251bdf6d526ef83ea968a7a 100644
+index 28e2c4f..e900060 100644
 --- a/net/minecraft/world/level/Level.java
 +++ b/net/minecraft/world/level/Level.java
 @@ -1065,6 +1065,18 @@ public abstract class Level implements LevelAccessor, UUIDLookup<Entity>, AutoCl

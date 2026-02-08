@@ -5,7 +5,7 @@ Subject: [PATCH] optimize SimpleBitStorage object layout
 
 
 diff --git a/net/minecraft/util/SimpleBitStorage.java b/net/minecraft/util/SimpleBitStorage.java
-index 8091f0c0a536047ead4966e70785962e87faad9a..8aec073db74a4d0a21c8a423586d108c6add9ad5 100644
+index 8091f0c..8aec073 100644
 --- a/net/minecraft/util/SimpleBitStorage.java
 +++ b/net/minecraft/util/SimpleBitStorage.java
 @@ -204,8 +204,8 @@ public class SimpleBitStorage implements BitStorage {

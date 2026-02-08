@@ -6,7 +6,7 @@ Subject: [PATCH] Remove stream and double iteration in enough deep sleeping
 
 
 diff --git a/net/minecraft/server/players/SleepStatus.java b/net/minecraft/server/players/SleepStatus.java
-index 3a3e6992563236141db687084aeec9684437a7db..e6827e90b685f88d945010f2c8c5aead52b0856e 100644
+index 3a3e699..e6827e9 100644
 --- a/net/minecraft/server/players/SleepStatus.java
 +++ b/net/minecraft/server/players/SleepStatus.java
 @@ -15,9 +15,24 @@ public class SleepStatus {

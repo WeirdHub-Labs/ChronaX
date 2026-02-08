@@ -5,7 +5,7 @@ Subject: [PATCH] Flush location while knockback
 
 
 diff --git a/net/minecraft/world/entity/player/Player.java b/net/minecraft/world/entity/player/Player.java
-index 5841fc8c069286321dcc03e000049d7c88a3d3b6..7c87ae05c4932fb53ce395257994bcef031337b7 100644
+index 5841fc8..7c87ae0 100644
 --- a/net/minecraft/world/entity/player/Player.java
 +++ b/net/minecraft/world/entity/player/Player.java
 @@ -1363,6 +1363,13 @@ public abstract class Player extends LivingEntity {

@@ -52,7 +52,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 diff --git a/net/minecraft/server/level/ServerChunkCache.java b/net/minecraft/server/level/ServerChunkCache.java
-index 6020b71802babb35ef60aca65afe9c2612c05bb7..e53440bd5f0e659db0745a009540520f6dc41238 100644
+index 6020b71..e53440b 100644
 --- a/net/minecraft/server/level/ServerChunkCache.java
 +++ b/net/minecraft/server/level/ServerChunkCache.java
 @@ -500,6 +500,7 @@ public class ServerChunkCache extends ChunkSource implements ca.spottedleaf.moon
@@ -64,7 +64,7 @@ index 6020b71802babb35ef60aca65afe9c2612c05bb7..e53440bd5f0e659db0745a009540520f
                  this.tickChunks(l); // Gale - Purpur - remove vanilla profiler
              }
 diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
-index 7b7794eb8f9a663bd6d4f6e27ddf907c0aed8c5a..3507691e6f18b90464627617e11b2fcd36ce7f68 100644
+index 7b7794e..3507691 100644
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -925,13 +925,15 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe
@@ -94,7 +94,7 @@ index 7b7794eb8f9a663bd6d4f6e27ddf907c0aed8c5a..3507691e6f18b90464627617e11b2fcd
              if (this.isRainingAt(blockPos)) {
                  DifficultyInstance currentDifficultyAt = this.getCurrentDifficultyAt(blockPos);
 diff --git a/net/minecraft/world/level/chunk/LevelChunk.java b/net/minecraft/world/level/chunk/LevelChunk.java
-index b88254fb3c12b99684c6ede1ae8a6671ffbe9ad6..9e2debee38bc4b25281c8a8c6e7082cca1f7b569 100644
+index b88254f..9e2debe 100644
 --- a/net/minecraft/world/level/chunk/LevelChunk.java
 +++ b/net/minecraft/world/level/chunk/LevelChunk.java
 @@ -128,6 +128,18 @@ public class LevelChunk extends ChunkAccess implements ca.spottedleaf.moonrise.p

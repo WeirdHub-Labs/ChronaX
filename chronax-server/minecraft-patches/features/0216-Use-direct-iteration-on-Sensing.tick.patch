@@ -5,7 +5,7 @@ Subject: [PATCH] Use direct iteration on Sensing.tick
 
 
 diff --git a/net/minecraft/world/entity/ai/sensing/Sensing.java b/net/minecraft/world/entity/ai/sensing/Sensing.java
-index cc25f5838aec5ed9fca2fb8b0322fafad9397a46..002d3c0d8b1107a275020d5c582c37e9a5c536ee 100644
+index cc25f58..002d3c0 100644
 --- a/net/minecraft/world/entity/ai/sensing/Sensing.java
 +++ b/net/minecraft/world/entity/ai/sensing/Sensing.java
 @@ -39,7 +39,12 @@ public class Sensing {

@@ -7,7 +7,7 @@ Original license: GPL-3.0
 Original project: https://github.com/Yive/Pluto
 
 diff --git a/net/minecraft/world/level/block/SpreadingSnowyDirtBlock.java b/net/minecraft/world/level/block/SpreadingSnowyDirtBlock.java
-index f8cc3f870d88715386bb4de0da81a74fa04fd216..075b520b8dbdb5ef29d4acea9f027718aa578d35 100644
+index f8cc3f8..075b520 100644
 --- a/net/minecraft/world/level/block/SpreadingSnowyDirtBlock.java
 +++ b/net/minecraft/world/level/block/SpreadingSnowyDirtBlock.java
 @@ -52,7 +52,7 @@ public abstract class SpreadingSnowyDirtBlock extends SnowyDirtBlock {

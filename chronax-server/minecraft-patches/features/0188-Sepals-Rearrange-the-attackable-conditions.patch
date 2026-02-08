@@ -50,7 +50,7 @@ Test Result:
 | With Sepals+Lithium (SepalsFrogBrain#attackable) | 0.1 ms |      1 %      |
 
 diff --git a/net/minecraft/world/entity/ai/sensing/FrogAttackablesSensor.java b/net/minecraft/world/entity/ai/sensing/FrogAttackablesSensor.java
-index d163a363273b52b3b3f0b5a74ac4d4ab37d24bb7..e88479ba1ebeff67a93baad4f6f8c83119ff5ff7 100644
+index d163a36..e88479b 100644
 --- a/net/minecraft/world/entity/ai/sensing/FrogAttackablesSensor.java
 +++ b/net/minecraft/world/entity/ai/sensing/FrogAttackablesSensor.java
 @@ -13,11 +13,11 @@ public class FrogAttackablesSensor extends NearestVisibleLivingEntitySensor {

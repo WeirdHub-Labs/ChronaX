@@ -13,7 +13,7 @@ As part of: MultiPaper (https://github.com/MultiPaper/MultiPaper)
 Licensed under: GPL-3.0 (https://www.gnu.org/licenses/gpl-3.0.html)
 
 diff --git a/net/minecraft/server/level/ServerPlayer.java b/net/minecraft/server/level/ServerPlayer.java
-index 1f39e60b3e91018ded0b2e172e565d449337890e..f64e1d565c27163615eb44d42a0358075d3f8760 100644
+index 1f39e60..f64e1d5 100644
 --- a/net/minecraft/server/level/ServerPlayer.java
 +++ b/net/minecraft/server/level/ServerPlayer.java
 @@ -2194,12 +2194,18 @@ public class ServerPlayer extends Player implements ca.spottedleaf.moonrise.patc

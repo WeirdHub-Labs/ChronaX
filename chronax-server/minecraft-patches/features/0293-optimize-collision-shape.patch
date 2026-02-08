@@ -5,7 +5,7 @@ Subject: [PATCH] optimize collision shape
 
 
 diff --git a/net/minecraft/world/level/block/state/BlockBehaviour.java b/net/minecraft/world/level/block/state/BlockBehaviour.java
-index 503420bbeaf3da0c568c28c55582f45469f40aeb..e186b435e7a25ba4c5a203a8748b1531dbf7b1b8 100644
+index 503420b..e186b43 100644
 --- a/net/minecraft/world/level/block/state/BlockBehaviour.java
 +++ b/net/minecraft/world/level/block/state/BlockBehaviour.java
 @@ -619,6 +619,18 @@ public abstract class BlockBehaviour implements FeatureElement {

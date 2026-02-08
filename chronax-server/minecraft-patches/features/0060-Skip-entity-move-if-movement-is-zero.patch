@@ -13,7 +13,7 @@ As part of: VMP (https://github.com/RelativityMC/VMP-fabric)
 Licensed under: MIT (https://opensource.org/licenses/MIT)
 
 diff --git a/net/minecraft/world/entity/Entity.java b/net/minecraft/world/entity/Entity.java
-index 070e74bb044b54a7d7cba88a50e679511cb432a4..4c28bd2ac200ad01e330e211e0b27b4f41087cb9 100644
+index 070e74b..4c28bd2 100644
 --- a/net/minecraft/world/entity/Entity.java
 +++ b/net/minecraft/world/entity/Entity.java
 @@ -261,6 +261,7 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess

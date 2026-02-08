@@ -11,7 +11,7 @@ Original project: https://github.com/LeavesMC/Leaves
 This patch is Powered by ReplayMod(https://github.com/ReplayMod)
 
 diff --git a/net/minecraft/commands/CommandSourceStack.java b/net/minecraft/commands/CommandSourceStack.java
-index 51caf352e77df49fc04bf84f1fab29b6f4f4fc14..3fb3afb4171e6ff57c73cd228c2b41b2cb543ea5 100644
+index 51caf35..3fb3afb 100644
 --- a/net/minecraft/commands/CommandSourceStack.java
 +++ b/net/minecraft/commands/CommandSourceStack.java
 @@ -617,7 +617,7 @@ public class CommandSourceStack implements ExecutionCommandSource<CommandSourceS
@@ -24,7 +24,7 @@ index 51caf352e77df49fc04bf84f1fab29b6f4f4fc14..3fb3afb4171e6ff57c73cd228c2b41b2
  
      @Override
 diff --git a/net/minecraft/commands/arguments/selector/EntitySelector.java b/net/minecraft/commands/arguments/selector/EntitySelector.java
-index b305ba9bab617bf4e52d0e6ddf160bacc5751a94..6fb844999589ac17c8586c9b3f202345aa80d7fb 100644
+index b305ba9..6fb8449 100644
 --- a/net/minecraft/commands/arguments/selector/EntitySelector.java
 +++ b/net/minecraft/commands/arguments/selector/EntitySelector.java
 @@ -128,11 +128,12 @@ public class EntitySelector {
@@ -91,7 +91,7 @@ index b305ba9bab617bf4e52d0e6ddf160bacc5751a94..6fb844999589ac17c8586c9b3f202345
                              players.add(serverPlayer1);
                              if (players.size() >= resultLimit) {
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
-index 899fdbbfc833147e6c604a0baeef824538c53b70..827c6e053022b29dc79cb3f779432aa567c16819 100644
+index 899fdbb..827c6e0 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
 @@ -1643,7 +1643,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
@@ -131,7 +131,7 @@ index 899fdbbfc833147e6c604a0baeef824538c53b70..827c6e053022b29dc79cb3f779432aa5
                      serverPlayer.connection.disconnect(net.kyori.adventure.text.Component.text(org.spigotmc.SpigotConfig.whitelistMessage), org.bukkit.event.player.PlayerKickEvent.Cause.WHITELIST); // Paper - use configurable message & kick event cause
                  }
 diff --git a/net/minecraft/server/PlayerAdvancements.java b/net/minecraft/server/PlayerAdvancements.java
-index 9ecc19b8a7d4e6b27335b542308f78e5005b0e15..eee5aaca8219802a56b8ba08986da672c40dc8b4 100644
+index 9ecc19b..eee5aac 100644
 --- a/net/minecraft/server/PlayerAdvancements.java
 +++ b/net/minecraft/server/PlayerAdvancements.java
 @@ -167,6 +167,11 @@ public class PlayerAdvancements {
@@ -147,7 +147,7 @@ index 9ecc19b8a7d4e6b27335b542308f78e5005b0e15..eee5aaca8219802a56b8ba08986da672
          AdvancementProgress orStartProgress = this.getOrStartProgress(advancement);
          boolean isDone = orStartProgress.isDone();
 diff --git a/net/minecraft/server/ServerScoreboard.java b/net/minecraft/server/ServerScoreboard.java
-index fc1c377ad05edcefacd407671801ae605f3fc31a..5635f0940b4b70f27c8dfdc1aa666fcb7e26d55d 100644
+index fc1c377..5635f09 100644
 --- a/net/minecraft/server/ServerScoreboard.java
 +++ b/net/minecraft/server/ServerScoreboard.java
 @@ -242,7 +242,7 @@ public class ServerScoreboard extends Scoreboard {
@@ -169,7 +169,7 @@ index fc1c377ad05edcefacd407671801ae605f3fc31a..5635f0940b4b70f27c8dfdc1aa666fcb
              for (Packet<?> packet : stopTrackingPackets) {
                  serverPlayer.connection.send(packet);
 diff --git a/net/minecraft/server/commands/DefaultGameModeCommands.java b/net/minecraft/server/commands/DefaultGameModeCommands.java
-index 84baf29ad8af6a8af0cd00ce3921b3c5b8b89451..17f5543b802d88811c3e373e579a6e8b4c9f263a 100644
+index 84baf29..17f5543 100644
 --- a/net/minecraft/server/commands/DefaultGameModeCommands.java
 +++ b/net/minecraft/server/commands/DefaultGameModeCommands.java
 @@ -27,7 +27,7 @@ public class DefaultGameModeCommands {
@@ -182,7 +182,7 @@ index 84baf29ad8af6a8af0cd00ce3921b3c5b8b89451..17f5543b802d88811c3e373e579a6e8b
                  org.bukkit.event.player.PlayerGameModeChangeEvent event = serverPlayer.setGameMode(gamemode, org.bukkit.event.player.PlayerGameModeChangeEvent.Cause.DEFAULT_GAMEMODE, net.kyori.adventure.text.Component.empty());
                  if (event != null && event.isCancelled()) {
 diff --git a/net/minecraft/server/commands/ListPlayersCommand.java b/net/minecraft/server/commands/ListPlayersCommand.java
-index c6ae34f91b3629990294fc5e69237a1e600ef038..712d7b66f1b701acf2f411e811648e5c18112ee9 100644
+index c6ae34f..712d7b6 100644
 --- a/net/minecraft/server/commands/ListPlayersCommand.java
 +++ b/net/minecraft/server/commands/ListPlayersCommand.java
 @@ -33,7 +33,7 @@ public class ListPlayersCommand {
@@ -195,7 +195,7 @@ index c6ae34f91b3629990294fc5e69237a1e600ef038..712d7b66f1b701acf2f411e811648e5c
              org.bukkit.entity.Player sender = (org.bukkit.entity.Player) source.getBukkitSender();
              playersTemp = playersTemp.stream().filter((ep) -> sender.canSee(ep.getBukkitEntity())).collect(java.util.stream.Collectors.toList());
 diff --git a/net/minecraft/server/commands/OpCommand.java b/net/minecraft/server/commands/OpCommand.java
-index f2286b96b8f40b4588f817913c42ae7b4a92340f..dbe6c37642d35ac6ee8b428cf1e45878a5dfa9da 100644
+index f2286b9..dbe6c37 100644
 --- a/net/minecraft/server/commands/OpCommand.java
 +++ b/net/minecraft/server/commands/OpCommand.java
 @@ -25,7 +25,7 @@ public class OpCommand {
@@ -208,7 +208,7 @@ index f2286b96b8f40b4588f817913c42ae7b4a92340f..dbe6c37642d35ac6ee8b428cf1e45878
                                          .filter(serverPlayer -> !playerList.isOp(serverPlayer.getGameProfile()))
                                          .map(serverPlayer -> serverPlayer.getGameProfile().getName()),
 diff --git a/net/minecraft/server/commands/ParticleCommand.java b/net/minecraft/server/commands/ParticleCommand.java
-index 33d96239f4b72a5587dc70f9602847a870d6d6a5..a83ce2cd112fca02cf3545f8c38e5cafae2c7c0e 100644
+index 33d9623..a83ce2c 100644
 --- a/net/minecraft/server/commands/ParticleCommand.java
 +++ b/net/minecraft/server/commands/ParticleCommand.java
 @@ -36,7 +36,7 @@ public class ParticleCommand {
@@ -257,7 +257,7 @@ index 33d96239f4b72a5587dc70f9602847a870d6d6a5..a83ce2cd112fca02cf3545f8c38e5caf
                                                                  )
                                                                  .then(
 diff --git a/net/minecraft/server/commands/TeamMsgCommand.java b/net/minecraft/server/commands/TeamMsgCommand.java
-index 134d7b1a9d5a5a47ebf4aabff110dde914cd6fe1..894dd1d048904b8a775416ea6cb3112215c567bc 100644
+index 134d7b1..894dd1d 100644
 --- a/net/minecraft/server/commands/TeamMsgCommand.java
 +++ b/net/minecraft/server/commands/TeamMsgCommand.java
 @@ -40,7 +40,7 @@ public class TeamMsgCommand {
@@ -270,7 +270,7 @@ index 134d7b1a9d5a5a47ebf4aabff110dde914cd6fe1..894dd1d048904b8a775416ea6cb31122
                                          .filter(player -> player == entityOrException || player.getTeam() == team)
                                          .toList();
 diff --git a/net/minecraft/server/commands/WhitelistCommand.java b/net/minecraft/server/commands/WhitelistCommand.java
-index 763a51d9a0859296eb4ea52b6879d6c7703db673..25b4fcf79dbf3e227451b3321d8fd38bab55ffe9 100644
+index 763a51d..25b4fcf 100644
 --- a/net/minecraft/server/commands/WhitelistCommand.java
 +++ b/net/minecraft/server/commands/WhitelistCommand.java
 @@ -43,7 +43,7 @@ public class WhitelistCommand {
@@ -283,7 +283,7 @@ index 763a51d9a0859296eb4ea52b6879d6c7703db673..25b4fcf79dbf3e227451b3321d8fd38b
                                                  .filter(serverPlayer -> !playerList.getWhiteList().isWhiteListed(serverPlayer.getGameProfile()))
                                                  .map(serverPlayer -> serverPlayer.getGameProfile().getName()),
 diff --git a/net/minecraft/server/gui/PlayerListComponent.java b/net/minecraft/server/gui/PlayerListComponent.java
-index f5ba0c9a4c3f9eaa38eeb689de915c25c7165433..24bbc32bc17802edbd9cc14310fe8141c0ad85b0 100644
+index f5ba0c9..24bbc32 100644
 --- a/net/minecraft/server/gui/PlayerListComponent.java
 +++ b/net/minecraft/server/gui/PlayerListComponent.java
 @@ -17,8 +17,8 @@ public class PlayerListComponent extends JList<String> {
@@ -298,7 +298,7 @@ index f5ba0c9a4c3f9eaa38eeb689de915c25c7165433..24bbc32bc17802edbd9cc14310fe8141
  
              this.setListData(list);
 diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
-index 1d128d0613d92eb95a753be33a1134c857d0e388..c50cb9bfcd06ec54c0a43d013aa074fb478f9fcf 100644
+index 1d128d0..c50cb9b 100644
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -215,6 +215,7 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe
@@ -342,7 +342,7 @@ index 1d128d0613d92eb95a753be33a1134c857d0e388..c50cb9bfcd06ec54c0a43d013aa074fb
                  ServerLevel.this.updateSleepingPlayerList();
              }
 diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
-index 4fbe3d2a7e157f1f06bd0929ee10efd87426554d..fdd2ad453192cfac8dd5310266cbab3bdb5743c6 100644
+index 4fbe3d2..fdd2ad4 100644
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
 @@ -131,6 +131,7 @@ public abstract class PlayerList {
@@ -558,7 +558,7 @@ index 4fbe3d2a7e157f1f06bd0929ee10efd87426554d..fdd2ad453192cfac8dd5310266cbab3b
              com.destroystokyo.paper.profile.CraftPlayerProfile.asBukkitMirror(profile),
              io.papermc.paper.adventure.PaperAdventure.asAdventure(currentResult.message),
 diff --git a/net/minecraft/world/entity/LivingEntity.java b/net/minecraft/world/entity/LivingEntity.java
-index 763d8e61e36629f625bffad0993ec22da2eefa91..fc104f8f7b09feda9c9de4295c3786c8d31d49a5 100644
+index 763d8e6..fc104f8 100644
 --- a/net/minecraft/world/entity/LivingEntity.java
 +++ b/net/minecraft/world/entity/LivingEntity.java
 @@ -255,7 +255,7 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin

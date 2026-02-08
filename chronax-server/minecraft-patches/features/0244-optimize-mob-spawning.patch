@@ -18,7 +18,7 @@ Generally faster than the non-async approach
 iterate over all entities, get their chunk, and increment the count
 
 diff --git a/net/minecraft/server/level/ChunkMap.java b/net/minecraft/server/level/ChunkMap.java
-index 5c8a603e5800e1cc282d899e2a3d6b556295e13c..2dca1ceb886537ff96d0834844429e1c7b97bd79 100644
+index 5c8a603..2dca1ce 100644
 --- a/net/minecraft/server/level/ChunkMap.java
 +++ b/net/minecraft/server/level/ChunkMap.java
 @@ -278,6 +278,7 @@ public class ChunkMap extends ChunkStorage implements ChunkHolder.PlayerProvider
@@ -30,7 +30,7 @@ index 5c8a603e5800e1cc282d899e2a3d6b556295e13c..2dca1ceb886537ff96d0834844429e1c
       }
      // Paper end - Optional per player mob spawns
 diff --git a/net/minecraft/server/level/ServerChunkCache.java b/net/minecraft/server/level/ServerChunkCache.java
-index 908cd08e33fed1c4cd4bd34c3e63cbbe84ffead4..e9fd69a3f7a95635361c22f0ecdc558741d3a77f 100644
+index 908cd08..e9fd69a 100644
 --- a/net/minecraft/server/level/ServerChunkCache.java
 +++ b/net/minecraft/server/level/ServerChunkCache.java
 @@ -70,11 +70,11 @@ public class ServerChunkCache extends ChunkSource implements ca.spottedleaf.moon
@@ -183,7 +183,7 @@ index 908cd08e33fed1c4cd4bd34c3e63cbbe84ffead4..e9fd69a3f7a95635361c22f0ecdc5587
              }
          }
 diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
-index 641875899b839d4c0012bd49a3f058258a06d99a..9b3863a7456d3d226a2d53eefdfc109bdaae9b6a 100644
+index 6418758..9b3863a 100644
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -1091,6 +1091,7 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe
@@ -195,7 +195,7 @@ index 641875899b839d4c0012bd49a3f058258a06d99a..9b3863a7456d3d226a2d53eefdfc109b
          final net.minecraft.world.level.levelgen.BitRandomSource simpleRandom = this.simpleRandom; // Paper - optimise random ticking // Leaf - Faster random generator - upcasting
          ChunkPos pos = chunk.getPos();
 diff --git a/net/minecraft/world/level/NaturalSpawner.java b/net/minecraft/world/level/NaturalSpawner.java
-index bb655318f49242858e2c25d5469705c0c314ed85..b65616715fa29fdf33f2dfc73650c30f72160f48 100644
+index bb65531..b656167 100644
 --- a/net/minecraft/world/level/NaturalSpawner.java
 +++ b/net/minecraft/world/level/NaturalSpawner.java
 @@ -68,6 +68,7 @@ public final class NaturalSpawner {
@@ -527,7 +527,7 @@ index bb655318f49242858e2c25d5469705c0c314ed85..b65616715fa29fdf33f2dfc73650c30f
      }
  }
 diff --git a/net/minecraft/world/level/StructureManager.java b/net/minecraft/world/level/StructureManager.java
-index fbe93098ce0366054a6da857cd808af1431b6612..57de70773d2766a8f3a41e61efc16ceb7a9f80c8 100644
+index fbe9309..57de707 100644
 --- a/net/minecraft/world/level/StructureManager.java
 +++ b/net/minecraft/world/level/StructureManager.java
 @@ -90,6 +90,7 @@ public class StructureManager {
@@ -552,7 +552,7 @@ index fbe93098ce0366054a6da857cd808af1431b6612..57de70773d2766a8f3a41e61efc16ceb
      public StructureCheckResult checkStructurePresence(ChunkPos chunkPos, Structure structure, StructurePlacement placement, boolean skipKnownStructures) {
          return this.structureCheck.checkStart(chunkPos, structure, placement, skipKnownStructures);
 diff --git a/net/minecraft/world/level/biome/MobSpawnSettings.java b/net/minecraft/world/level/biome/MobSpawnSettings.java
-index db3b8a237d63255aa9ffd70c88a093002a6bd770..4a69f404eee00d8972e9501a76031d4339136b6f 100644
+index db3b8a2..4a69f40 100644
 --- a/net/minecraft/world/level/biome/MobSpawnSettings.java
 +++ b/net/minecraft/world/level/biome/MobSpawnSettings.java
 @@ -52,7 +52,7 @@ public class MobSpawnSettings {
@@ -565,7 +565,7 @@ index db3b8a237d63255aa9ffd70c88a093002a6bd770..4a69f404eee00d8972e9501a76031d43
      }
  
 diff --git a/net/minecraft/world/level/chunk/ChunkGenerator.java b/net/minecraft/world/level/chunk/ChunkGenerator.java
-index 2fbf3069cfee45b19276891a21a05d5849ddb70e..0720fe1a1112519dcbfc9f2f0ce123d86d66fc58 100644
+index 2fbf306..0720fe1 100644
 --- a/net/minecraft/world/level/chunk/ChunkGenerator.java
 +++ b/net/minecraft/world/level/chunk/ChunkGenerator.java
 @@ -516,6 +516,35 @@ public abstract class ChunkGenerator {

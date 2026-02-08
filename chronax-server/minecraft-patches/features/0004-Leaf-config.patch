@@ -13,7 +13,7 @@ Update config reload:
     (Or sync reload)
 
 diff --git a/net/minecraft/server/Main.java b/net/minecraft/server/Main.java
-index b06c2c4aa77edafb374f7cf0406cf4d29c6e7f9f..284947437eacf1d527b613d883c40bb3eb5faa90 100644
+index b06c2c4..2849474 100644
 --- a/net/minecraft/server/Main.java
 +++ b/net/minecraft/server/Main.java
 @@ -104,6 +104,8 @@ public class Main {
@@ -34,7 +34,7 @@ index b06c2c4aa77edafb374f7cf0406cf4d29c6e7f9f..284947437eacf1d527b613d883c40bb3
              DedicatedServerSettings dedicatedServerSettings = new DedicatedServerSettings(optionSet); // CraftBukkit - CLI argument support
              dedicatedServerSettings.forceSave();
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
-index f6dd9e279155969ba05b44083018e074e11b0bb9..c4c7491dfee075e2c75f11631558bed89061f4f6 100644
+index f6dd9e2..c4c7491 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
 @@ -1200,6 +1200,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa

@@ -11,7 +11,7 @@ As part of: Lithium (https://github.com/CaffeineMC/lithium)
 Licensed under: LGPL-3.0 (https://www.gnu.org/licenses/lgpl-3.0.html)
 
 diff --git a/net/minecraft/core/Direction.java b/net/minecraft/core/Direction.java
-index 55d56d61036dae4613d24309a57c072592e984a8..8447557b808f420f22c54882bf51a308965063fe 100644
+index 55d56d6..8447557 100644
 --- a/net/minecraft/core/Direction.java
 +++ b/net/minecraft/core/Direction.java
 @@ -222,7 +222,7 @@ public enum Direction implements StringRepresentable, ca.spottedleaf.moonrise.pa
@@ -33,7 +33,7 @@ index 55d56d61036dae4613d24309a57c072592e984a8..8447557b808f420f22c54882bf51a308
  
      public static Direction getApproximateNearest(double x, double y, double z) {
 diff --git a/net/minecraft/world/phys/AABB.java b/net/minecraft/world/phys/AABB.java
-index e53398996bbb278c6e06024d8ca945b364a44c10..2010b30bf1050273694db707b0059ed8251a41f8 100644
+index e533989..2010b30 100644
 --- a/net/minecraft/world/phys/AABB.java
 +++ b/net/minecraft/world/phys/AABB.java
 @@ -19,6 +19,15 @@ public class AABB {

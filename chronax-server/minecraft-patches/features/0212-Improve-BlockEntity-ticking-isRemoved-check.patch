@@ -10,7 +10,7 @@ Leaf (After): ~628ms (-96%)
 This should help for massive hopper chains or hopper matrix.
 
 diff --git a/net/minecraft/world/level/chunk/LevelChunk.java b/net/minecraft/world/level/chunk/LevelChunk.java
-index 24baf9fd222b700a17e064cf61fc3c259d9ae528..248058bdc7339a327d80a3db3a126cda6c4b6705 100644
+index 24baf9f..248058b 100644
 --- a/net/minecraft/world/level/chunk/LevelChunk.java
 +++ b/net/minecraft/world/level/chunk/LevelChunk.java
 @@ -1022,15 +1022,29 @@ public class LevelChunk extends ChunkAccess implements ca.spottedleaf.moonrise.p

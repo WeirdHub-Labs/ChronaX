@@ -9,7 +9,7 @@ Before: 164ms
 After: 18ms
 
 diff --git a/net/minecraft/world/entity/ai/sensing/PlayerSensor.java b/net/minecraft/world/entity/ai/sensing/PlayerSensor.java
-index eb3ec4be63e1710d0ed9021eb8158d56eae89f8d..fa438315b4ed8e9394383b82b89ecb04bac3399f 100644
+index eb3ec4b..fa43831 100644
 --- a/net/minecraft/world/entity/ai/sensing/PlayerSensor.java
 +++ b/net/minecraft/world/entity/ai/sensing/PlayerSensor.java
 @@ -26,17 +26,39 @@ public class PlayerSensor extends Sensor<LivingEntity> {

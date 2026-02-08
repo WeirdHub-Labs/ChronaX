@@ -17,7 +17,7 @@ Licensed under: MIT (https://opensource.org/licenses/MIT)
 Only do an item "suck in" action once per second
 
 diff --git a/net/minecraft/world/entity/item/ItemEntity.java b/net/minecraft/world/entity/item/ItemEntity.java
-index d650d4f34fde0682ab76360408f7ff6a7d4b4c3a..7dc97fccfd329253e0f6532d1cc2c06264674e15 100644
+index d650d4f..7dc97fc 100644
 --- a/net/minecraft/world/entity/item/ItemEntity.java
 +++ b/net/minecraft/world/entity/item/ItemEntity.java
 @@ -154,7 +154,13 @@ public class ItemEntity extends Entity implements TraceableEntity {
@@ -67,7 +67,7 @@ index d650d4f34fde0682ab76360408f7ff6a7d4b4c3a..7dc97fccfd329253e0f6532d1cc2c062
      @Override
      public BlockPos getBlockPosBelowThatAffectsMyMovement() {
 diff --git a/net/minecraft/world/entity/vehicle/MinecartHopper.java b/net/minecraft/world/entity/vehicle/MinecartHopper.java
-index 41a6ec508a10a49a37539d2f10171d15c233b280..fb099517927f3c2699a348ea7692772c5420b8d1 100644
+index 41a6ec5..fb09951 100644
 --- a/net/minecraft/world/entity/vehicle/MinecartHopper.java
 +++ b/net/minecraft/world/entity/vehicle/MinecartHopper.java
 @@ -23,6 +23,7 @@ public class MinecartHopper extends AbstractMinecartContainer implements Hopper
@@ -92,7 +92,7 @@ index 41a6ec508a10a49a37539d2f10171d15c233b280..fb099517927f3c2699a348ea7692772c
 +
  }
 diff --git a/net/minecraft/world/level/block/entity/Hopper.java b/net/minecraft/world/level/block/entity/Hopper.java
-index 484c2ba2752fbf3ad929e46c2f078e906f6f0637..6ced5a7e27703a7cf5a7495dc3a1a290ce0d18eb 100644
+index 484c2ba..6ced5a7 100644
 --- a/net/minecraft/world/level/block/entity/Hopper.java
 +++ b/net/minecraft/world/level/block/entity/Hopper.java
 @@ -11,6 +11,8 @@ public interface Hopper extends Container {
@@ -105,7 +105,7 @@ index 484c2ba2752fbf3ad929e46c2f078e906f6f0637..6ced5a7e27703a7cf5a7495dc3a1a290
  
      double getLevelY();
 diff --git a/net/minecraft/world/level/block/entity/HopperBlockEntity.java b/net/minecraft/world/level/block/entity/HopperBlockEntity.java
-index 01ed25d1f895d94485b5fecd98476534cbb26930..c1fcd9e0ab47332ce48e391c6cd1455960340df3 100644
+index 01ed25d..c1fcd9e 100644
 --- a/net/minecraft/world/level/block/entity/HopperBlockEntity.java
 +++ b/net/minecraft/world/level/block/entity/HopperBlockEntity.java
 @@ -544,7 +544,7 @@ public class HopperBlockEntity extends RandomizableContainerBlockEntity implemen

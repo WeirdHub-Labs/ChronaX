@@ -38,7 +38,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 diff --git a/net/minecraft/server/network/ServerStatusPacketListenerImpl.java b/net/minecraft/server/network/ServerStatusPacketListenerImpl.java
-index 465559113071a47e706f77a5b0996597ee986b3d..74f698da88ed6432bee3105d3c35648b6f38f234 100644
+index 4655591..74f698d 100644
 --- a/net/minecraft/server/network/ServerStatusPacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerStatusPacketListenerImpl.java
 @@ -37,6 +37,7 @@ public class ServerStatusPacketListenerImpl implements ServerStatusPacketListene

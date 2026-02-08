@@ -5,7 +5,7 @@ Subject: [PATCH] Remove stream in BehaviorUtils
 
 
 diff --git a/net/minecraft/world/entity/ai/behavior/BehaviorUtils.java b/net/minecraft/world/entity/ai/behavior/BehaviorUtils.java
-index cc8f0586fca7b12a95afadb08d51077c74713ce3..ceddfed85cedbe2ddaea9ef6530688b69f087874 100644
+index cc8f058..ceddfed 100644
 --- a/net/minecraft/world/entity/ai/behavior/BehaviorUtils.java
 +++ b/net/minecraft/world/entity/ai/behavior/BehaviorUtils.java
 @@ -112,10 +112,33 @@ public class BehaviorUtils {

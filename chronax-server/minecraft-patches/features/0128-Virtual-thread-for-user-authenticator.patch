@@ -5,7 +5,7 @@ Subject: [PATCH] Virtual thread for user authenticator
 
 
 diff --git a/net/minecraft/server/network/ServerLoginPacketListenerImpl.java b/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-index 79534beb5f4a3427078541fda287d9c950999c96..f68923c5f6fbecd8f1c10a30dbd06ed0dfee8b84 100644
+index 79534be..f68923c 100644
 --- a/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 @@ -53,7 +53,7 @@ import org.bukkit.event.player.PlayerPreLoginEvent;

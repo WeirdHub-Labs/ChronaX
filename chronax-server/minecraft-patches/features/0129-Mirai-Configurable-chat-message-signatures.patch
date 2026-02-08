@@ -11,7 +11,7 @@ Original license: GPLv3
 Original project: https://github.com/etil2jz/Mirai
 
 diff --git a/net/minecraft/network/FriendlyByteBuf.java b/net/minecraft/network/FriendlyByteBuf.java
-index bef92cfa7eb86fbc6bc1b7d862eaca575eeeadec..8817aee7eb61e130aacc4f0df980036b92500ad1 100644
+index bef92cf..8817aee 100644
 --- a/net/minecraft/network/FriendlyByteBuf.java
 +++ b/net/minecraft/network/FriendlyByteBuf.java
 @@ -119,6 +119,17 @@ public class FriendlyByteBuf extends ByteBuf {
@@ -33,7 +33,7 @@ index bef92cfa7eb86fbc6bc1b7d862eaca575eeeadec..8817aee7eb61e130aacc4f0df980036b
      }
  
 diff --git a/net/minecraft/network/protocol/game/ClientboundLoginPacket.java b/net/minecraft/network/protocol/game/ClientboundLoginPacket.java
-index 89f06581e2b1f9f0240e7841db2f57dedc5d81b7..ba4ec05a9c9dfa958fdfa4a68ee85bcd9c379883 100644
+index 89f0658..ba4ec05 100644
 --- a/net/minecraft/network/protocol/game/ClientboundLoginPacket.java
 +++ b/net/minecraft/network/protocol/game/ClientboundLoginPacket.java
 @@ -55,7 +55,7 @@ public record ClientboundLoginPacket(
@@ -46,7 +46,7 @@ index 89f06581e2b1f9f0240e7841db2f57dedc5d81b7..ba4ec05a9c9dfa958fdfa4a68ee85bcd
  
      @Override
 diff --git a/net/minecraft/network/protocol/game/ServerboundChatPacket.java b/net/minecraft/network/protocol/game/ServerboundChatPacket.java
-index b5afc05924ae899e020c303c8b86398e1d4ab8a0..73c2ed488c34cddbafdcbb6f2636264ebcc7286b 100644
+index b5afc05..73c2ed4 100644
 --- a/net/minecraft/network/protocol/game/ServerboundChatPacket.java
 +++ b/net/minecraft/network/protocol/game/ServerboundChatPacket.java
 @@ -23,7 +23,7 @@ public record ServerboundChatPacket(String message, Instant timeStamp, long salt
@@ -59,7 +59,7 @@ index b5afc05924ae899e020c303c8b86398e1d4ab8a0..73c2ed488c34cddbafdcbb6f2636264e
      }
  
 diff --git a/net/minecraft/network/protocol/status/ServerStatus.java b/net/minecraft/network/protocol/status/ServerStatus.java
-index a491be4250de3199c3e1aa9e5482b568692bd2f5..5db038df25a1b5bf2f7395464250dc0bbf8d8241 100644
+index a491be4..5db038d 100644
 --- a/net/minecraft/network/protocol/status/ServerStatus.java
 +++ b/net/minecraft/network/protocol/status/ServerStatus.java
 @@ -23,7 +23,10 @@ public record ServerStatus(
@@ -91,7 +91,7 @@ index a491be4250de3199c3e1aa9e5482b568692bd2f5..5db038df25a1b5bf2f7395464250dc0b
  
      public record Favicon(byte[] iconBytes) {
 diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
-index 9f6d5409d3767d68e13c8679e34d9938b329393f..8350d6f00764c792f5f4f2c2e91df6777cb06e0d 100644
+index 9f6d540..8350d6f 100644
 --- a/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/net/minecraft/server/dedicated/DedicatedServer.java
 @@ -613,6 +613,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
@@ -103,7 +103,7 @@ index 9f6d5409d3767d68e13c8679e34d9938b329393f..8350d6f00764c792f5f4f2c2e91df677
          // Paper start - Add setting for proxy online mode status
          return properties.enforceSecureProfile
 diff --git a/net/minecraft/server/network/ServerCommonPacketListenerImpl.java b/net/minecraft/server/network/ServerCommonPacketListenerImpl.java
-index 3afb9910966bd77368b385edb3c76e9cb97b8524..f6aec052d8c76df7cb0b734893a857832a4d29b1 100644
+index 3afb991..f6aec05 100644
 --- a/net/minecraft/server/network/ServerCommonPacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerCommonPacketListenerImpl.java
 @@ -364,10 +364,30 @@ public abstract class ServerCommonPacketListenerImpl implements ServerCommonPack
@@ -138,7 +138,7 @@ index 3afb9910966bd77368b385edb3c76e9cb97b8524..f6aec052d8c76df7cb0b734893a85783
          if (packet == null || this.processedDisconnect) { // Spigot
              return;
 diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
-index 75fa881f063890874adcc09cb8057804c486497d..a2ed0ab09a4fc12b2088cc8594b2ce374feb91fd 100644
+index 75fa881..a2ed0ab 100644
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
 @@ -1508,7 +1508,7 @@ public abstract class PlayerList {

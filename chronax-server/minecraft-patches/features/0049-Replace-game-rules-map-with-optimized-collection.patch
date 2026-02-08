@@ -13,7 +13,7 @@ As part of: Lithium (https://github.com/CaffeineMC/lithium)
 Licensed under: LGPL-3.0 (https://www.gnu.org/licenses/lgpl-3.0.html)
 
 diff --git a/net/minecraft/world/level/GameRules.java b/net/minecraft/world/level/GameRules.java
-index d510503a8ad272255aeba20a916642828023fd19..e4ac7ee4e39b609aa70d6d4b766962a4c942911e 100644
+index d510503..e4ac7ee 100644
 --- a/net/minecraft/world/level/GameRules.java
 +++ b/net/minecraft/world/level/GameRules.java
 @@ -288,7 +288,7 @@ public class GameRules {

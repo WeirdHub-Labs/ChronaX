@@ -9,7 +9,7 @@ Gale - https://galemc.org
 The JMH benchmark of this patch can be found in SunBox's `FasterFloatingPointPositiveModulo`
 
 diff --git a/net/minecraft/util/Mth.java b/net/minecraft/util/Mth.java
-index 5cf68a28b09f6f877667622c4df7c059951b553d..c7547b66ea54af6e904c4ccdc68bc64dbd96720d 100644
+index 5cf68a2..c7547b6 100644
 --- a/net/minecraft/util/Mth.java
 +++ b/net/minecraft/util/Mth.java
 @@ -149,14 +149,26 @@ public class Mth {
@@ -42,7 +42,7 @@ index 5cf68a28b09f6f877667622c4df7c059951b553d..c7547b66ea54af6e904c4ccdc68bc64d
          return number % multiple == 0;
      }
 diff --git a/net/minecraft/world/level/levelgen/blending/Blender.java b/net/minecraft/world/level/levelgen/blending/Blender.java
-index 1e61bda5bed34eb8ed5727c528e218a1a1b72bd3..001b3cec50498186ab4f309118776c2ed6cce911 100644
+index 1e61bda..001b3ce 100644
 --- a/net/minecraft/world/level/levelgen/blending/Blender.java
 +++ b/net/minecraft/world/level/levelgen/blending/Blender.java
 @@ -144,7 +144,7 @@ public class Blender {

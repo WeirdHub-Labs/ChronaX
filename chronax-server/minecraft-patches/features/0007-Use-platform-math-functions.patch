@@ -99,7 +99,7 @@ public class Main {
 ```
 
 diff --git a/net/minecraft/util/Mth.java b/net/minecraft/util/Mth.java
-index e2602c6d817794616eb05a471077447804b835a1..5cf68a28b09f6f877667622c4df7c059951b553d 100644
+index e2602c6..5cf68a2 100644
 --- a/net/minecraft/util/Mth.java
 +++ b/net/minecraft/util/Mth.java
 @@ -58,18 +58,15 @@ public class Mth {

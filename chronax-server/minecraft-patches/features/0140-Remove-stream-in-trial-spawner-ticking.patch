@@ -5,7 +5,7 @@ Subject: [PATCH] Remove stream in trial spawner ticking
 
 
 diff --git a/net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerState.java b/net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerState.java
-index 3e3380dfe8fde979f0d843813583d6f07efb96c4..f4b092e3c81f692aa4632e116960e71eb084bdc8 100644
+index 3e3380d..f4b092e 100644
 --- a/net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerState.java
 +++ b/net/minecraft/world/level/block/entity/trialspawner/TrialSpawnerState.java
 @@ -173,17 +173,21 @@ public enum TrialSpawnerState implements StringRepresentable {

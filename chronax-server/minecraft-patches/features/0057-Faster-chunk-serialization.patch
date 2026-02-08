@@ -16,7 +16,7 @@ As part of: Lithium (https://github.com/CaffeineMC/lithium)
 Licensed under: LGPL-3.0 (https://www.gnu.org/licenses/lgpl-3.0.html)
 
 diff --git a/net/minecraft/util/BitStorage.java b/net/minecraft/util/BitStorage.java
-index 02502d50f0255f5bbcc0ecb965abb48cc1a112da..e1f4ca261d106d176298b2afc016f5168abaa06b 100644
+index 02502d5..e1f4ca2 100644
 --- a/net/minecraft/util/BitStorage.java
 +++ b/net/minecraft/util/BitStorage.java
 @@ -38,4 +38,6 @@ public interface BitStorage extends ca.spottedleaf.moonrise.patches.block_counti
@@ -27,7 +27,7 @@ index 02502d50f0255f5bbcc0ecb965abb48cc1a112da..e1f4ca261d106d176298b2afc016f516
 +    <T> void compact(net.minecraft.world.level.chunk.Palette<T> srcPalette, net.minecraft.world.level.chunk.Palette<T> dstPalette, short[] out); // Gale - Lithium - faster chunk serialization
  }
 diff --git a/net/minecraft/util/SimpleBitStorage.java b/net/minecraft/util/SimpleBitStorage.java
-index e6306a68c8652d4c5d22d5ecb1416f5f931f76ee..8091f0c0a536047ead4966e70785962e87faad9a 100644
+index e6306a6..8091f0c 100644
 --- a/net/minecraft/util/SimpleBitStorage.java
 +++ b/net/minecraft/util/SimpleBitStorage.java
 @@ -465,4 +465,45 @@ public class SimpleBitStorage implements BitStorage {
@@ -77,7 +77,7 @@ index e6306a68c8652d4c5d22d5ecb1416f5f931f76ee..8091f0c0a536047ead4966e70785962e
 +
  }
 diff --git a/net/minecraft/util/ZeroBitStorage.java b/net/minecraft/util/ZeroBitStorage.java
-index 5c1103ef028e5ffe6ce0eadc861dd3b2c8f3ed9f..828ced8aa5665c6f5d0b121947719c4e2ba591fe 100644
+index 5c1103e..828ced8 100644
 --- a/net/minecraft/util/ZeroBitStorage.java
 +++ b/net/minecraft/util/ZeroBitStorage.java
 @@ -80,4 +80,6 @@ public class ZeroBitStorage implements BitStorage {
@@ -88,7 +88,7 @@ index 5c1103ef028e5ffe6ce0eadc861dd3b2c8f3ed9f..828ced8aa5665c6f5d0b121947719c4e
 +    @Override public <T> void compact(net.minecraft.world.level.chunk.Palette<T> srcPalette, net.minecraft.world.level.chunk.Palette<T> dstPalette, short[] out) {}  // Gale - Lithium - faster chunk serialization
  }
 diff --git a/net/minecraft/world/level/chunk/PalettedContainer.java b/net/minecraft/world/level/chunk/PalettedContainer.java
-index a251ba67644cd02a0b00d7c8b0e2c64aa5e26291..49220967392331dd9928a539da6e6052b007e318 100644
+index a251ba6..4922096 100644
 --- a/net/minecraft/world/level/chunk/PalettedContainer.java
 +++ b/net/minecraft/world/level/chunk/PalettedContainer.java
 @@ -24,6 +24,22 @@ import net.minecraft.util.ThreadingDetector;

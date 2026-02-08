@@ -5,7 +5,7 @@ Subject: [PATCH] Rebrand
 
 
 diff --git a/net/minecraft/CrashReport.java b/net/minecraft/CrashReport.java
-index 3e0e88afcf010d9a3d46e48bca5cbdf98fe97544..18e63dca2a315ad01fa5b80ec126f4eac71f45fd 100644
+index 3e0e88a..18e63dc 100644
 --- a/net/minecraft/CrashReport.java
 +++ b/net/minecraft/CrashReport.java
 @@ -30,6 +30,7 @@ public class CrashReport {
@@ -35,7 +35,7 @@ index 3e0e88afcf010d9a3d46e48bca5cbdf98fe97544..18e63dca2a315ad01fa5b80ec126f4ea
  
      public SystemReport getSystemReport() {
 diff --git a/net/minecraft/world/damagesource/DamageSource.java b/net/minecraft/world/damagesource/DamageSource.java
-index 5fa92eef9c6b88cf96d3fe427e4d4f16953e8094..5a663f66820d95449ccf9117e72159a10bcd04d6 100644
+index 5fa92ee..5a663f6 100644
 --- a/net/minecraft/world/damagesource/DamageSource.java
 +++ b/net/minecraft/world/damagesource/DamageSource.java
 @@ -75,7 +75,7 @@ public class DamageSource {
@@ -48,7 +48,7 @@ index 5fa92eef9c6b88cf96d3fe427e4d4f16953e8094..5a663f66820d95449ccf9117e72159a1
          final DamageSource damageSource = this.copy();
          damageSource.eventEntityDamager = entity;
 diff --git a/net/minecraft/world/level/chunk/storage/RegionFileStorage.java b/net/minecraft/world/level/chunk/storage/RegionFileStorage.java
-index 384f2cd090d6d23bd1308d6e82c24338f2bf55d1..3634d68c77ee99567b51a9a848d7cbbb218a0ba7 100644
+index 384f2cd..3634d68 100644
 --- a/net/minecraft/world/level/chunk/storage/RegionFileStorage.java
 +++ b/net/minecraft/world/level/chunk/storage/RegionFileStorage.java
 @@ -308,7 +308,7 @@ public class RegionFileStorage implements AutoCloseable, ca.spottedleaf.moonrise

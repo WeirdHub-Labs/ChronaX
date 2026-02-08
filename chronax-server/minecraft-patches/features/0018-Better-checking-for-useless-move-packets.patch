@@ -31,7 +31,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 diff --git a/net/minecraft/server/level/ServerEntity.java b/net/minecraft/server/level/ServerEntity.java
-index e958972ca09eb0ab07d81990e661076ab0371850..5df8ee3955593e70f0e67e91431e464d177bdeeb 100644
+index e958972..5df8ee3 100644
 --- a/net/minecraft/server/level/ServerEntity.java
 +++ b/net/minecraft/server/level/ServerEntity.java
 @@ -193,19 +193,25 @@ public class ServerEntity {

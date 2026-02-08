@@ -5,7 +5,7 @@ Subject: [PATCH] Configurable vanilla username check
 
 
 diff --git a/net/minecraft/server/level/ServerPlayer.java b/net/minecraft/server/level/ServerPlayer.java
-index fb585637383db4592f97f0c9040ffa86afb43c6a..5381986c9d283d3b22c59d80acf246dab99771c5 100644
+index fb58563..5381986 100644
 --- a/net/minecraft/server/level/ServerPlayer.java
 +++ b/net/minecraft/server/level/ServerPlayer.java
 @@ -2466,7 +2466,7 @@ public class ServerPlayer extends Player implements ca.spottedleaf.moonrise.patc
@@ -18,7 +18,7 @@ index fb585637383db4592f97f0c9040ffa86afb43c6a..5381986c9d283d3b22c59d80acf246da
              String suffix = (split.length > 1 ? split[1] : "").replace(org.purpurmc.purpur.PurpurConfig.afkTabListSuffix, "");
              if (afk) {
 diff --git a/net/minecraft/server/network/ServerLoginPacketListenerImpl.java b/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-index 6d320ed179393e47398c44f2ba2b2285016f349e..19a56f8c980f739bff54fb067ccf293286f16faf 100644
+index 6d320ed..19a56f8 100644
 --- a/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 @@ -163,11 +163,20 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener,
@@ -70,7 +70,7 @@ index 6d320ed179393e47398c44f2ba2b2285016f349e..19a56f8c980f739bff54fb067ccf2932
          uniqueId = gameprofile.getId();
          // Paper end - Add more fields to AsyncPlayerPreLoginEvent
 diff --git a/net/minecraft/server/players/GameProfileCache.java b/net/minecraft/server/players/GameProfileCache.java
-index 066f84df5c31242ab542932f1e243369d0e766e2..223f39d2e6d82815af14d437a8c886ae591be597 100644
+index 066f84d..223f39d 100644
 --- a/net/minecraft/server/players/GameProfileCache.java
 +++ b/net/minecraft/server/players/GameProfileCache.java
 @@ -75,7 +75,7 @@ public class GameProfileCache {
@@ -83,7 +83,7 @@ index 066f84df5c31242ab542932f1e243369d0e766e2..223f39d2e6d82815af14d437a8c886ae
          } else {
              final boolean shouldLookup = !org.apache.commons.lang3.StringUtils.isBlank(name)  // Paper - Don't lookup a profile with a blank name
 diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
-index 6396083993d248683b887774d2db3f3f03825033..883869d39319e0f98c24d356beab2705d2fa769c 100644
+index 6396083..883869d 100644
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
 @@ -136,6 +136,7 @@ public abstract class PlayerList {
@@ -103,7 +103,7 @@ index 6396083993d248683b887774d2db3f3f03825033..883869d39319e0f98c24d356beab2705
          this.server.getCustomBossEvents().onPlayerDisconnect(player);
          UUID uuid = player.getUUID();
 diff --git a/net/minecraft/util/StringUtil.java b/net/minecraft/util/StringUtil.java
-index c3a99fe7b49858bc0ca9a7f800b0db40465f6901..d344857a20bfed20d8ffd422c0e6f2bd96b2ae8f 100644
+index c3a99fe..d344857 100644
 --- a/net/minecraft/util/StringUtil.java
 +++ b/net/minecraft/util/StringUtil.java
 @@ -64,6 +64,15 @@ public class StringUtil {
@@ -137,7 +137,7 @@ index c3a99fe7b49858bc0ca9a7f800b0db40465f6901..d344857a20bfed20d8ffd422c0e6f2bd
              return false;
          }
 diff --git a/net/minecraft/world/item/component/ResolvableProfile.java b/net/minecraft/world/item/component/ResolvableProfile.java
-index 48517612ff40c83069a52b817a1af9e6ef180db5..c1937cc39c75c03896f37ea1b516cc5b72e74969 100644
+index 4851761..c1937cc 100644
 --- a/net/minecraft/world/item/component/ResolvableProfile.java
 +++ b/net/minecraft/world/item/component/ResolvableProfile.java
 @@ -39,6 +39,15 @@ public record ResolvableProfile(Optional<String> name, Optional<UUID> id, Proper

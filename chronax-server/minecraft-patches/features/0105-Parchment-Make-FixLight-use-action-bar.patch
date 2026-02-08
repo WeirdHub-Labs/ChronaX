@@ -7,7 +7,7 @@ Original license: GPLv3
 Original project: https://github.com/ProjectEdenGG/Parchment
 
 diff --git a/io/papermc/paper/command/subcommands/FixLightCommand.java b/io/papermc/paper/command/subcommands/FixLightCommand.java
-index 85950a1aa732ab8c01ad28bec9e0de140e1a172e..8e8d1a38290c2dc3f88deda64d050e89273a5b89 100644
+index 85950a1..8e8d1a3 100644
 --- a/io/papermc/paper/command/subcommands/FixLightCommand.java
 +++ b/io/papermc/paper/command/subcommands/FixLightCommand.java
 @@ -95,17 +95,20 @@ public final class FixLightCommand implements PaperSubcommand {

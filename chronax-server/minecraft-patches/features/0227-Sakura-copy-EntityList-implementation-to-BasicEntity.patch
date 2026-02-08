@@ -7,7 +7,7 @@ Original license: MIT
 Original project: https://github.com/Samsuik/Sakura
 
 diff --git a/ca/spottedleaf/moonrise/patches/chunk_system/level/entity/ChunkEntitySlices.java b/ca/spottedleaf/moonrise/patches/chunk_system/level/entity/ChunkEntitySlices.java
-index fee4a7452178c274eb835d758b718d8e874d79d0..7f508c50e451a0689218cd36e6ac993f87092c04 100644
+index fee4a74..7f508c5 100644
 --- a/ca/spottedleaf/moonrise/patches/chunk_system/level/entity/ChunkEntitySlices.java
 +++ b/ca/spottedleaf/moonrise/patches/chunk_system/level/entity/ChunkEntitySlices.java
 @@ -404,6 +404,13 @@ public final class ChunkEntitySlices {

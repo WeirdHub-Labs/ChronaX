@@ -5,7 +5,7 @@ Subject: [PATCH] optimize collidedAlongVector
 
 
 diff --git a/net/minecraft/world/entity/Entity.java b/net/minecraft/world/entity/Entity.java
-index f6d619709d4e5b0e6d1b943226579d7388835cdb..dea7ebe75a043b509e49a589a66ec99abb32d6ed 100644
+index f6d6197..dea7ebe 100644
 --- a/net/minecraft/world/entity/Entity.java
 +++ b/net/minecraft/world/entity/Entity.java
 @@ -1749,7 +1749,7 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
@@ -50,7 +50,7 @@ index f6d619709d4e5b0e6d1b943226579d7388835cdb..dea7ebe75a043b509e49a589a66ec99a
      }
  
 diff --git a/net/minecraft/world/entity/monster/Ghast.java b/net/minecraft/world/entity/monster/Ghast.java
-index c249946248a5465fd9b08eac07a306ad2aee2ae6..671b6874b8c322f1ccc85163e9c38a79e1da93ed 100644
+index c249946..671b687 100644
 --- a/net/minecraft/world/entity/monster/Ghast.java
 +++ b/net/minecraft/world/entity/monster/Ghast.java
 @@ -357,7 +357,7 @@ public class Ghast extends Mob implements Enemy {
@@ -63,7 +63,7 @@ index c249946248a5465fd9b08eac07a306ad2aee2ae6..671b6874b8c322f1ccc85163e9c38a79
                  if (!this.careful) {
                      return flag1;
 diff --git a/net/minecraft/world/phys/AABB.java b/net/minecraft/world/phys/AABB.java
-index 2010b30bf1050273694db707b0059ed8251a41f8..67f1b17e4ecfe1bea469faf0d776ae1626fe9b28 100644
+index 2010b30..67f1b17 100644
 --- a/net/minecraft/world/phys/AABB.java
 +++ b/net/minecraft/world/phys/AABB.java
 @@ -418,21 +418,34 @@ public class AABB {

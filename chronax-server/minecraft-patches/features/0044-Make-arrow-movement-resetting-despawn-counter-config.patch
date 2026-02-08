@@ -42,7 +42,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 diff --git a/net/minecraft/world/entity/projectile/AbstractArrow.java b/net/minecraft/world/entity/projectile/AbstractArrow.java
-index 92295796823d9b7595a85754f429f25bda65cfdd..9874c20c2c1b0ebdbaa58f719ddefdac463accbe 100644
+index 9229579..9874c20 100644
 --- a/net/minecraft/world/entity/projectile/AbstractArrow.java
 +++ b/net/minecraft/world/entity/projectile/AbstractArrow.java
 @@ -350,7 +350,7 @@ public abstract class AbstractArrow extends Projectile {

@@ -21,7 +21,7 @@ Given that we do a lot of varint writing as well, this should provide a small pe
 This includes a test to ensure that the behavior is as expected and fixes the initialization loop so that the correct results will be given. Much thanks to @octylFractal for acting as my duck while trying to figure this out.
 
 diff --git a/net/minecraft/network/VarLong.java b/net/minecraft/network/VarLong.java
-index df9a85b19a9767c85f02837af6835f7ddb6c7dc3..ff9d84bf761797a8f695926c3cbb12c07609365d 100644
+index df9a85b..ff9d84b 100644
 --- a/net/minecraft/network/VarLong.java
 +++ b/net/minecraft/network/VarLong.java
 @@ -9,6 +9,18 @@ public class VarLong {

@@ -14,7 +14,7 @@ Moves the deactivate event call into the onRemove method for the beacon block it
 The field I added feels a bit wrong but it works, it's to prevent the activation event being called immediately after loading, can't see any better way to differentiate between a newly placed beacon and a newly loaded one.
 
 diff --git a/net/minecraft/world/level/block/entity/BeaconBlockEntity.java b/net/minecraft/world/level/block/entity/BeaconBlockEntity.java
-index c2e15c6e1c6bfc5a9d89afc9b8aa9551bad2cc8f..bf79ba5da09b4b3a7152aa5f5175e86b79ec124b 100644
+index c2e15c6..bf79ba5 100644
 --- a/net/minecraft/world/level/block/entity/BeaconBlockEntity.java
 +++ b/net/minecraft/world/level/block/entity/BeaconBlockEntity.java
 @@ -173,6 +173,8 @@ public class BeaconBlockEntity extends BlockEntity implements MenuProvider, Name

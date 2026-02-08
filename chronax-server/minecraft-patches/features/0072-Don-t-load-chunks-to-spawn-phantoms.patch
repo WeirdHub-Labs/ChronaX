@@ -13,7 +13,7 @@ As part of: MultiPaper (https://github.com/MultiPaper/MultiPaper)
 Licensed under: GPL-3.0 (https://www.gnu.org/licenses/gpl-3.0.html)
 
 diff --git a/net/minecraft/world/level/levelgen/PhantomSpawner.java b/net/minecraft/world/level/levelgen/PhantomSpawner.java
-index d99bda335e7d3b49919fd6732b0052a9da70df70..acd3161d88a22a4f6246321cb2af9195e416f94c 100644
+index d99bda3..acd3161 100644
 --- a/net/minecraft/world/level/levelgen/PhantomSpawner.java
 +++ b/net/minecraft/world/level/levelgen/PhantomSpawner.java
 @@ -52,8 +52,16 @@ public class PhantomSpawner implements CustomSpawner {

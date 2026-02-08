@@ -5,7 +5,7 @@ Subject: [PATCH] cache biome for mob spawning and advancements
 
 
 diff --git a/net/minecraft/advancements/critereon/LocationPredicate.java b/net/minecraft/advancements/critereon/LocationPredicate.java
-index a26a5311f87873e0d4d26fda9cb8956a32ee81e8..7ba5c85bbce8528a4df072e63948673300630a9d 100644
+index a26a531..7ba5c85 100644
 --- a/net/minecraft/advancements/critereon/LocationPredicate.java
 +++ b/net/minecraft/advancements/critereon/LocationPredicate.java
 @@ -49,7 +49,7 @@ public record LocationPredicate(
@@ -18,7 +18,7 @@ index a26a5311f87873e0d4d26fda9cb8956a32ee81e8..7ba5c85bbce8528a4df072e639486733
                  && (!this.smokey.isPresent() || isLoaded && this.smokey.get() == CampfireBlock.isSmokeyPos(level, blockPos))
                  && (!this.light.isPresent() || this.light.get().matches(level, blockPos))
 diff --git a/net/minecraft/world/level/LevelReader.java b/net/minecraft/world/level/LevelReader.java
-index 0842fd6488c8b27d98c4344e1244996b4c0e9912..55c7f7486c293d4434b7e3facdbef034d105aa19 100644
+index 0842fd6..55c7f74 100644
 --- a/net/minecraft/world/level/LevelReader.java
 +++ b/net/minecraft/world/level/LevelReader.java
 @@ -57,6 +57,12 @@ public interface LevelReader extends ca.spottedleaf.moonrise.patches.chunk_syste
@@ -35,7 +35,7 @@ index 0842fd6488c8b27d98c4344e1244996b4c0e9912..55c7f7486c293d4434b7e3facdbef034
          int floor = Mth.floor(aabb.minX);
          int floor1 = Mth.floor(aabb.maxX);
 diff --git a/net/minecraft/world/level/NaturalSpawner.java b/net/minecraft/world/level/NaturalSpawner.java
-index 838146e997a2033c3d2a96602a252178093d263e..bb655318f49242858e2c25d5469705c0c314ed85 100644
+index 838146e..bb65531 100644
 --- a/net/minecraft/world/level/NaturalSpawner.java
 +++ b/net/minecraft/world/level/NaturalSpawner.java
 @@ -443,7 +443,7 @@ public final class NaturalSpawner {
@@ -57,7 +57,7 @@ index 838146e997a2033c3d2a96602a252178093d263e..bb655318f49242858e2c25d5469705c0
  
      public static boolean isInNetherFortressBounds(BlockPos pos, ServerLevel level, MobCategory category, StructureManager structureManager) {
 diff --git a/net/minecraft/world/level/biome/BiomeManager.java b/net/minecraft/world/level/biome/BiomeManager.java
-index a48175a7ebb1788ace46395621ed78d910178a53..66084a596ecbfb47902ee0a779a811410d01513f 100644
+index a48175a..66084a5 100644
 --- a/net/minecraft/world/level/biome/BiomeManager.java
 +++ b/net/minecraft/world/level/biome/BiomeManager.java
 @@ -15,10 +15,23 @@ public class BiomeManager {

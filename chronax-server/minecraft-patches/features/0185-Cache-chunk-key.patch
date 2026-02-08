@@ -9,7 +9,7 @@ This patch didn't cache SectionPos or BlockPos to chunkKey, since they are mutab
 The JMH benchmark of this patch can be found in SunBox's `CacheChunkKey`
 
 diff --git a/ca/spottedleaf/moonrise/common/misc/NearbyPlayers.java b/ca/spottedleaf/moonrise/common/misc/NearbyPlayers.java
-index 1b8193587814225c2ef2c5d9e667436eb50ff6c5..288a3eb57f3431dd624ad8a4b08684563abbc5ad 100644
+index 1b81935..288a3eb 100644
 --- a/ca/spottedleaf/moonrise/common/misc/NearbyPlayers.java
 +++ b/ca/spottedleaf/moonrise/common/misc/NearbyPlayers.java
 @@ -127,7 +127,7 @@ public final class NearbyPlayers {
@@ -31,7 +31,7 @@ index 1b8193587814225c2ef2c5d9e667436eb50ff6c5..288a3eb57f3431dd624ad8a4b0868456
  
      public ReferenceList<ServerPlayer> getPlayersByChunk(final int chunkX, final int chunkZ, final NearbyMapType type) {
 diff --git a/ca/spottedleaf/moonrise/patches/chunk_system/level/entity/server/ServerEntityLookup.java b/ca/spottedleaf/moonrise/patches/chunk_system/level/entity/server/ServerEntityLookup.java
-index 47a600204ae1a1e7f166284dc26a1a7afc1dbecc..cddb42e1668c675e7d1528a56ec0ccdefd81d91c 100644
+index 47a6002..cddb42e 100644
 --- a/ca/spottedleaf/moonrise/patches/chunk_system/level/entity/server/ServerEntityLookup.java
 +++ b/ca/spottedleaf/moonrise/patches/chunk_system/level/entity/server/ServerEntityLookup.java
 @@ -92,7 +92,7 @@ public final class ServerEntityLookup extends EntityLookup {
@@ -53,7 +53,7 @@ index 47a600204ae1a1e7f166284dc26a1a7afc1dbecc..cddb42e1668c675e7d1528a56ec0ccde
      }
  
 diff --git a/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/ChunkHolderManager.java b/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/ChunkHolderManager.java
-index 6ce4a98e4d3b633e3c87944c23b6b3f0ff58f159..0f5966932c4211922eccac09ab164fcb69dad582 100644
+index 6ce4a98..0f59669 100644
 --- a/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/ChunkHolderManager.java
 +++ b/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/ChunkHolderManager.java
 @@ -542,7 +542,7 @@ public final class ChunkHolderManager {
@@ -93,7 +93,7 @@ index 6ce4a98e4d3b633e3c87944c23b6b3f0ff58f159..0f5966932c4211922eccac09ab164fcb
  
          public static <T> TicketOperation<T, T> removeOp(final int chunkX, final int chunkZ, final TicketType type, final int ticketLevel, final T identifier) {
 diff --git a/ca/spottedleaf/moonrise/patches/starlight/light/StarLightInterface.java b/ca/spottedleaf/moonrise/patches/starlight/light/StarLightInterface.java
-index 51f4dd4f583dfbd16cb00f1cb4418d1044cecb1c..e1812910d7c3941dec3d4f1c90f4cf966a631de3 100644
+index 51f4dd4..e181291 100644
 --- a/ca/spottedleaf/moonrise/patches/starlight/light/StarLightInterface.java
 +++ b/ca/spottedleaf/moonrise/patches/starlight/light/StarLightInterface.java
 @@ -817,7 +817,7 @@ public final class StarLightInterface {
@@ -106,7 +106,7 @@ index 51f4dd4f583dfbd16cb00f1cb4418d1044cecb1c..e1812910d7c3941dec3d4f1c90f4cf96
                      valueInMap = new ServerChunkTasks(
                              keyInMap, ServerLightQueue.this.lightInterface, ServerLightQueue.this, priority
 diff --git a/net/minecraft/server/level/DistanceManager.java b/net/minecraft/server/level/DistanceManager.java
-index 50bc5b940812432bc472e5b272582efb8bbfc7a7..d55677f66ec7e2d4f2a96556f874e719d98376ca 100644
+index 50bc5b9..d55677f 100644
 --- a/net/minecraft/server/level/DistanceManager.java
 +++ b/net/minecraft/server/level/DistanceManager.java
 @@ -178,7 +178,7 @@ public abstract class DistanceManager implements ca.spottedleaf.moonrise.patches
@@ -119,7 +119,7 @@ index 50bc5b940812432bc472e5b272582efb8bbfc7a7..d55677f66ec7e2d4f2a96556f874e719
          // Paper end - rewrite chunk system
      }
 diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
-index c73d4ca35ad35b21a9df283a18928d7738c172d0..08a6a3c3eb6e270ec3d02e31b26d5fa547bb66b2 100644
+index c73d4ca..08a6a3c 100644
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -507,7 +507,7 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe
@@ -150,7 +150,7 @@ index c73d4ca35ad35b21a9df283a18928d7738c172d0..08a6a3c3eb6e270ec3d02e31b26d5fa5
          // Paper end - rewrite chunk system
      }
 diff --git a/net/minecraft/world/level/ChunkPos.java b/net/minecraft/world/level/ChunkPos.java
-index 6e2b2d258e47dcca30a5ad9f4f492598f2bc21fb..6947016aa06670f340b6fb51c74ed33de9bf591b 100644
+index 6e2b2d2..6947016 100644
 --- a/net/minecraft/world/level/ChunkPos.java
 +++ b/net/minecraft/world/level/ChunkPos.java
 @@ -54,19 +54,19 @@ public class ChunkPos {
@@ -191,7 +191,7 @@ index 6e2b2d258e47dcca30a5ad9f4f492598f2bc21fb..6947016aa06670f340b6fb51c74ed33d
  
      public static int getX(long chunkAsLong) {
 diff --git a/net/minecraft/world/waypoints/WaypointTransmitter.java b/net/minecraft/world/waypoints/WaypointTransmitter.java
-index 5d1c933dfa862d0733777d305563a89ea7827f07..c4db265b469cbd37530c3391f99d08ecac59d195 100644
+index 5d1c933..c4db265 100644
 --- a/net/minecraft/world/waypoints/WaypointTransmitter.java
 +++ b/net/minecraft/world/waypoints/WaypointTransmitter.java
 @@ -34,7 +34,7 @@ public interface WaypointTransmitter extends Waypoint {

@@ -5,7 +5,7 @@ Subject: [PATCH] optimize entity in fluid
 
 
 diff --git a/net/minecraft/world/entity/Entity.java b/net/minecraft/world/entity/Entity.java
-index e3e5ad1239ba114a295a829c61ddebc8d5e437fe..835e76da80c1835f6b8ba0fd6f0c0fc6dfe7bea4 100644
+index e3e5ad1..835e76d 100644
 --- a/net/minecraft/world/entity/Entity.java
 +++ b/net/minecraft/world/entity/Entity.java
 @@ -4845,12 +4845,12 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
@@ -42,7 +42,7 @@ index e3e5ad1239ba114a295a829c61ddebc8d5e437fe..835e76da80c1835f6b8ba0fd6f0c0fc6
          }
  
 diff --git a/net/minecraft/world/entity/LivingEntity.java b/net/minecraft/world/entity/LivingEntity.java
-index 1928293100abba5d3765842755c8e9e812dc64bf..9082d41be5f390c9bd4d7afe4079e1309cd2a7c3 100644
+index 1928293..9082d41 100644
 --- a/net/minecraft/world/entity/LivingEntity.java
 +++ b/net/minecraft/world/entity/LivingEntity.java
 @@ -3091,7 +3091,11 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin

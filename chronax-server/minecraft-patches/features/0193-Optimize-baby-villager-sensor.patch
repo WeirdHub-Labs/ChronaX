@@ -8,7 +8,7 @@ under 2048 villagers situation.
 And ~42.93% improvement (~764ms -> ~436ms), under 512 villagers situation.
 
 diff --git a/net/minecraft/world/entity/ai/memory/NearestVisibleLivingEntities.java b/net/minecraft/world/entity/ai/memory/NearestVisibleLivingEntities.java
-index 1c010e5b75506945e5281021a2ddad424044d28f..2b973a3ba7d65330fa4690e71e5321c28457ec61 100644
+index 1c010e5..2b973a3 100644
 --- a/net/minecraft/world/entity/ai/memory/NearestVisibleLivingEntities.java
 +++ b/net/minecraft/world/entity/ai/memory/NearestVisibleLivingEntities.java
 @@ -42,7 +42,7 @@ public class NearestVisibleLivingEntities {
@@ -21,7 +21,7 @@ index 1c010e5b75506945e5281021a2ddad424044d28f..2b973a3ba7d65330fa4690e71e5321c2
  
      public Stream<LivingEntity> find(Predicate<LivingEntity> predicate) {
 diff --git a/net/minecraft/world/entity/ai/sensing/VillagerBabiesSensor.java b/net/minecraft/world/entity/ai/sensing/VillagerBabiesSensor.java
-index 24d1928445b5571e040a2b12d5c82e77a880d9bd..4b2964aeb4e21fe41f42c2902db63ce28322063a 100644
+index 24d1928..4b2964a 100644
 --- a/net/minecraft/world/entity/ai/sensing/VillagerBabiesSensor.java
 +++ b/net/minecraft/world/entity/ai/sensing/VillagerBabiesSensor.java
 @@ -22,11 +22,25 @@ public class VillagerBabiesSensor extends Sensor<LivingEntity> {

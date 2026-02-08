@@ -17,7 +17,7 @@ Licensed under: GPL-3.0 (https://www.gnu.org/licenses/gpl-3.0.html)
 This can help to hide annoying scanning bots from showing up in console.
 
 diff --git a/net/minecraft/server/network/ServerLoginPacketListenerImpl.java b/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
-index 20ba45054c243fbb85e50cf0bdf75648730cb0bc..a9864c7619751f89f81434823538dc5658047fb9 100644
+index 20ba450..a9864c7 100644
 --- a/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerLoginPacketListenerImpl.java
 @@ -124,6 +124,15 @@ public class ServerLoginPacketListenerImpl implements ServerLoginPacketListener,

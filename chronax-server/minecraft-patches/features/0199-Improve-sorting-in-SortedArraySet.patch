@@ -8,7 +8,7 @@ For size 16: ~5% improvement (735.589 ns vs 697.095 ns)
 For size 4096: ~10% improvement (1563.115 ns vs 1396.803 ns)
 
 diff --git a/net/minecraft/util/SortedArraySet.java b/net/minecraft/util/SortedArraySet.java
-index 62c643febe5d642f5741ac2dcec1606a844593be..e8bad6e1c0aeb67005661db6ed42f745554fa652 100644
+index 62c643f..e8bad6e 100644
 --- a/net/minecraft/util/SortedArraySet.java
 +++ b/net/minecraft/util/SortedArraySet.java
 @@ -12,6 +12,7 @@ import net.minecraft.Util;

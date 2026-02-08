@@ -37,7 +37,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 diff --git a/net/minecraft/server/PlayerAdvancements.java b/net/minecraft/server/PlayerAdvancements.java
-index 8edff6b7e6605e08277a77f5854d2483bffe5f1c..9ecc19b8a7d4e6b27335b542308f78e5005b0e15 100644
+index 8edff6b..9ecc19b 100644
 --- a/net/minecraft/server/PlayerAdvancements.java
 +++ b/net/minecraft/server/PlayerAdvancements.java
 @@ -147,7 +147,7 @@ public class PlayerAdvancements {

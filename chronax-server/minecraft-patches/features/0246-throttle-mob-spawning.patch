@@ -5,7 +5,7 @@ Subject: [PATCH] throttle mob spawning
 
 
 diff --git a/net/minecraft/world/level/NaturalSpawner.java b/net/minecraft/world/level/NaturalSpawner.java
-index ea120c7737ba82586c46ad091a4bf0ceeb2e81e3..6c6d768d4aa5a8c90bff2433489d777c5e66069b 100644
+index ea120c7..6c6d768 100644
 --- a/net/minecraft/world/level/NaturalSpawner.java
 +++ b/net/minecraft/world/level/NaturalSpawner.java
 @@ -195,6 +195,17 @@ public final class NaturalSpawner {

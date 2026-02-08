@@ -13,7 +13,7 @@ As part of: VMP (https://github.com/RelativityMC/VMP-fabric)
 Licensed under: MIT (https://opensource.org/licenses/MIT)
 
 diff --git a/net/minecraft/world/level/LocalMobCapCalculator.java b/net/minecraft/world/level/LocalMobCapCalculator.java
-index 9641219c190261dea0db5f95f040a705ba0a3ff9..635afc61ee441924e1d64dbcf6dbab057d80c740 100644
+index 9641219..635afc6 100644
 --- a/net/minecraft/world/level/LocalMobCapCalculator.java
 +++ b/net/minecraft/world/level/LocalMobCapCalculator.java
 @@ -42,14 +42,14 @@ public class LocalMobCapCalculator {

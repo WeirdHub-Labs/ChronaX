@@ -37,7 +37,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
-index 04d58f375aa31e308d88f2f663ac6a48bc9a868e..e8ccec1fafd91c18f649f259ce4929160f2025b7 100644
+index 04d58f3..e8ccec1 100644
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
 @@ -113,6 +113,7 @@ public abstract class PlayerList {
@@ -145,7 +145,7 @@ index 04d58f375aa31e308d88f2f663ac6a48bc9a868e..e8ccec1fafd91c18f649f259ce492916
      public void broadcastAll(Packet packet, net.minecraft.world.entity.player.Player entityhuman) {
          for (ServerPlayer entityplayer : this.players) { // Paper - replace for i with for each for thread safety
 diff --git a/net/minecraft/world/entity/player/Player.java b/net/minecraft/world/entity/player/Player.java
-index 84e4b4b97e00b65ea5258f5b35d39833942f3757..db43fcfa46658a3ac9ea14e6c4337b68c4f729ad 100644
+index 84e4b4b..db43fcf 100644
 --- a/net/minecraft/world/entity/player/Player.java
 +++ b/net/minecraft/world/entity/player/Player.java
 @@ -253,9 +253,12 @@ public abstract class Player extends LivingEntity {

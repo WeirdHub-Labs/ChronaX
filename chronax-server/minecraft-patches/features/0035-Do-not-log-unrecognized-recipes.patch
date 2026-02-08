@@ -37,7 +37,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 diff --git a/net/minecraft/stats/ServerRecipeBook.java b/net/minecraft/stats/ServerRecipeBook.java
-index 736a52c23da313bec6b25a9d1abf08816462403c..ad12ca2a43e75aee60c55b4b686ac3ffae19a6c1 100644
+index 736a52c..ad12ca2 100644
 --- a/net/minecraft/stats/ServerRecipeBook.java
 +++ b/net/minecraft/stats/ServerRecipeBook.java
 @@ -106,7 +106,7 @@ public class ServerRecipeBook extends RecipeBook {

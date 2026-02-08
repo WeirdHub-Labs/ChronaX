@@ -13,7 +13,7 @@ As part of: Lithium (https://github.com/CaffeineMC/lithium)
 Licensed under: LGPL-3.0 (https://www.gnu.org/licenses/lgpl-3.0.html)
 
 diff --git a/net/minecraft/world/entity/LivingEntity.java b/net/minecraft/world/entity/LivingEntity.java
-index b813bf88dc3e6add77e060df731211d1c57e7e69..2e4aaeb6054089d2a2c4cdbd892a9ac9dacee599 100644
+index b813bf8..2e4aaeb 100644
 --- a/net/minecraft/world/entity/LivingEntity.java
 +++ b/net/minecraft/world/entity/LivingEntity.java
 @@ -546,10 +546,9 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin

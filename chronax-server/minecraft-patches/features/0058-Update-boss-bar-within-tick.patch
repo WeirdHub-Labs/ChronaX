@@ -13,7 +13,7 @@ As part of: Lithium (https://github.com/CaffeineMC/lithium)
 Licensed under: LGPL-3.0 (https://www.gnu.org/licenses/lgpl-3.0.html)
 
 diff --git a/net/minecraft/world/entity/raid/Raid.java b/net/minecraft/world/entity/raid/Raid.java
-index b3a29ce523fb5de71589c7c17598bba17622f988..afcf185c4e2c0648c96a872fbe1fbebb6012d513 100644
+index b3a29ce..afcf185 100644
 --- a/net/minecraft/world/entity/raid/Raid.java
 +++ b/net/minecraft/world/entity/raid/Raid.java
 @@ -126,6 +126,7 @@ public class Raid {

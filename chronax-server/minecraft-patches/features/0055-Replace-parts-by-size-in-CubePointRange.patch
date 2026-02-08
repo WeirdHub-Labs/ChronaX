@@ -7,7 +7,7 @@ License: LGPL-3.0 (https://www.gnu.org/licenses/lgpl-3.0.html)
 Gale - https://galemc.org
 
 diff --git a/net/minecraft/world/phys/shapes/CubePointRange.java b/net/minecraft/world/phys/shapes/CubePointRange.java
-index 513adb0e75fb70d26f6056d22fe2be30b1a39296..9838c090a6476d9ab7b17f2556a74cba7f8b4bd9 100644
+index 513adb0..9838c09 100644
 --- a/net/minecraft/world/phys/shapes/CubePointRange.java
 +++ b/net/minecraft/world/phys/shapes/CubePointRange.java
 @@ -3,14 +3,14 @@ package net.minecraft.world.phys.shapes;

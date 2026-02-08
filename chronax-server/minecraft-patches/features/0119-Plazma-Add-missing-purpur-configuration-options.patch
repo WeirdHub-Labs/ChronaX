@@ -9,7 +9,7 @@ Original project: https://github.com/PlazmaMC/PlazmaBukkit
 Add more Purpur configurable options for entities
 
 diff --git a/net/minecraft/world/entity/animal/allay/Allay.java b/net/minecraft/world/entity/animal/allay/Allay.java
-index 8ced2ffe906a5653a9e4c353456a2b71ade9ee8d..0291f80470899f38de872271e602565b2161b520 100644
+index 8ced2ff..0291f80 100644
 --- a/net/minecraft/world/entity/animal/allay/Allay.java
 +++ b/net/minecraft/world/entity/animal/allay/Allay.java
 @@ -174,6 +174,18 @@ public class Allay extends PathfinderMob implements InventoryCarrier, VibrationS
@@ -32,7 +32,7 @@ index 8ced2ffe906a5653a9e4c353456a2b71ade9ee8d..0291f80470899f38de872271e602565b
      protected Brain.Provider<Allay> brainProvider() {
          return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
 diff --git a/net/minecraft/world/entity/animal/camel/Camel.java b/net/minecraft/world/entity/animal/camel/Camel.java
-index c2107133d3def5ef5de7837499d33b5dbf5c20b6..04c3fb56a4014025b6a9c01e97f0ffbd678b414a 100644
+index c210713..04c3fb5 100644
 --- a/net/minecraft/world/entity/animal/camel/Camel.java
 +++ b/net/minecraft/world/entity/animal/camel/Camel.java
 @@ -103,6 +103,18 @@ public class Camel extends AbstractHorse {
@@ -64,7 +64,7 @@ index c2107133d3def5ef5de7837499d33b5dbf5c20b6..04c3fb56a4014025b6a9c01e97f0ffbd
          CamelAi.updateActivity(this);
          super.customServerAiStep(level);
 diff --git a/net/minecraft/world/entity/animal/frog/Frog.java b/net/minecraft/world/entity/animal/frog/Frog.java
-index e016a3d9fce58d6bb85e491e88088e112ac4f843..d337b7f34d8fe558eb2aff571082cdebfdf6209c 100644
+index e016a3d..d337b7f 100644
 --- a/net/minecraft/world/entity/animal/frog/Frog.java
 +++ b/net/minecraft/world/entity/animal/frog/Frog.java
 @@ -170,6 +170,23 @@ public class Frog extends Animal {
@@ -92,7 +92,7 @@ index e016a3d9fce58d6bb85e491e88088e112ac4f843..d337b7f34d8fe558eb2aff571082cdeb
      protected Brain.Provider<Frog> brainProvider() {
          return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
 diff --git a/net/minecraft/world/entity/animal/frog/Tadpole.java b/net/minecraft/world/entity/animal/frog/Tadpole.java
-index 10bf3023de012986047fdc0aed0d83d848316732..8ede266ae541b4c25e942b842c5ad5e6693a261d 100644
+index 10bf302..8ede266 100644
 --- a/net/minecraft/world/entity/animal/frog/Tadpole.java
 +++ b/net/minecraft/world/entity/animal/frog/Tadpole.java
 @@ -108,6 +108,23 @@ public class Tadpole extends AbstractFish {
@@ -120,7 +120,7 @@ index 10bf3023de012986047fdc0aed0d83d848316732..8ede266ae541b4c25e942b842c5ad5e6
      protected PathNavigation createNavigation(Level level) {
          return new WaterBoundPathNavigation(this, level);
 diff --git a/net/minecraft/world/entity/animal/sniffer/Sniffer.java b/net/minecraft/world/entity/animal/sniffer/Sniffer.java
-index b30187ddfa806fb3e3dee1e3062e86d71d81ff79..4d872b3d21928a817795a21ee0c35ef1b9c0c34e 100644
+index b30187d..4d872b3 100644
 --- a/net/minecraft/world/entity/animal/sniffer/Sniffer.java
 +++ b/net/minecraft/world/entity/animal/sniffer/Sniffer.java
 @@ -119,6 +119,18 @@ public class Sniffer extends Animal {
@@ -143,7 +143,7 @@ index b30187ddfa806fb3e3dee1e3062e86d71d81ff79..4d872b3d21928a817795a21ee0c35ef1
      protected void defineSynchedData(SynchedEntityData.Builder builder) {
          super.defineSynchedData(builder);
 diff --git a/net/minecraft/world/entity/monster/creaking/Creaking.java b/net/minecraft/world/entity/monster/creaking/Creaking.java
-index 49f962bbbce22dd26555ee2092ceff96e82aa6b2..ef0522feaa1cc9704f778309c1e6cf1d68379376 100644
+index 49f962b..ef0522f 100644
 --- a/net/minecraft/world/entity/monster/creaking/Creaking.java
 +++ b/net/minecraft/world/entity/monster/creaking/Creaking.java
 @@ -132,6 +132,18 @@ public class Creaking extends Monster {
@@ -175,7 +175,7 @@ index 49f962bbbce22dd26555ee2092ceff96e82aa6b2..ef0522feaa1cc9704f778309c1e6cf1d
          CreakingAi.updateActivity(this);
      }
 diff --git a/net/minecraft/world/entity/monster/warden/Warden.java b/net/minecraft/world/entity/monster/warden/Warden.java
-index f626fa0c30873916f973f66e8d67c7e001c2630c..51c56751738c8991d8db770ff4f1b5877ee9f13d 100644
+index f626fa0..51c5675 100644
 --- a/net/minecraft/world/entity/monster/warden/Warden.java
 +++ b/net/minecraft/world/entity/monster/warden/Warden.java
 @@ -148,6 +148,23 @@ public class Warden extends Monster implements VibrationSystem {
@@ -203,7 +203,7 @@ index f626fa0c30873916f973f66e8d67c7e001c2630c..51c56751738c8991d8db770ff4f1b587
      public Packet<ClientGamePacketListener> getAddEntityPacket(ServerEntity entity) {
          return new ClientboundAddEntityPacket(this, entity, this.hasPose(Pose.EMERGING) ? 1 : 0);
 diff --git a/net/minecraft/world/entity/vehicle/AbstractChestBoat.java b/net/minecraft/world/entity/vehicle/AbstractChestBoat.java
-index 04b8d4be8d7b36585041b5ff69251d4150e54cae..c73840d0a08366b2d2ee3286589ab4e4e03d122d 100644
+index 04b8d4b..c73840d 100644
 --- a/net/minecraft/world/entity/vehicle/AbstractChestBoat.java
 +++ b/net/minecraft/world/entity/vehicle/AbstractChestBoat.java
 @@ -28,7 +28,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
@@ -225,7 +225,7 @@ index 04b8d4be8d7b36585041b5ff69251d4150e54cae..c73840d0a08366b2d2ee3286589ab4e4
  
      @Override
 diff --git a/org/purpurmc/purpur/PurpurConfig.java b/org/purpurmc/purpur/PurpurConfig.java
-index 88f737304d4f4a774956a1cc39b5c01c37a3891d..21fa7e0e6838bf9a81ee6faf19c944e69b1fe740 100644
+index 88f7373..21fa7e0 100644
 --- a/org/purpurmc/purpur/PurpurConfig.java
 +++ b/org/purpurmc/purpur/PurpurConfig.java
 @@ -317,6 +317,7 @@ public class PurpurConfig {
@@ -245,7 +245,7 @@ index 88f737304d4f4a774956a1cc39b5c01c37a3891d..21fa7e0e6838bf9a81ee6faf19c944e6
          org.bukkit.event.inventory.InventoryType.ENDER_CHEST.setDefaultSize(enderChestSixRows ? 54 : 27);
          enderChestPermissionRows = getBoolean("settings.blocks.ender_chest.use-permissions-for-rows", enderChestPermissionRows);
 diff --git a/org/purpurmc/purpur/PurpurWorldConfig.java b/org/purpurmc/purpur/PurpurWorldConfig.java
-index b3dd4862b9fa220f4aeabc3598169852f8b12482..a6370d8b7bb6e07c7e41beb78b1778351b41cde1 100644
+index b3dd486..a6370d8 100644
 --- a/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/org/purpurmc/purpur/PurpurWorldConfig.java
 @@ -1184,12 +1184,20 @@ public class PurpurWorldConfig {

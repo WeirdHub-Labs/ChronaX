@@ -5,7 +5,7 @@ Subject: [PATCH] optimize checkInsideBlocks
 
 
 diff --git a/net/minecraft/world/entity/Entity.java b/net/minecraft/world/entity/Entity.java
-index ea137958c70f80349041cd27d1503f7b8def2a69..a198c696e474372f49706b2758879b116cf9bc82 100644
+index ea13795..a198c69 100644
 --- a/net/minecraft/world/entity/Entity.java
 +++ b/net/minecraft/world/entity/Entity.java
 @@ -1700,76 +1700,61 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
@@ -125,7 +125,7 @@ index ea137958c70f80349041cd27d1503f7b8def2a69..a198c696e474372f49706b2758879b11
      private void debugBlockIntersection(BlockPos blockPos, boolean flag, boolean flag1) {
      }
 diff --git a/net/minecraft/world/entity/InsideBlockEffectApplier.java b/net/minecraft/world/entity/InsideBlockEffectApplier.java
-index 92b9c324cb6aab415abe2e77c5844b74c251a42f..eba3896b73c70f29732388373e89bf7ce3a07c92 100644
+index 92b9c32..eba3896 100644
 --- a/net/minecraft/world/entity/InsideBlockEffectApplier.java
 +++ b/net/minecraft/world/entity/InsideBlockEffectApplier.java
 @@ -33,6 +33,7 @@ public interface InsideBlockEffectApplier {
@@ -207,7 +207,7 @@ index 92b9c324cb6aab415abe2e77c5844b74c251a42f..eba3896b73c70f29732388373e89bf7c
  
          // Paper start - track position inside effect was triggered on
 diff --git a/net/minecraft/world/level/BlockGetter.java b/net/minecraft/world/level/BlockGetter.java
-index eeddffbe6a47dc1a42c07f286bfec0cbde33fc17..b953bbccbbc357724adf8f368ad5893fcbd635fc 100644
+index eeddffb..b953bbc 100644
 --- a/net/minecraft/world/level/BlockGetter.java
 +++ b/net/minecraft/world/level/BlockGetter.java
 @@ -255,6 +255,90 @@ public interface BlockGetter extends LevelHeightAccessor {

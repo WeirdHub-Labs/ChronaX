@@ -7,7 +7,7 @@ This Check is added in 1.17.x -> 1.18.x that updated by Mojang.
 By removing this check, it gives ability for hackers to use some modules of hack clients.
 
 diff --git a/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index a0941c15a9391f85af9fcb3784c66514b314f4dc..f20cb459f83f870e1c04ed1d83eee885619dfe57 100644
+index a0941c1..f20cb45 100644
 --- a/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 @@ -2122,8 +2122,13 @@ public class ServerGamePacketListenerImpl

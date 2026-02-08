@@ -9,7 +9,7 @@ Gale - https://galemc.org
 TODO: Replace random of wakeUpDurationRandom if needed.
 
 diff --git a/io/papermc/paper/entity/activation/ActivationRange.java b/io/papermc/paper/entity/activation/ActivationRange.java
-index baad463b434f76df9a345baf3406fc4cdbda4fa2..0a628a5da0380d1cb0add600629bb221c3631a6b 100644
+index baad463..0a628a5 100644
 --- a/io/papermc/paper/entity/activation/ActivationRange.java
 +++ b/io/papermc/paper/entity/activation/ActivationRange.java
 @@ -59,27 +59,41 @@ public final class ActivationRange {

@@ -5,7 +5,7 @@ Subject: [PATCH] Bump netty to 4.2.x
 
 
 diff --git a/net/minecraft/gametest/framework/GameTestServer.java b/net/minecraft/gametest/framework/GameTestServer.java
-index 340d5487fa778277b9560250271c5143d80d9987..99543330da85ddecd91c954c8aa386c89a96c23f 100644
+index 340d548..9954333 100644
 --- a/net/minecraft/gametest/framework/GameTestServer.java
 +++ b/net/minecraft/gametest/framework/GameTestServer.java
 @@ -333,6 +333,18 @@ public class GameTestServer extends MinecraftServer {
@@ -28,7 +28,7 @@ index 340d5487fa778277b9560250271c5143d80d9987..99543330da85ddecd91c954c8aa386c8
      public boolean isCommandBlockEnabled() {
          return true;
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
-index 4fbffd06d23860df912ff216446699e0ab5eb00b..8fc7e0d3ae4a3056c0e9e5e19af4261cfe4adfb0 100644
+index 4fbffd0..8fc7e0d 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
 @@ -2055,6 +2055,12 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
@@ -45,7 +45,7 @@ index 4fbffd06d23860df912ff216446699e0ab5eb00b..8fc7e0d3ae4a3056c0e9e5e19af4261c
          return this.pvp;
      }
 diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
-index ee20dd09bba40a4a98df501614d208552905c3cd..89fb3276c50a96bdafb0f100d4eddc476aa4f61d 100644
+index ee20dd0..89fb327 100644
 --- a/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/net/minecraft/server/dedicated/DedicatedServer.java
 @@ -503,9 +503,21 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
@@ -72,7 +72,7 @@ index ee20dd09bba40a4a98df501614d208552905c3cd..89fb3276c50a96bdafb0f100d4eddc47
      public DedicatedPlayerList getPlayerList() {
          return (DedicatedPlayerList)super.getPlayerList();
 diff --git a/net/minecraft/server/network/ServerConnectionListener.java b/net/minecraft/server/network/ServerConnectionListener.java
-index bd07e6a5aa1883786d789ea71711a0c0c0a95c26..ea5dfaa2efaccd643f9977cb60d982791439a597 100644
+index bd07e6a..ea5dfaa 100644
 --- a/net/minecraft/server/network/ServerConnectionListener.java
 +++ b/net/minecraft/server/network/ServerConnectionListener.java
 @@ -48,12 +48,20 @@ import org.slf4j.Logger;

@@ -5,7 +5,7 @@ Subject: [PATCH] Async chunk sending
 
 
 diff --git a/ca/spottedleaf/moonrise/patches/chunk_system/player/RegionizedPlayerChunkLoader.java b/ca/spottedleaf/moonrise/patches/chunk_system/player/RegionizedPlayerChunkLoader.java
-index bdc1200ef5317fdaf58973bf580b0a672aee800f..112ef27a64da2f1538a2223704cd4da20ce45ffd 100644
+index bdc1200..112ef27 100644
 --- a/ca/spottedleaf/moonrise/patches/chunk_system/player/RegionizedPlayerChunkLoader.java
 +++ b/ca/spottedleaf/moonrise/patches/chunk_system/player/RegionizedPlayerChunkLoader.java
 @@ -440,7 +440,15 @@ public final class RegionizedPlayerChunkLoader {
@@ -26,7 +26,7 @@ index bdc1200ef5317fdaf58973bf580b0a672aee800f..112ef27a64da2f1538a2223704cd4da2
              if (io.papermc.paper.event.packet.PlayerChunkUnloadEvent.getHandlerList().getRegisteredListeners().length > 0) {
                  new io.papermc.paper.event.packet.PlayerChunkUnloadEvent(player.getBukkitEntity().getWorld().getChunkAt(new ChunkPos(chunkX, chunkZ).longKey), player.getBukkitEntity()).callEvent();
 diff --git a/net/minecraft/network/protocol/game/ClientboundLevelChunkPacketData.java b/net/minecraft/network/protocol/game/ClientboundLevelChunkPacketData.java
-index 9f6d7c5dc0e591488a8a3763d8a1f1b3671d5299..8af4c964ce67373f9b911ce13164f48c29a07d85 100644
+index 9f6d7c5..8af4c96 100644
 --- a/net/minecraft/network/protocol/game/ClientboundLevelChunkPacketData.java
 +++ b/net/minecraft/network/protocol/game/ClientboundLevelChunkPacketData.java
 @@ -75,6 +75,52 @@ public class ClientboundLevelChunkPacketData {
@@ -91,7 +91,7 @@ index 9f6d7c5dc0e591488a8a3763d8a1f1b3671d5299..8af4c964ce67373f9b911ce13164f48c
              throw new IllegalStateException("Didn't fill chunk buffer: expected " + buffer.capacity() + " bytes, got " + buffer.writerIndex());
          }
 diff --git a/net/minecraft/network/protocol/game/ClientboundLevelChunkWithLightPacket.java b/net/minecraft/network/protocol/game/ClientboundLevelChunkWithLightPacket.java
-index 8578d1f78ddd1bb75f3230f04bfaa35af9f5f822..d8e938abf5123b092cec80feb6468e3d91ae823e 100644
+index 8578d1f..d8e938a 100644
 --- a/net/minecraft/network/protocol/game/ClientboundLevelChunkWithLightPacket.java
 +++ b/net/minecraft/network/protocol/game/ClientboundLevelChunkWithLightPacket.java
 @@ -44,6 +44,17 @@ public class ClientboundLevelChunkWithLightPacket implements Packet<ClientGamePa
@@ -113,7 +113,7 @@ index 8578d1f78ddd1bb75f3230f04bfaa35af9f5f822..d8e938abf5123b092cec80feb6468e3d
      private ClientboundLevelChunkWithLightPacket(RegistryFriendlyByteBuf buffer) {
          this.x = buffer.readInt();
 diff --git a/net/minecraft/server/network/PlayerChunkSender.java b/net/minecraft/server/network/PlayerChunkSender.java
-index 0376a10ee0544b13e8fd629a7b13f78811e57a30..aa6b900347635857b84460fa8435b81f794f0747 100644
+index 0376a10..aa6b900 100644
 --- a/net/minecraft/server/network/PlayerChunkSender.java
 +++ b/net/minecraft/server/network/PlayerChunkSender.java
 @@ -64,13 +64,29 @@ public class PlayerChunkSender {

@@ -9,7 +9,7 @@ However, there is no plugin listening to this event sometimes, so that just add 
 call it if no listeners listening to it.
 
 diff --git a/net/minecraft/world/level/redstone/NeighborUpdater.java b/net/minecraft/world/level/redstone/NeighborUpdater.java
-index 332b33a004ab11150cca0cc2cefc26d0286648f5..9c1235b409b8a338468b5b86178d0cab8da35e09 100644
+index 332b33a..9c1235b 100644
 --- a/net/minecraft/world/level/redstone/NeighborUpdater.java
 +++ b/net/minecraft/world/level/redstone/NeighborUpdater.java
 @@ -49,6 +49,7 @@ public interface NeighborUpdater {

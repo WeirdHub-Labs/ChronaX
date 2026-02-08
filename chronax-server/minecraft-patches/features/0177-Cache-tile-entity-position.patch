@@ -6,7 +6,7 @@ Subject: [PATCH] Cache tile entity position
 Dreeam TODO: Check if there is a way to cache isRemoved without problem
 
 diff --git a/net/minecraft/world/level/chunk/LevelChunk.java b/net/minecraft/world/level/chunk/LevelChunk.java
-index 27aa58ab47e7a7b0edddd1c483dc9165696ebf11..65442f9ab1528fd1b736963bc51f21fd6a0781a0 100644
+index 27aa58a..65442f9 100644
 --- a/net/minecraft/world/level/chunk/LevelChunk.java
 +++ b/net/minecraft/world/level/chunk/LevelChunk.java
 @@ -947,10 +947,12 @@ public class LevelChunk extends ChunkAccess implements ca.spottedleaf.moonrise.p

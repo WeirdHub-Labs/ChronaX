@@ -5,7 +5,7 @@ Subject: [PATCH] optimize mob despawn
 
 
 diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
-index 08a6a3c3eb6e270ec3d02e31b26d5fa547bb66b2..c82b751566c36eba9584e6da3c1f14e0c6ac3c1a 100644
+index 08a6a3c..c82b751 100644
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -796,13 +796,14 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe

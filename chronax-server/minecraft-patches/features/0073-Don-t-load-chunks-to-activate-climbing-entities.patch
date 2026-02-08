@@ -7,7 +7,7 @@ License: GPL-3.0 (https://www.gnu.org/licenses/gpl-3.0.html)
 Gale - https://galemc.org
 
 diff --git a/net/minecraft/world/entity/Entity.java b/net/minecraft/world/entity/Entity.java
-index abd600a0a73895e2ee9e9448c9a07356dae1eeb4..934963dc3932bbecde012712844d3c628217095c 100644
+index abd600a..934963d 100644
 --- a/net/minecraft/world/entity/Entity.java
 +++ b/net/minecraft/world/entity/Entity.java
 @@ -4951,6 +4951,16 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
@@ -28,7 +28,7 @@ index abd600a0a73895e2ee9e9448c9a07356dae1eeb4..934963dc3932bbecde012712844d3c62
          return this.chunkPosition;
      }
 diff --git a/net/minecraft/world/entity/LivingEntity.java b/net/minecraft/world/entity/LivingEntity.java
-index 2e4aaeb6054089d2a2c4cdbd892a9ac9dacee599..e2f0fb071f3d5cb30ecb9f67e5ce02b1915fc729 100644
+index 2e4aaeb..e2f0fb0 100644
 --- a/net/minecraft/world/entity/LivingEntity.java
 +++ b/net/minecraft/world/entity/LivingEntity.java
 @@ -2193,8 +2193,17 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin

@@ -11,7 +11,7 @@ Chunk cache is already removed from this patch, since we already have it in Leaf
 The JMH benchmark of this patch can be found in SunBox's `BetterBlocksTraverse`
 
 diff --git a/net/minecraft/world/entity/monster/Ghast.java b/net/minecraft/world/entity/monster/Ghast.java
-index 6f312f0b8ab60c839129ea671f2d9c128fa58e58..6ec83870c67810c7d0239ff7075549a93dc232eb 100644
+index 6f312f0..6ec8387 100644
 --- a/net/minecraft/world/entity/monster/Ghast.java
 +++ b/net/minecraft/world/entity/monster/Ghast.java
 @@ -331,7 +331,7 @@ public class Ghast extends Mob implements Enemy {
@@ -24,7 +24,7 @@ index 6f312f0b8ab60c839129ea671f2d9c128fa58e58..6ec83870c67810c7d0239ff7075549a9
                          return false;
                      }
 diff --git a/net/minecraft/world/entity/projectile/ThrowableProjectile.java b/net/minecraft/world/entity/projectile/ThrowableProjectile.java
-index 5104636be1de4bf1dc491673cad55854a106da53..4c61f4552dc64b1347c7b8dfe9502aac11c75888 100644
+index 5104636..4c61f45 100644
 --- a/net/minecraft/world/entity/projectile/ThrowableProjectile.java
 +++ b/net/minecraft/world/entity/projectile/ThrowableProjectile.java
 @@ -93,7 +93,7 @@ public abstract class ThrowableProjectile extends Projectile {
@@ -37,7 +37,7 @@ index 5104636be1de4bf1dc491673cad55854a106da53..4c61f4552dc64b1347c7b8dfe9502aac
                  if (blockState.is(Blocks.BUBBLE_COLUMN)) {
                      blockState.entityInside(this.level(), blockPos, this, InsideBlockEffectApplier.NOOP);
 diff --git a/net/minecraft/world/level/BlockGetter.java b/net/minecraft/world/level/BlockGetter.java
-index 2146efa860d8323a88f3ad365c0cdb66de42154a..eeddffbe6a47dc1a42c07f286bfec0cbde33fc17 100644
+index 2146efa..eeddffb 100644
 --- a/net/minecraft/world/level/BlockGetter.java
 +++ b/net/minecraft/world/level/BlockGetter.java
 @@ -215,7 +215,7 @@ public interface BlockGetter extends LevelHeightAccessor {

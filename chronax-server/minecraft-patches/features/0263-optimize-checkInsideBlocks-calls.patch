@@ -11,7 +11,7 @@ Subject: [PATCH] optimize checkInsideBlocks calls
 License: LGPL-3.0 (https://www.gnu.org/licenses/lgpl-3.0.html)
 
 diff --git a/net/minecraft/world/entity/Entity.java b/net/minecraft/world/entity/Entity.java
-index d2a6f2bfa4370fee99b3f535724fc3ee18ce496f..ea137958c70f80349041cd27d1503f7b8def2a69 100644
+index d2a6f2b..ea13795 100644
 --- a/net/minecraft/world/entity/Entity.java
 +++ b/net/minecraft/world/entity/Entity.java
 @@ -1700,8 +1700,13 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
@@ -97,7 +97,7 @@ index d2a6f2bfa4370fee99b3f535724fc3ee18ce496f..ea137958c70f80349041cd27d1503f7b
      private void debugBlockIntersection(BlockPos blockPos, boolean flag, boolean flag1) {
      }
 diff --git a/net/minecraft/world/entity/InsideBlockEffectApplier.java b/net/minecraft/world/entity/InsideBlockEffectApplier.java
-index a7bc5ead2062504ceac95f603bc1ca8d4290bbfd..92b9c324cb6aab415abe2e77c5844b74c251a42f 100644
+index a7bc5ea..92b9c32 100644
 --- a/net/minecraft/world/entity/InsideBlockEffectApplier.java
 +++ b/net/minecraft/world/entity/InsideBlockEffectApplier.java
 @@ -30,20 +30,28 @@ public interface InsideBlockEffectApplier {

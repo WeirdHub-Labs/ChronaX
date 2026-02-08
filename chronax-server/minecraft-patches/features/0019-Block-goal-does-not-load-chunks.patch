@@ -31,7 +31,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 diff --git a/net/minecraft/world/entity/ai/goal/MoveToBlockGoal.java b/net/minecraft/world/entity/ai/goal/MoveToBlockGoal.java
-index 7e70c7bee633c54497d1cd2854dd60f4fb5ff160..f15da598cb1d7872fafb8b173e5134b9667c9a9f 100644
+index 7e70c7b..f15da59 100644
 --- a/net/minecraft/world/entity/ai/goal/MoveToBlockGoal.java
 +++ b/net/minecraft/world/entity/ai/goal/MoveToBlockGoal.java
 @@ -119,6 +119,7 @@ public abstract class MoveToBlockGoal extends Goal {

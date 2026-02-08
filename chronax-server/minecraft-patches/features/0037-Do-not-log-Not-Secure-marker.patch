@@ -7,7 +7,7 @@ License: GPL-3.0 (https://www.gnu.org/licenses/gpl-3.0.html)
 Gale - https://galemc.org
 
 diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
-index 846dc90d2722695757cc9213b19b83d8f6c0dd6f..5e6dea9ea487ffdb9be0e194dd4c4857cc0070cf 100644
+index 846dc90..5e6dea9 100644
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
 @@ -1294,7 +1294,7 @@ public abstract class PlayerList {

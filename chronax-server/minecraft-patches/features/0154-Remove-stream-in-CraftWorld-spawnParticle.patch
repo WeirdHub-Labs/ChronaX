@@ -5,7 +5,7 @@ Subject: [PATCH] Remove stream in CraftWorld#spawnParticle
 
 
 diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
-index 220061621a676e5cefd6a442b40f216f6dced60c..c73d4ca35ad35b21a9df283a18928d7738c172d0 100644
+index 2200616..c73d4ca 100644
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -2108,7 +2108,7 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe

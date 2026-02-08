@@ -11,7 +11,7 @@ Paper pull request: https://github.com/PaperMC/Paper/pull/12124
 fixes https://github.com/PaperMC/Paper/issues/12123
 
 diff --git a/net/minecraft/world/item/BowItem.java b/net/minecraft/world/item/BowItem.java
-index ce1ce18410fc1d47d999c918a8f880b43bf9797c..ef8b4bbbd24e1e91cad4fdb028388721c993fc73 100644
+index ce1ce18..ef8b4bb 100644
 --- a/net/minecraft/world/item/BowItem.java
 +++ b/net/minecraft/world/item/BowItem.java
 @@ -41,9 +41,9 @@ public class BowItem extends ProjectileWeaponItem {
@@ -27,7 +27,7 @@ index ce1ce18410fc1d47d999c918a8f880b43bf9797c..ef8b4bbbd24e1e91cad4fdb028388721
  
                      level.playSound(
 diff --git a/net/minecraft/world/item/CrossbowItem.java b/net/minecraft/world/item/CrossbowItem.java
-index d49a5360d4a21e5b15bac94a823831e25d242a3d..04286fdba0c22d5b6d7b3ab71ee1a1fe3ed92e6d 100644
+index d49a536..04286fd 100644
 --- a/net/minecraft/world/item/CrossbowItem.java
 +++ b/net/minecraft/world/item/CrossbowItem.java
 @@ -95,7 +95,7 @@ public class CrossbowItem extends ProjectileWeaponItem {
@@ -65,7 +65,7 @@ index d49a5360d4a21e5b15bac94a823831e25d242a3d..04286fdba0c22d5b6d7b3ab71ee1a1fe
                      CriteriaTriggers.SHOT_CROSSBOW.trigger(serverPlayer, weapon);
                      serverPlayer.awardStat(Stats.ITEM_USED.get(weapon.getItem()));
 diff --git a/net/minecraft/world/item/ProjectileWeaponItem.java b/net/minecraft/world/item/ProjectileWeaponItem.java
-index f12b9e4e8a78c713782af548d1cb15ef363305b4..99a6d549d968b5df227c3b96febf0e3a86d47c90 100644
+index f12b9e4..99a6d54 100644
 --- a/net/minecraft/world/item/ProjectileWeaponItem.java
 +++ b/net/minecraft/world/item/ProjectileWeaponItem.java
 @@ -40,7 +40,20 @@ public abstract class ProjectileWeaponItem extends Item {
@@ -234,7 +234,7 @@ index f12b9e4e8a78c713782af548d1cb15ef363305b4..99a6d549d968b5df227c3b96febf0e3a
                  player.getInventory().removeItem(ammo);
              }
 diff --git a/net/minecraft/world/level/Level.java b/net/minecraft/world/level/Level.java
-index 779ed937e35ebf10ce49a04bde31cd78de264ba4..612d8f8aa1d4cce646fb3a878d62ce8136925308 100644
+index 779ed93..612d8f8 100644
 --- a/net/minecraft/world/level/Level.java
 +++ b/net/minecraft/world/level/Level.java
 @@ -172,6 +172,7 @@ public abstract class Level implements LevelAccessor, UUIDLookup<Entity>, AutoCl

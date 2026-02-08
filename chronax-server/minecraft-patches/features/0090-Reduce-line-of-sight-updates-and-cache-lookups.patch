@@ -18,7 +18,7 @@ this patch is focused around the sensors used for ai
 delete the line of sight cache less often and use a faster nearby comparison
 
 diff --git a/net/minecraft/world/entity/ai/sensing/Sensing.java b/net/minecraft/world/entity/ai/sensing/Sensing.java
-index e17b1a2a95975d1eae5adaa679e027b9181dddbd..cc25f5838aec5ed9fca2fb8b0322fafad9397a46 100644
+index e17b1a2..cc25f58 100644
 --- a/net/minecraft/world/entity/ai/sensing/Sensing.java
 +++ b/net/minecraft/world/entity/ai/sensing/Sensing.java
 @@ -7,33 +7,79 @@ import net.minecraft.world.entity.Mob;

@@ -7,7 +7,7 @@ Co-authored by: Martijn Muijsers <martijnmuijsers@live.nl>
 Co-authored by: MachineBreaker <machinebreaker>
 
 diff --git a/net/minecraft/world/level/Level.java b/net/minecraft/world/level/Level.java
-index 66f81b3a76b086ef95ea070894cf4d633e482038..da9a6901a8bb2d3b3a5de023d595faa0e2ef5dff 100644
+index 66f81b3..da9a690 100644
 --- a/net/minecraft/world/level/Level.java
 +++ b/net/minecraft/world/level/Level.java
 @@ -989,17 +989,19 @@ public abstract class Level implements LevelAccessor, UUIDLookup<Entity>, AutoCl

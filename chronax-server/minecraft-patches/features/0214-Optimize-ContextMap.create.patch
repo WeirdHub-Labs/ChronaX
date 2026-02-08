@@ -5,7 +5,7 @@ Subject: [PATCH] Optimize ContextMap.create
 
 
 diff --git a/net/minecraft/util/context/ContextMap.java b/net/minecraft/util/context/ContextMap.java
-index cc8d67df5e074beb8c41bb6ce4f519f963e59d0d..64a48913868d9b8c0a4bb3f97458a64c95e99034 100644
+index cc8d67d..64a4891 100644
 --- a/net/minecraft/util/context/ContextMap.java
 +++ b/net/minecraft/util/context/ContextMap.java
 @@ -72,17 +72,41 @@ public class ContextMap {

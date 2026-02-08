@@ -7,7 +7,7 @@ Original license: GPLv3
 Original project: https://github.com/embeddedt/ModernFix
 
 diff --git a/net/minecraft/nbt/CompoundTag.java b/net/minecraft/nbt/CompoundTag.java
-index 052ca6beb06a3256fdf04bac5f2085ad622d7df0..bc6ddaac8cb6c3a5353ad434ae8167607fd21abc 100644
+index 052ca6b..bc6ddaa 100644
 --- a/net/minecraft/nbt/CompoundTag.java
 +++ b/net/minecraft/nbt/CompoundTag.java
 @@ -54,7 +54,7 @@ public final class CompoundTag implements Tag {

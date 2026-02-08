@@ -5,7 +5,7 @@ Subject: [PATCH] cache eye block position
 
 
 diff --git a/net/minecraft/world/entity/Entity.java b/net/minecraft/world/entity/Entity.java
-index 4ae070acbb7a027523d0ac1b978be8d3c8aa1e1e..e3e5ad1239ba114a295a829c61ddebc8d5e437fe 100644
+index 4ae070a..e3e5ad1 100644
 --- a/net/minecraft/world/entity/Entity.java
 +++ b/net/minecraft/world/entity/Entity.java
 @@ -553,18 +553,13 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
@@ -113,7 +113,7 @@ index 4ae070acbb7a027523d0ac1b978be8d3c8aa1e1e..e3e5ad1239ba114a295a829c61ddebc8
          boolean flag = dimensions.width() <= 4.0F && dimensions.height() <= 4.0F;
          if (!this.level.isClientSide
 diff --git a/net/minecraft/world/entity/LivingEntity.java b/net/minecraft/world/entity/LivingEntity.java
-index b6a1f45d27c2639018667ccee36a7beaf9f002e8..1928293100abba5d3765842755c8e9e812dc64bf 100644
+index b6a1f45..1928293 100644
 --- a/net/minecraft/world/entity/LivingEntity.java
 +++ b/net/minecraft/world/entity/LivingEntity.java
 @@ -464,7 +464,7 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin

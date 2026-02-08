@@ -6,7 +6,7 @@ Subject: [PATCH] fast bit radix sort
 Co-authored-by: Taiyou06 <kaandindar21@gmail.com>
 
 diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
-index e6266ba383a45acddf5d62abe803af9d5612dad2..e4f3d032b3c63ee8ea123d1ec2ce67aa0bc9378c 100644
+index e6266ba..e4f3d03 100644
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -1095,6 +1095,7 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe
@@ -18,7 +18,7 @@ index e6266ba383a45acddf5d62abe803af9d5612dad2..e4f3d032b3c63ee8ea123d1ec2ce67aa
          final net.minecraft.world.level.levelgen.BitRandomSource simpleRandom = this.simpleRandom; // Paper - optimise random ticking // Leaf - Faster random generator - upcasting
          ChunkPos pos = chunk.getPos();
 diff --git a/net/minecraft/world/entity/ai/sensing/NearestItemSensor.java b/net/minecraft/world/entity/ai/sensing/NearestItemSensor.java
-index 09fd13e2d958da8326276c4dadf25bf488aff5ac..063cab1fbd8dd3a483346242659fe273d3000cc6 100644
+index 09fd13e..063cab1 100644
 --- a/net/minecraft/world/entity/ai/sensing/NearestItemSensor.java
 +++ b/net/minecraft/world/entity/ai/sensing/NearestItemSensor.java
 @@ -15,6 +15,7 @@ public class NearestItemSensor extends Sensor<Mob> {
@@ -49,7 +49,7 @@ index 09fd13e2d958da8326276c4dadf25bf488aff5ac..063cab1fbd8dd3a483346242659fe273
          ItemEntity nearest = null;
          for (final ItemEntity itemEntity : entitiesOfClass) {
 diff --git a/net/minecraft/world/entity/ai/sensing/NearestLivingEntitySensor.java b/net/minecraft/world/entity/ai/sensing/NearestLivingEntitySensor.java
-index b0c5e41fefc7c9adf1a61bd5b52861736657d37e..51a6302ed5daf512acc6bed915f954ac76559270 100644
+index b0c5e41..51a6302 100644
 --- a/net/minecraft/world/entity/ai/sensing/NearestLivingEntitySensor.java
 +++ b/net/minecraft/world/entity/ai/sensing/NearestLivingEntitySensor.java
 @@ -17,10 +17,11 @@ public class NearestLivingEntitySensor<T extends LivingEntity> extends Sensor<T>
@@ -69,7 +69,7 @@ index b0c5e41fefc7c9adf1a61bd5b52861736657d37e..51a6302ed5daf512acc6bed915f954ac
          brain.setMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES, entitiesOfClass);
          brain.setMemory(MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, new NearestVisibleLivingEntities(level, entity, entitiesOfClass));
 diff --git a/net/minecraft/world/entity/ai/sensing/PlayerSensor.java b/net/minecraft/world/entity/ai/sensing/PlayerSensor.java
-index fa438315b4ed8e9394383b82b89ecb04bac3399f..44942f1fa1f543e81b1553e51c057de437f10e93 100644
+index fa43831..44942f1 100644
 --- a/net/minecraft/world/entity/ai/sensing/PlayerSensor.java
 +++ b/net/minecraft/world/entity/ai/sensing/PlayerSensor.java
 @@ -27,18 +27,26 @@ public class PlayerSensor extends Sensor<LivingEntity> {

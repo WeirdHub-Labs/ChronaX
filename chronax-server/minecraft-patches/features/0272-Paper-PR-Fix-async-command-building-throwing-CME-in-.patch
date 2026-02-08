@@ -21,7 +21,7 @@ This has been tested with the test plugin published on [this branch of my fork](
 Fixes https://github.com/PaperMC/Paper/issues/11101
 
 diff --git a/com/mojang/brigadier/tree/CommandNode.java b/com/mojang/brigadier/tree/CommandNode.java
-index f05e69aaf79e47951de1506a97f56d84a4fa9f7f..42549e8ed22f5e6265fea47d1e475710a36a7bf0 100644
+index f05e69a..42549e8 100644
 --- a/com/mojang/brigadier/tree/CommandNode.java
 +++ b/com/mojang/brigadier/tree/CommandNode.java
 @@ -24,7 +24,7 @@ import java.util.concurrent.CompletableFuture;
@@ -34,7 +34,7 @@ index f05e69aaf79e47951de1506a97f56d84a4fa9f7f..42549e8ed22f5e6265fea47d1e475710
      private final Map<String, ArgumentCommandNode<S, ?>> arguments = new LinkedHashMap<>();
      public Predicate<S> requirement; // Paper - public-f
 diff --git a/net/minecraft/commands/Commands.java b/net/minecraft/commands/Commands.java
-index 5f80c7b06411e0ad9b0f71f03bb4568daea3ea4d..f7b6ed257925f909a1d418c18538c68197210f8b 100644
+index 5f80c7b..f7b6ed2 100644
 --- a/net/minecraft/commands/Commands.java
 +++ b/net/minecraft/commands/Commands.java
 @@ -453,9 +453,7 @@ public class Commands {

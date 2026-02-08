@@ -9,7 +9,7 @@ Gale - https://galemc.org
 The JMH benchmark of this patch can be found in SunBox's `RecordHashCode`
 
 diff --git a/ca/spottedleaf/moonrise/patches/collisions/util/FluidOcclusionCacheKey.java b/ca/spottedleaf/moonrise/patches/collisions/util/FluidOcclusionCacheKey.java
-index cf9ffdeff6bf0b62a45f7a44dbfe0dd7d17dc4f4..fcff01c84d611a75dbf79b1644092516c7cfb0bc 100644
+index cf9ffde..fcff01c 100644
 --- a/ca/spottedleaf/moonrise/patches/collisions/util/FluidOcclusionCacheKey.java
 +++ b/ca/spottedleaf/moonrise/patches/collisions/util/FluidOcclusionCacheKey.java
 @@ -3,5 +3,58 @@ package ca.spottedleaf.moonrise.patches.collisions.util;

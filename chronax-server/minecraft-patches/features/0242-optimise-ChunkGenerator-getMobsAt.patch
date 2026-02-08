@@ -6,7 +6,7 @@ Subject: [PATCH] optimise ChunkGenerator#getMobsAt
 inline fillStartsForStructure
 
 diff --git a/net/minecraft/world/level/StructureManager.java b/net/minecraft/world/level/StructureManager.java
-index 3399922d79a713484e16beb6e4e9985c284ddfb5..fbe93098ce0366054a6da857cd808af1431b6612 100644
+index 3399922..fbe9309 100644
 --- a/net/minecraft/world/level/StructureManager.java
 +++ b/net/minecraft/world/level/StructureManager.java
 @@ -78,7 +78,7 @@ public class StructureManager {
@@ -30,7 +30,7 @@ index 3399922d79a713484e16beb6e4e9985c284ddfb5..fbe93098ce0366054a6da857cd808af1
  
      public StructureCheckResult checkStructurePresence(ChunkPos chunkPos, Structure structure, StructurePlacement placement, boolean skipKnownStructures) {
 diff --git a/net/minecraft/world/level/chunk/ChunkGenerator.java b/net/minecraft/world/level/chunk/ChunkGenerator.java
-index a95a4b39604e3200b69093165a2c48efa3f165ab..2fbf3069cfee45b19276891a21a05d5849ddb70e 100644
+index a95a4b3..2fbf306 100644
 --- a/net/minecraft/world/level/chunk/ChunkGenerator.java
 +++ b/net/minecraft/world/level/chunk/ChunkGenerator.java
 @@ -492,22 +492,24 @@ public abstract class ChunkGenerator {

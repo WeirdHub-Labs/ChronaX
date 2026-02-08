@@ -9,7 +9,7 @@ Before: 192ms
 After: 17ms
 
 diff --git a/net/minecraft/world/entity/ai/sensing/GolemSensor.java b/net/minecraft/world/entity/ai/sensing/GolemSensor.java
-index 84d9e2a43adbabda8401e8ad8dd8d87f7dbeeea7..ed277d93254a30a817dd8246539c292240dc9669 100644
+index 84d9e2a..ed277d9 100644
 --- a/net/minecraft/world/entity/ai/sensing/GolemSensor.java
 +++ b/net/minecraft/world/entity/ai/sensing/GolemSensor.java
 @@ -34,7 +34,15 @@ public class GolemSensor extends Sensor<LivingEntity> {

@@ -5,7 +5,7 @@ Subject: [PATCH] Fix Pufferfish and Purpur patches
 
 
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
-index f75d03465eb587a2dfdd40b17aad5dc785f4578e..ef99bac2177ad9cd0a34da880741ce8ec1443ea2 100644
+index f75d034..ef99bac 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
 @@ -277,7 +277,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
@@ -43,7 +43,7 @@ index f75d03465eb587a2dfdd40b17aad5dc785f4578e..ef99bac2177ad9cd0a34da880741ce8e
                      tickSection = currentTime;
                  }
 diff --git a/net/minecraft/server/gui/StatsComponent.java b/net/minecraft/server/gui/StatsComponent.java
-index 35fd539eb2bfe60ad17ab1e558a01273666acc54..445bbdc8da7f1fdbddfc4d8787d78fea9328fb65 100644
+index 35fd539..445bbdc 100644
 --- a/net/minecraft/server/gui/StatsComponent.java
 +++ b/net/minecraft/server/gui/StatsComponent.java
 @@ -43,7 +43,7 @@ public class StatsComponent extends JComponent {
@@ -56,7 +56,7 @@ index 35fd539eb2bfe60ad17ab1e558a01273666acc54..445bbdc8da7f1fdbddfc4d8787d78fea
          this.values[this.vp++ & 0xFF] = (int)(l * 100L / Runtime.getRuntime().maxMemory());
          this.repaint();
 diff --git a/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index 2c7f35ec3276f420875cf52596ada42b25fe64c8..a0941c15a9391f85af9fcb3784c66514b314f4dc 100644
+index 2c7f35e..a0941c1 100644
 --- a/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 @@ -1333,7 +1333,7 @@ public class ServerGamePacketListenerImpl
@@ -69,7 +69,7 @@ index 2c7f35ec3276f420875cf52596ada42b25fe64c8..a0941c15a9391f85af9fcb3784c66514
                  this.disconnectAsync(Component.literal("Book too large!"), org.bukkit.event.player.PlayerKickEvent.Cause.ILLEGAL_ACTION); // Paper - kick event cause // Paper - add proper async disconnect
                  return;
 diff --git a/net/minecraft/world/entity/projectile/Projectile.java b/net/minecraft/world/entity/projectile/Projectile.java
-index 5daa37fc0e44d3c4f3755ec3d3d89213f6670de1..c98a15653e388e7d8301ac4f6baa11095b7b18cc 100644
+index 5daa37f..c98a156 100644
 --- a/net/minecraft/world/entity/projectile/Projectile.java
 +++ b/net/minecraft/world/entity/projectile/Projectile.java
 @@ -82,7 +82,7 @@ public abstract class Projectile extends Entity implements TraceableEntity {
@@ -82,7 +82,7 @@ index 5daa37fc0e44d3c4f3755ec3d3d89213f6670de1..c98a15653e388e7d8301ac4f6baa1109
                          this.setDeltaMovement(0, this.getDeltaMovement().y, 0);
                      }
 diff --git a/net/minecraft/world/food/FoodProperties.java b/net/minecraft/world/food/FoodProperties.java
-index 20f702c8266eb54a8835861188eb937f4732e078..5951b6f860cf3cda35f2d79d4c38ff7f253382fe 100644
+index 20f702c..5951b6f 100644
 --- a/net/minecraft/world/food/FoodProperties.java
 +++ b/net/minecraft/world/food/FoodProperties.java
 @@ -43,9 +43,15 @@ public record FoodProperties(int nutrition, float saturation, boolean canAlwaysE
@@ -105,7 +105,7 @@ index 20f702c8266eb54a8835861188eb937f4732e078..5951b6f860cf3cda35f2d79d4c38ff7f
          }
      }
 diff --git a/org/purpurmc/purpur/PurpurWorldConfig.java b/org/purpurmc/purpur/PurpurWorldConfig.java
-index a03e166b490952534e8050654c1afa975795f731..88a2ad8e3b30cb9f447eb4001d33c7799339b6a0 100644
+index a03e166..88a2ad8 100644
 --- a/org/purpurmc/purpur/PurpurWorldConfig.java
 +++ b/org/purpurmc/purpur/PurpurWorldConfig.java
 @@ -2453,6 +2453,13 @@ public class PurpurWorldConfig {

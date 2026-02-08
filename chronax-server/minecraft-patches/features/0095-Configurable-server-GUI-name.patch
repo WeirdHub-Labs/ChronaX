@@ -5,7 +5,7 @@ Subject: [PATCH] Configurable server GUI name
 
 
 diff --git a/net/minecraft/server/gui/MinecraftServerGui.java b/net/minecraft/server/gui/MinecraftServerGui.java
-index 614c7d9f673c926562acc8fa3b3788623900db41..51f37d026382369ac0d53b0ce64495dafe5084af 100644
+index 614c7d9..51f37d0 100644
 --- a/net/minecraft/server/gui/MinecraftServerGui.java
 +++ b/net/minecraft/server/gui/MinecraftServerGui.java
 @@ -51,7 +51,7 @@ public class MinecraftServerGui extends JComponent {

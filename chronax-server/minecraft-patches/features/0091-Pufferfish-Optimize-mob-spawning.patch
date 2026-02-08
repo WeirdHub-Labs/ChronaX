@@ -22,7 +22,7 @@ and, in my opinion, worth the low risk of minor mob-spawning-related
 inconsistencies.
 
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
-index 9bed48b34c998db5af83cc18732e2c7997e87c4e..f75d03465eb587a2dfdd40b17aad5dc785f4578e 100644
+index 9bed48b..f75d034 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
 @@ -289,6 +289,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
@@ -42,7 +42,7 @@ index 9bed48b34c998db5af83cc18732e2c7997e87c4e..f75d03465eb587a2dfdd40b17aad5dc7
              net.minecrell.terminalconsole.TerminalConsoleAppender.close(); // Paper - Use TerminalConsoleAppender
          } catch (final Exception ignored) {
 diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
-index c5b6c892a029bdd12008a0212413cf5d9e6a1a69..9f6d5409d3767d68e13c8679e34d9938b329393f 100644
+index c5b6c89..9f6d540 100644
 --- a/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/net/minecraft/server/dedicated/DedicatedServer.java
 @@ -356,6 +356,7 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
@@ -54,7 +54,7 @@ index c5b6c892a029bdd12008a0212413cf5d9e6a1a69..9f6d5409d3767d68e13c8679e34d9938
          }
      }
 diff --git a/net/minecraft/server/level/ServerChunkCache.java b/net/minecraft/server/level/ServerChunkCache.java
-index e53440bd5f0e659db0745a009540520f6dc41238..4979171c8da6f366aab636fb3058ca457fe75061 100644
+index e53440b..4979171 100644
 --- a/net/minecraft/server/level/ServerChunkCache.java
 +++ b/net/minecraft/server/level/ServerChunkCache.java
 @@ -182,6 +182,8 @@ public class ServerChunkCache extends ChunkSource implements ca.spottedleaf.moon
@@ -177,7 +177,7 @@ index e53440bd5f0e659db0745a009540520f6dc41238..4979171c8da6f366aab636fb3058ca45
              }
          }
 diff --git a/net/minecraft/world/level/entity/EntityTickList.java b/net/minecraft/world/level/entity/EntityTickList.java
-index 423779a2b690f387a4f0bd07b97b50e0baefda76..dec51066fc3f57b7bdc56195313c219f45a7fbee 100644
+index 423779a..dec5106 100644
 --- a/net/minecraft/world/level/entity/EntityTickList.java
 +++ b/net/minecraft/world/level/entity/EntityTickList.java
 @@ -9,7 +9,7 @@ import javax.annotation.Nullable;

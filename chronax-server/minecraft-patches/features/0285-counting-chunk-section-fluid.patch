@@ -5,7 +5,7 @@ Subject: [PATCH] counting chunk section fluid
 
 
 diff --git a/net/minecraft/world/level/Level.java b/net/minecraft/world/level/Level.java
-index 94c5ba01caf50416dbc7512e825fcf70b7baac03..e4d83ed875a159150e64e4745a03f61f6a909680 100644
+index 94c5ba0..e4d83ed 100644
 --- a/net/minecraft/world/level/Level.java
 +++ b/net/minecraft/world/level/Level.java
 @@ -1433,6 +1433,14 @@ public abstract class Level implements LevelAccessor, UUIDLookup<Entity>, AutoCl
@@ -24,7 +24,7 @@ index 94c5ba01caf50416dbc7512e825fcf70b7baac03..e4d83ed875a159150e64e4745a03f61f
          return !this.dimensionType().hasFixedTime() && this.skyDarken < 4;
      }
 diff --git a/net/minecraft/world/level/chunk/LevelChunk.java b/net/minecraft/world/level/chunk/LevelChunk.java
-index a82049aabcdb64f4632c707ee1d48a885da4301a..56eead021e6c9b7b6aaea3e5301db7e6bff58ea1 100644
+index a82049a..56eead0 100644
 --- a/net/minecraft/world/level/chunk/LevelChunk.java
 +++ b/net/minecraft/world/level/chunk/LevelChunk.java
 @@ -330,6 +330,21 @@ public class LevelChunk extends ChunkAccess implements ca.spottedleaf.moonrise.p
@@ -50,7 +50,7 @@ index a82049aabcdb64f4632c707ee1d48a885da4301a..56eead021e6c9b7b6aaea3e5301db7e6
      public BlockState getBlockState(BlockPos pos) {
          if (true) {
 diff --git a/net/minecraft/world/level/chunk/LevelChunkSection.java b/net/minecraft/world/level/chunk/LevelChunkSection.java
-index df717c545472006b99532280c38c1fbef12bcf82..72f80b7dfa640daf4ae3ba4339945f1400004c45 100644
+index df717c5..72f80b7 100644
 --- a/net/minecraft/world/level/chunk/LevelChunkSection.java
 +++ b/net/minecraft/world/level/chunk/LevelChunkSection.java
 @@ -21,6 +21,8 @@ public class LevelChunkSection implements ca.spottedleaf.moonrise.patches.block_

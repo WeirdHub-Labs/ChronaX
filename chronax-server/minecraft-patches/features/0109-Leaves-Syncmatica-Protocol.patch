@@ -9,7 +9,7 @@ Original project: https://github.com/LeavesMC/Leaves
 This patch is Powered by Syncmatica (https://github.com/End-Tech/syncmatica)
 
 diff --git a/net/minecraft/server/network/ServerGamePacketListenerImpl.java b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
-index f20cb459f83f870e1c04ed1d83eee885619dfe57..2e504082ba5d68874b2d56baa8676b840caf1abe 100644
+index f20cb45..2e50408 100644
 --- a/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerGamePacketListenerImpl.java
 @@ -324,8 +324,11 @@ public class ServerGamePacketListenerImpl

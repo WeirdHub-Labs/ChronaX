@@ -13,7 +13,7 @@ As part of: Paper (https://github.com/PaperMC/Paper)
 Licensed under: GPL-3.0 (https://www.gnu.org/licenses/gpl-3.0.html)
 
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
-index 478b9fba67f10dec1717a0d0bcb538cf0ad3afa1..f6dd9e279155969ba05b44083018e074e11b0bb9 100644
+index 478b9fb..f6dd9e2 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
 @@ -301,6 +301,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
@@ -33,7 +33,7 @@ index 478b9fba67f10dec1717a0d0bcb538cf0ad3afa1..f6dd9e279155969ba05b44083018e074
  
      private void readScoreboard(DimensionDataStorage dataStorage) {
 diff --git a/net/minecraft/server/Services.java b/net/minecraft/server/Services.java
-index 015e3ff8d856a7722def4448d8c68792cc3a32a2..e7c3d84d64cc62989c01019b71c499ae39ea3a41 100644
+index 015e3ff..e7c3d84 100644
 --- a/net/minecraft/server/Services.java
 +++ b/net/minecraft/server/Services.java
 @@ -11,13 +11,13 @@ import net.minecraft.server.players.GameProfileCache;
@@ -78,7 +78,7 @@ index 015e3ff8d856a7722def4448d8c68792cc3a32a2..e7c3d84d64cc62989c01019b71c499ae
      }
  
 diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
-index 670553243d26e2faab8a21f099a846d4d1df7927..8077719592eb826ac656ff73214b165f60deb729 100644
+index 6705532..8077719 100644
 --- a/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/net/minecraft/server/dedicated/DedicatedServer.java
 @@ -172,6 +172,10 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
@@ -93,7 +93,7 @@ index 670553243d26e2faab8a21f099a846d4d1df7927..8077719592eb826ac656ff73214b165f
          // Paper start - fix converting txt to json file; convert old users earlier after PlayerList creation but before file load/save
          if (this.convertOldUsers()) {
 diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
-index 3c7159d0981c948e71a5612ba4083accb5849ed4..5c098d89e6a878f59b606306926413468a10e99f 100644
+index 3c7159d..5c098d8 100644
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -586,7 +586,7 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe
@@ -106,7 +106,7 @@ index 3c7159d0981c948e71a5612ba4083accb5849ed4..5c098d89e6a878f59b60630692641346
          this.levelStorageAccess = levelStorageAccess;
          this.uuid = org.bukkit.craftbukkit.util.WorldUUID.getOrCreate(levelStorageAccess.levelDirectory.path().toFile());
 diff --git a/net/minecraft/world/level/Level.java b/net/minecraft/world/level/Level.java
-index a0f3795f3aee1541ddab81da3cd8391f0a70e03d..e37635e452a38140099ba0a1fd5fcc6e8eaea2cd 100644
+index a0f3795..e37635e 100644
 --- a/net/minecraft/world/level/Level.java
 +++ b/net/minecraft/world/level/Level.java
 @@ -160,6 +160,13 @@ public abstract class Level implements LevelAccessor, UUIDLookup<Entity>, AutoCl

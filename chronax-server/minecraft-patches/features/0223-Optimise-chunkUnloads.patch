@@ -5,7 +5,7 @@ Subject: [PATCH] Optimise chunkUnloads
 
 
 diff --git a/ca/spottedleaf/moonrise/patches/starlight/light/SWMRNibbleArray.java b/ca/spottedleaf/moonrise/patches/starlight/light/SWMRNibbleArray.java
-index 4ca68a903e67606fc4ef0bfa9862a73797121c8b..bed3a64388bb43e47c2ba4e67f7dde5b990d9578 100644
+index 4ca68a9..bed3a64 100644
 --- a/ca/spottedleaf/moonrise/patches/starlight/light/SWMRNibbleArray.java
 +++ b/ca/spottedleaf/moonrise/patches/starlight/light/SWMRNibbleArray.java
 @@ -22,12 +22,24 @@ public final class SWMRNibbleArray {
@@ -159,7 +159,7 @@ index 4ca68a903e67606fc4ef0bfa9862a73797121c8b..bed3a64388bb43e47c2ba4e67f7dde5b
  
      public static final class SaveState {
 diff --git a/net/minecraft/world/level/chunk/storage/SerializableChunkData.java b/net/minecraft/world/level/chunk/storage/SerializableChunkData.java
-index 08b98e60518027a6d0aa99d03ba02982355ffa76..bbb871f011e947e426f8be32f0ab71aded4e0980 100644
+index 08b98e6..bbb871f 100644
 --- a/net/minecraft/world/level/chunk/storage/SerializableChunkData.java
 +++ b/net/minecraft/world/level/chunk/storage/SerializableChunkData.java
 @@ -493,14 +493,16 @@ public record SerializableChunkData(

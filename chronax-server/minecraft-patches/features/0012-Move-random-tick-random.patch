@@ -19,7 +19,7 @@ require it to be initialized earlier. By moving it to the superclass, we
 initialize it earlier, ensuring that it is available sooner.
 
 diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
-index 9238db4c47d5297d992139988631ab38a5967a89..7b7794eb8f9a663bd6d4f6e27ddf907c0aed8c5a 100644
+index 9238db4..7b7794e 100644
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -876,8 +876,6 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe
@@ -32,7 +32,7 @@ index 9238db4c47d5297d992139988631ab38a5967a89..7b7794eb8f9a663bd6d4f6e27ddf907c
          final LevelChunkSection[] sections = chunk.getSections();
          final int minSection = ca.spottedleaf.moonrise.common.util.WorldUtil.getMinSection((ServerLevel)(Object)this);
 diff --git a/net/minecraft/world/level/Level.java b/net/minecraft/world/level/Level.java
-index 9a0cd86cffaaa974c0e4dfeec646cbb9a0a3431c..29dd1231df15d9f8e91f4f259f704817f92f895d 100644
+index 9a0cd86..29dd123 100644
 --- a/net/minecraft/world/level/Level.java
 +++ b/net/minecraft/world/level/Level.java
 @@ -170,6 +170,7 @@ public abstract class Level implements LevelAccessor, UUIDLookup<Entity>, AutoCl

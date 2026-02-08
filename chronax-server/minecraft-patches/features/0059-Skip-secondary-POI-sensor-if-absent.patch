@@ -17,7 +17,7 @@ Licensed under: LGPL-3.0 (https://www.gnu.org/licenses/lgpl-3.0.html)
 villagers that have no secondary POI (farmland) do not search for it
 
 diff --git a/net/minecraft/world/entity/ai/sensing/SecondaryPoiSensor.java b/net/minecraft/world/entity/ai/sensing/SecondaryPoiSensor.java
-index dc4a9ddb8479e9d0c4895b19d7d677cdd8ad3faa..572a37676aebb517220fdbb94d3ca76a203936da 100644
+index dc4a9dd..572a376 100644
 --- a/net/minecraft/world/entity/ai/sensing/SecondaryPoiSensor.java
 +++ b/net/minecraft/world/entity/ai/sensing/SecondaryPoiSensor.java
 @@ -24,7 +24,10 @@ public class SecondaryPoiSensor extends Sensor<Villager> {

@@ -12,7 +12,7 @@ Cache the date result to prevent calculate in every call
 The JMH benchmark of this patch can be found in SunBox's `PredictHalloween`
 
 diff --git a/net/minecraft/world/entity/ambient/Bat.java b/net/minecraft/world/entity/ambient/Bat.java
-index e54a956caa33f3ed343c5d160b1c763d6b981f50..c4985dd71a93670ee24e6f07f99b72ee1040eb99 100644
+index e54a956..c4985dd 100644
 --- a/net/minecraft/world/entity/ambient/Bat.java
 +++ b/net/minecraft/world/entity/ambient/Bat.java
 @@ -330,11 +330,63 @@ public class Bat extends AmbientCreature {

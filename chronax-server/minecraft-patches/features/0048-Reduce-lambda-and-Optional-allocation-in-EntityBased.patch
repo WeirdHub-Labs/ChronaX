@@ -14,7 +14,7 @@ As part of: Lithium (https://github.com/CaffeineMC/lithium)
 Licensed under: LGPL-3.0 (https://www.gnu.org/licenses/lgpl-3.0.html)
 
 diff --git a/net/minecraft/world/level/EntityBasedExplosionDamageCalculator.java b/net/minecraft/world/level/EntityBasedExplosionDamageCalculator.java
-index 52cb2dcd714cf8c16f167466333eeb923e4ff183..c6fabcfd373ee74e418e24e6913b0fa7364812eb 100644
+index 52cb2dc..c6fabcf 100644
 --- a/net/minecraft/world/level/EntityBasedExplosionDamageCalculator.java
 +++ b/net/minecraft/world/level/EntityBasedExplosionDamageCalculator.java
 @@ -15,8 +15,20 @@ public class EntityBasedExplosionDamageCalculator extends ExplosionDamageCalcula

@@ -7,7 +7,7 @@ Use SpottedLeaf's nearby players system to avoid iterating over all online playe
 and reduce the cost on predicate test
 
 diff --git a/net/minecraft/world/entity/EntitySelector.java b/net/minecraft/world/entity/EntitySelector.java
-index 1842cbe25cc0f9be937caf0a78e915bd3d6ea1e5..a6a216c598978f719851856e4ea61e757ce47d7e 100644
+index 1842cbe..a6a216c 100644
 --- a/net/minecraft/world/entity/EntitySelector.java
 +++ b/net/minecraft/world/entity/EntitySelector.java
 @@ -32,7 +32,7 @@ public final class EntitySelector {
@@ -20,7 +20,7 @@ index 1842cbe25cc0f9be937caf0a78e915bd3d6ea1e5..a6a216c598978f719851856e4ea61e75
      // Paper end - Affects Spawning API
  
 diff --git a/net/minecraft/world/entity/monster/Zombie.java b/net/minecraft/world/entity/monster/Zombie.java
-index 8907a5cc50df34cd77f0844e6a503f87e5a2d051..202dca0a106a1610d8e58b7e9ba0c612998dd868 100644
+index 8907a5c..202dca0 100644
 --- a/net/minecraft/world/entity/monster/Zombie.java
 +++ b/net/minecraft/world/entity/monster/Zombie.java
 @@ -410,7 +410,7 @@ public class Zombie extends Monster {
@@ -33,7 +33,7 @@ index 8907a5cc50df34cd77f0844e6a503f87e5a2d051..202dca0a106a1610d8e58b7e9ba0c612
                              && level.noCollision(zombie)
                              && (zombie.canSpawnInLiquids() || !level.containsAnyLiquid(zombie.getBoundingBox()))) {
 diff --git a/net/minecraft/world/level/BaseSpawner.java b/net/minecraft/world/level/BaseSpawner.java
-index 41ba9f234e840fadee3c8a52ba9655b97a8b7381..b23283779c85c0afb230872b2794640fd9719ec2 100644
+index 41ba9f2..b232837 100644
 --- a/net/minecraft/world/level/BaseSpawner.java
 +++ b/net/minecraft/world/level/BaseSpawner.java
 @@ -62,7 +62,7 @@ public abstract class BaseSpawner {
@@ -46,7 +46,7 @@ index 41ba9f234e840fadee3c8a52ba9655b97a8b7381..b23283779c85c0afb230872b2794640f
  
      public void clientTick(Level level, BlockPos pos) {
 diff --git a/net/minecraft/world/level/EntityGetter.java b/net/minecraft/world/level/EntityGetter.java
-index 452b6df03152dbd2311774bf4872983d3df92665..6a7d99c172c2f6fc30a4ffcb3cd7bfad92e27adc 100644
+index 452b6df..6a7d99c 100644
 --- a/net/minecraft/world/level/EntityGetter.java
 +++ b/net/minecraft/world/level/EntityGetter.java
 @@ -112,6 +112,89 @@ public interface EntityGetter extends ca.spottedleaf.moonrise.patches.chunk_syst

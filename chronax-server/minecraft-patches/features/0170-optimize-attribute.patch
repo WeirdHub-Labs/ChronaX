@@ -5,7 +5,7 @@ Subject: [PATCH] optimize attribute
 
 
 diff --git a/net/minecraft/server/level/ServerEntity.java b/net/minecraft/server/level/ServerEntity.java
-index 61a9d3012eb7a8bfdd3867606cd1b144f6170de2..85c811666b5cc4a01ccb97cef0cf350570bc12c6 100644
+index 61a9d30..85c8116 100644
 --- a/net/minecraft/server/level/ServerEntity.java
 +++ b/net/minecraft/server/level/ServerEntity.java
 @@ -463,7 +463,7 @@ public class ServerEntity {
@@ -18,7 +18,7 @@ index 61a9d3012eb7a8bfdd3867606cd1b144f6170de2..85c811666b5cc4a01ccb97cef0cf3505
      }
  
 diff --git a/net/minecraft/world/entity/LivingEntity.java b/net/minecraft/world/entity/LivingEntity.java
-index 500f62505d56c51ea6a21280152852db02c086b8..36859e17275a38d7acc82fcad8762bfc642811a1 100644
+index 500f625..36859e1 100644
 --- a/net/minecraft/world/entity/LivingEntity.java
 +++ b/net/minecraft/world/entity/LivingEntity.java
 @@ -370,7 +370,7 @@ public abstract class LivingEntity extends Entity implements Attackable, Waypoin
@@ -50,7 +50,7 @@ index 500f62505d56c51ea6a21280152852db02c086b8..36859e17275a38d7acc82fcad8762bfc
  
      protected void onAttributeUpdated(Holder<Attribute> attribute) {
 diff --git a/net/minecraft/world/entity/ai/attributes/Attribute.java b/net/minecraft/world/entity/ai/attributes/Attribute.java
-index 18563961e9dba1a11265c6ea708881d4e46846ff..ad3fee2adde07055e1ce69a069fd4201020a47ea 100644
+index 1856396..ad3fee2 100644
 --- a/net/minecraft/world/entity/ai/attributes/Attribute.java
 +++ b/net/minecraft/world/entity/ai/attributes/Attribute.java
 @@ -16,10 +16,15 @@ public class Attribute {
@@ -70,7 +70,7 @@ index 18563961e9dba1a11265c6ea708881d4e46846ff..ad3fee2adde07055e1ce69a069fd4201
  
      public double getDefaultValue() {
 diff --git a/net/minecraft/world/entity/ai/attributes/AttributeInstance.java b/net/minecraft/world/entity/ai/attributes/AttributeInstance.java
-index 42ad600c6a5cb20e1d820f169f6a1a17ef3a5195..df5f51f6a2921a7c1f1b2d17938a704c61102ba3 100644
+index 42ad600..df5f51f 100644
 --- a/net/minecraft/world/entity/ai/attributes/AttributeInstance.java
 +++ b/net/minecraft/world/entity/ai/attributes/AttributeInstance.java
 @@ -52,16 +52,19 @@ public class AttributeInstance {
@@ -118,7 +118,7 @@ index 42ad600c6a5cb20e1d820f169f6a1a17ef3a5195..df5f51f6a2921a7c1f1b2d17938a704c
  
      private double calculateValue() {
 diff --git a/net/minecraft/world/entity/ai/attributes/AttributeMap.java b/net/minecraft/world/entity/ai/attributes/AttributeMap.java
-index a65ba1712d55d23abdbb192f13ffb972be308e84..4395afb167217c92213d646dc2cd42d786798843 100644
+index a65ba17..4395afb 100644
 --- a/net/minecraft/world/entity/ai/attributes/AttributeMap.java
 +++ b/net/minecraft/world/entity/ai/attributes/AttributeMap.java
 @@ -13,12 +13,12 @@ import javax.annotation.Nullable;
@@ -259,7 +259,7 @@ index a65ba1712d55d23abdbb192f13ffb972be308e84..4395afb167217c92213d646dc2cd42d7
      public boolean hasAttribute(Holder<Attribute> attribute) {
          return this.attributes.get(attribute) != null || this.supplier.hasAttribute(attribute);
 diff --git a/net/minecraft/world/entity/ai/attributes/AttributeSupplier.java b/net/minecraft/world/entity/ai/attributes/AttributeSupplier.java
-index 24710041ccbc70e5506d8d89ae34f0141977f209..a428848f7ada657e171c8ed78c52935cef53aadf 100644
+index 2471004..a428848 100644
 --- a/net/minecraft/world/entity/ai/attributes/AttributeSupplier.java
 +++ b/net/minecraft/world/entity/ai/attributes/AttributeSupplier.java
 @@ -11,7 +11,7 @@ public class AttributeSupplier {

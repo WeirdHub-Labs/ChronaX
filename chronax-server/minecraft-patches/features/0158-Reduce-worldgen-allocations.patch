@@ -11,7 +11,7 @@ allocation by directly accessing the rules list, which further contributes
 to reducing garbage collection pressure during world generation.
 
 diff --git a/net/minecraft/world/level/levelgen/NoiseChunk.java b/net/minecraft/world/level/levelgen/NoiseChunk.java
-index f861f9e087182470a3bbb22678dbdacb8a73e943..a3d0d17178eedfaef83e2e0df6b1c2d7784d8656 100644
+index f861f9e..a3d0d17 100644
 --- a/net/minecraft/world/level/levelgen/NoiseChunk.java
 +++ b/net/minecraft/world/level/levelgen/NoiseChunk.java
 @@ -362,7 +362,17 @@ public class NoiseChunk implements DensityFunction.ContextProvider, DensityFunct
@@ -34,7 +34,7 @@ index f861f9e087182470a3bbb22678dbdacb8a73e943..a3d0d17178eedfaef83e2e0df6b1c2d7
  
      private DensityFunction wrapNew(DensityFunction densityFunction) {
 diff --git a/net/minecraft/world/level/levelgen/SurfaceRules.java b/net/minecraft/world/level/levelgen/SurfaceRules.java
-index 0948c8db90605a15a043b5c5bc74edecd7f9db1b..6cba88415a4715527e163e54662db9b3ab37c747 100644
+index 0948c8d..6cba884 100644
 --- a/net/minecraft/world/level/levelgen/SurfaceRules.java
 +++ b/net/minecraft/world/level/levelgen/SurfaceRules.java
 @@ -313,8 +313,15 @@ public class SurfaceRules {
@@ -72,7 +72,7 @@ index 0948c8db90605a15a043b5c5bc74edecd7f9db1b..6cba88415a4715527e163e54662db9b3
                      return blockState;
                  }
 diff --git a/net/minecraft/world/level/levelgen/material/MaterialRuleList.java b/net/minecraft/world/level/levelgen/material/MaterialRuleList.java
-index 1605cc013d5a89a5d3cb68365bdcc18e2dd0a921..a3b5f74b5f9a0f4e62dee67e50f51e9e6b78d7fd 100644
+index 1605cc0..a3b5f74 100644
 --- a/net/minecraft/world/level/levelgen/material/MaterialRuleList.java
 +++ b/net/minecraft/world/level/levelgen/material/MaterialRuleList.java
 @@ -9,13 +9,17 @@ public record MaterialRuleList(NoiseChunk.BlockStateFiller[] materialRuleList) i
