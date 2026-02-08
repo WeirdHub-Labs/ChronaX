@@ -1,0 +1,11 @@
+[DEBUG] Patching: paper-server/build.gradle.kts
+[WARN]  Hunk 0: FAILURE: @@ -15,10 +15,11 @@
+[WARN]  Hunk 1: FAILURE: @@ -26,6 +27,19 @@
+[WARN]  Hunk 2: FAILURE: @@ -49,6 +63,7 @@
+[WARN]  Hunk 3: FAILURE: @@ -107,7 +122,22 @@
+[WARN]  Hunk 4: FAILURE: @@ -129,10 +159,20 @@
+[WARN]  Hunk 5: FAILURE: @@ -143,36 +183,53 @@
+[WARN]  Hunk 6: FAILURE: @@ -183,31 +240,45 @@
+[WARN]  Hunk 7: FAILURE: @@ -266,7 +337,7 @@
+[WARN]  Hunk 8: FAILURE: @@ -324,6 +395,8 @@
+[DEBUG]  Hunk 9: EXACT: @@ -386,3 +459,78 @@
