@@ -1,0 +1,172 @@
+diff --git a/src/main/java/io/papermc/paper/pluginremap/reflect/PaperReflection.java b/src/main/java/io/papermc/paper/pluginremap/reflect/PaperReflection.java
+index 92bc8e493..cd6db2c58 100644
+--- a/src/main/java/io/papermc/paper/pluginremap/reflect/PaperReflection.java
++++ b/src/main/java/io/papermc/paper/pluginremap/reflect/PaperReflection.java
+@@ -6,6 +6,7 @@ import io.papermc.paper.util.ObfHelper;
+ import io.papermc.reflectionrewriter.runtime.AbstractDefaultRulesReflectionProxy;
+ import io.papermc.reflectionrewriter.runtime.DefineClassReflectionProxy;
+ import java.lang.invoke.MethodHandles;
++import java.lang.reflect.Method;
+ import java.nio.ByteBuffer;
+ import java.security.CodeSource;
+ import java.security.ProtectionDomain;
+@@ -57,6 +58,9 @@ public final class PaperReflection extends AbstractDefaultRulesReflectionProxy i
+ 
+     @Override
+     protected String mapDeclaredMethodName(final Class<?> clazz, final String name, final Class<?> @Nullable ... parameterTypes) {
++        if (hasNullParameterType(parameterTypes)) {
++            return name;
++        }
+         final @Nullable Map<String, String> mapping = this.strippedMethodMappings.get(clazz.getName());
+         if (mapping == null) {
+             return name;
+@@ -66,10 +70,31 @@ public final class PaperReflection extends AbstractDefaultRulesReflectionProxy i
+ 
+     @Override
+     protected String mapMethodName(final Class<?> clazz, final String name, final Class<?> @Nullable ... parameterTypes) {
++        if (hasNullParameterType(parameterTypes)) {
++            return name;
++        }
+         final @Nullable String mapped = this.findMappedMethodName(clazz, name, parameterTypes);
+         return mapped != null ? mapped : name;
+     }
+ 
++    @Override
++    public Method getDeclaredMethod(final Class<?> clazz, final String name, final Class<?> @Nullable ... parameterTypes)
++        throws NoSuchMethodException, SecurityException {
++        if (!hasNullParameterType(parameterTypes)) {
++            return super.getDeclaredMethod(clazz, name, parameterTypes);
++        }
++        return findWildcardMethod(clazz.getDeclaredMethods(), name, parameterTypes, true);
++    }
++
++    @Override
++    public Method getMethod(final Class<?> clazz, final String name, final Class<?> @Nullable ... parameterTypes)
++        throws NoSuchMethodException, SecurityException {
++        if (!hasNullParameterType(parameterTypes)) {
++            return super.getMethod(clazz, name, parameterTypes);
++        }
++        return findWildcardMethod(clazz.getMethods(), name, parameterTypes, false);
++    }
++
+     @Override
+     protected String mapDeclaredFieldName(final Class<?> clazz, final String name) {
+         final ObfHelper.@Nullable ClassMapping mapping = this.mappingsByMojangName.get(clazz.getName());
+@@ -147,12 +172,65 @@ public final class PaperReflection extends AbstractDefaultRulesReflectionProxy i
+         final StringBuilder builder = new StringBuilder();
+         builder.append('(');
+         for (final Class<?> parameterType : parameterTypes) {
++            if (parameterType == null) {
++                // Unknown parameter type: use Object to keep key generation stable and avoid NPE.
++                builder.append("Ljava/lang/Object;");
++                continue;
++            }
+             builder.append(parameterType.descriptorString());
+         }
+         builder.append(')');
+         return builder.toString();
+     }
+ 
++    private static boolean hasNullParameterType(final Class<?> @Nullable ... parameterTypes) {
++        if (parameterTypes == null) {
++            return false;
++        }
++        for (final Class<?> parameterType : parameterTypes) {
++            if (parameterType == null) {
++                return true;
++            }
++        }
++        return false;
++    }
++
++    private static Method findWildcardMethod(
++        final Method[] methods,
++        final String name,
++        final Class<?> @Nullable [] parameterTypes,
++        final boolean declared
++    ) throws NoSuchMethodException {
++        final Class<?>[] expected = parameterTypes == null ? new Class<?>[0] : parameterTypes;
++        for (final Method method : methods) {
++            if (!method.getName().equals(name)) {
++                continue;
++            }
++            final Class<?>[] actual = method.getParameterTypes();
++            if (!parametersMatchWithWildcards(expected, actual)) {
++                continue;
++            }
++            return method;
++        }
++        throw new NoSuchMethodException("Unable to resolve " + (declared ? "declared " : "") + "method '" + name + "' with wildcard parameter types");
++    }
++
++    private static boolean parametersMatchWithWildcards(final Class<?>[] expected, final Class<?>[] actual) {
++        if (expected.length != actual.length) {
++            return false;
++        }
++        for (int i = 0; i < expected.length; ++i) {
++            final Class<?> expectedType = expected[i];
++            if (expectedType == null) {
++                continue;
++            }
++            if (!actual[i].equals(expectedType)) {
++                return false;
++            }
++        }
++        return true;
++    }
++
+     private static String removeCraftBukkitRelocation(final String name) {
+         if (MappingEnvironment.hasMappings()) {
+             // Relocation is applied in reobf, and when mappings are present they handle the relocation
+diff --git a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
+index c3d45e60e..8c6d0ed07 100644
+--- a/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
++++ b/src/main/java/org/bukkit/craftbukkit/util/Versioning.java
+@@ -8,22 +8,39 @@ import java.util.logging.Logger;
+ import org.bukkit.Bukkit;
+ 
+ public final class Versioning {
++    private static final String[] VERSION_RESOURCE_PATHS = new String[] {
++        "META-INF/maven/org.wrd.chronax/chronax-api/pom.properties",
++        "META-INF/maven/cn.dreeam.leaf/leaf-api/pom.properties",
++        "META-INF/maven/io.papermc.paper/paper-api/pom.properties",
++        "META-INF/maven/com.destroystokyo.paper/paper-api/pom.properties"
++    };
++
+     public static String getBukkitVersion() {
+         String result = "Unknown-Version";
++        for (final String path : VERSION_RESOURCE_PATHS) {
++            try (InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream(path)) {
++                if (stream == null) {
++                    continue;
++                }
+ 
+-        InputStream stream = Bukkit.class.getClassLoader().getResourceAsStream("META-INF/maven/cn.dreeam.leaf/leaf-api/pom.properties"); // Gale - branding changes // Leaf - Rebrand
+-        Properties properties = new Properties();
+-
+-        if (stream != null) {
+-            try {
++                Properties properties = new Properties();
+                 properties.load(stream);
+-
+-                result = properties.getProperty("version");
++                final String version = properties.getProperty("version");
++                if (version != null && !version.isBlank()) {
++                    return version;
++                }
+             } catch (IOException ex) {
+-                Logger.getLogger(Versioning.class.getName()).log(Level.SEVERE, "Could not get Bukkit version!", ex);
++                Logger.getLogger(Versioning.class.getName()).log(Level.SEVERE, "Could not get Bukkit version from " + path + "!", ex);
+             }
+         }
+ 
++        final Package bukkitPackage = Bukkit.class.getPackage();
++        if (bukkitPackage != null) {
++            final String implementationVersion = bukkitPackage.getImplementationVersion();
++            if (implementationVersion != null && !implementationVersion.isBlank()) {
++                result = implementationVersion;
++            }
++        }
+         return result;
+     }
+ }
