@@ -1,11 +1,8 @@
 package org.wrd.chronax.panel.provider;
 
-import ca.spottedleaf.moonrise.common.time.TickData;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.server.MinecraftServer;
-
-import java.util.Arrays;
 
 public class MSPTProvider implements ApiProvider {
     @Override
@@ -15,15 +12,14 @@ public class MSPTProvider implements ApiProvider {
 
     @Override
     public JsonElement provide() {
-        TickData.MSPTData mspt = MinecraftServer.getServer().getMSPTData5s();
+        MinecraftServer.TickTimes tickTimes = MinecraftServer.getServer().tickTimes5s;
         JsonObject json = new JsonObject();
-        if(mspt != null) {
-            json.addProperty("mean", mspt.avg());
-            json.addProperty("max", Arrays.stream(mspt.rawData()).max().orElse(0L));
-        } else {
-            json.addProperty("mean", 0.0);
-            json.addProperty("max", 0.0);
+        json.addProperty("mean", tickTimes.getAverage());
+        long max = 0L;
+        for (long t : tickTimes.getTimes()) {
+            if (t > max) max = t;
         }
+        json.addProperty("max", max * 1.0E-6D);
         return json;
     }
 }
