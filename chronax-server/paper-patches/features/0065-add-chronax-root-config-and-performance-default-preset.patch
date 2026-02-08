@@ -1,0 +1,249 @@
+diff --git a/src/main/java/io/papermc/paper/configuration/ChronaXConfiguration.java b/src/main/java/io/papermc/paper/configuration/ChronaXConfiguration.java
+new file mode 100644
+index 000000000..f4a11bd4b
+--- /dev/null
++++ b/src/main/java/io/papermc/paper/configuration/ChronaXConfiguration.java
+@@ -0,0 +1,181 @@
++package io.papermc.paper.configuration;
++
++import com.mojang.logging.LogUtils;
++import java.io.File;
++import java.io.IOException;
++import java.nio.charset.StandardCharsets;
++import java.nio.file.Files;
++import java.nio.file.StandardOpenOption;
++import java.util.Locale;
++import java.util.Set;
++import org.bukkit.configuration.file.YamlConfiguration;
++import org.slf4j.Logger;
++
++final class ChronaXConfiguration {
++    private static final Logger LOGGER = LogUtils.getClassLogger();
++    private static final File FILE = new File("chronax.yml");
++    private static final Set<String> VALID_PARALLELISM = Set.of("on", "off", "enabled", "disabled", "true", "false", "default");
++    private static final String DEFAULT_CONTENT = """
++            # ChronaX root configuration
++            # Performance-first default preset for ChronaX.
++            # Edit values as needed for your hardware/plugin mix.
++            config-version: 1
++
++            chunk-system:
++              gen-parallelism: on
++              io-threads: 4
++              worker-threads: 12
++
++            chunk-loading:
++              player-max-chunk-send-rate: 180
++              player-max-chunk-load-rate: 220
++              player-max-chunk-generate-rate: 70
++              player-max-concurrent-chunk-loads: 12
++              player-max-concurrent-chunk-generates: 6
++
++            leaf-overrides:
++              async:
++                async-chunk-send: true
++                async-mob-spawning: true
++                async-playerdata-save: true
++                async-pathfinding:
++                  enabled: true
++                  max-threads: -2
++                  keepalive: 120
++                  queue-size: 4096
++                  reject-policy: CALLER_RUNS
++                async-entity-tracker:
++                  enabled: true
++                  threads: 4
++                parallel-world-ticking:
++                  enabled: true
++                  threads: 8
++                  log-container-creation-stacktraces: false
++                  disable-hard-throw: false
++                  async-unsafe-read-handling: BUFFERED
++              performance:
++                throttle-hopper-when-full:
++                  enabled: true
++                  skip-ticks: 12
++            """;
++
++    private ChronaXConfiguration() {
++    }
++
++    static ChunkSystemSettings chunkSystemSettings() {
++        final YamlConfiguration yaml = loadYaml();
++        final Integer ioThreads = readOptionalInt(yaml, "chunk-system.io-threads");
++        final Integer workerThreads = readOptionalInt(yaml, "chunk-system.worker-threads");
++        final String genParallelism = readOptionalParallelism(yaml, "chunk-system.gen-parallelism");
++
++        return new ChunkSystemSettings(ioThreads, workerThreads, genParallelism);
++    }
++
++    static ChunkLoadingSettings chunkLoadingSettings() {
++        final YamlConfiguration yaml = loadYaml();
++        final Double playerMaxChunkSendRate = readOptionalDouble(yaml, "chunk-loading.player-max-chunk-send-rate");
++        final Double playerMaxChunkLoadRate = readOptionalDouble(yaml, "chunk-loading.player-max-chunk-load-rate");
++        final Double playerMaxChunkGenerateRate = readOptionalDouble(yaml, "chunk-loading.player-max-chunk-generate-rate");
++        final Integer playerMaxConcurrentChunkLoads = readOptionalInt(yaml, "chunk-loading.player-max-concurrent-chunk-loads");
++        final Integer playerMaxConcurrentChunkGenerates = readOptionalInt(yaml, "chunk-loading.player-max-concurrent-chunk-generates");
++
++        return new ChunkLoadingSettings(
++            playerMaxChunkSendRate,
++            playerMaxChunkLoadRate,
++            playerMaxChunkGenerateRate,
++            playerMaxConcurrentChunkLoads,
++            playerMaxConcurrentChunkGenerates
++        );
++    }
++
++    private static YamlConfiguration loadYaml() {
++        ensureExists();
++        return YamlConfiguration.loadConfiguration(FILE);
++    }
++
++    private static Integer readOptionalInt(final YamlConfiguration yaml, final String path) {
++        final Object raw = yaml.get(path);
++        if (raw == null) {
++            return null;
++        }
++        if (raw instanceof Number number) {
++            return number.intValue();
++        }
++        if (raw instanceof String str) {
++            final String normalized = str.trim().toLowerCase(Locale.ROOT);
++            if ("default".equals(normalized)) {
++                return null;
++            }
++            try {
++                return Integer.parseInt(str.trim());
++            } catch (final NumberFormatException ignored) {
++                // Fall through to warning.
++            }
++        }
++        LOGGER.warn("Invalid integer for '{}': '{}'. Ignoring override.", path, raw);
++        return null;
++    }
++
++    private static Double readOptionalDouble(final YamlConfiguration yaml, final String path) {
++        final Object raw = yaml.get(path);
++        if (raw == null) {
++            return null;
++        }
++        if (raw instanceof Number number) {
++            return number.doubleValue();
++        }
++        if (raw instanceof String str) {
++            final String normalized = str.trim().toLowerCase(Locale.ROOT);
++            if ("default".equals(normalized)) {
++                return null;
++            }
++            try {
++                return Double.parseDouble(str.trim());
++            } catch (final NumberFormatException ignored) {
++                // Fall through to warning.
++            }
++        }
++        LOGGER.warn("Invalid number for '{}': '{}'. Ignoring override.", path, raw);
++        return null;
++    }
++
++    private static String readOptionalParallelism(final YamlConfiguration yaml, final String path) {
++        final String value = yaml.getString(path);
++        if (value == null || value.isBlank()) {
++            return null;
++        }
++        final String normalized = value.trim().toLowerCase(Locale.ROOT);
++        if ("default".equals(normalized)) {
++            return null;
++        }
++        if (!VALID_PARALLELISM.contains(normalized)) {
++            LOGGER.warn("Invalid value for '{}': '{}'. Ignoring override.", path, value);
++            return null;
++        }
++        return normalized;
++    }
++
++    private static void ensureExists() {
++        if (FILE.exists()) {
++            return;
++        }
++        try {
++            Files.writeString(FILE.toPath(), DEFAULT_CONTENT, StandardCharsets.UTF_8, StandardOpenOption.CREATE_NEW);
++            LOGGER.info("Created ChronaX root config at '{}'", FILE.getPath());
++        } catch (final IOException ex) {
++            LOGGER.warn("Failed to create ChronaX root config at '{}': {}", FILE.getPath(), ex.getMessage());
++        }
++    }
++
++    record ChunkSystemSettings(Integer ioThreads, Integer workerThreads, String genParallelism) {
++    }
++
++    record ChunkLoadingSettings(
++        Double playerMaxChunkSendRate,
++        Double playerMaxChunkLoadRate,
++        Double playerMaxChunkGenerateRate,
++        Integer playerMaxConcurrentChunkLoads,
++        Integer playerMaxConcurrentChunkGenerates
++    ) {
++    }
++}
+diff --git a/src/main/java/io/papermc/paper/configuration/GlobalConfiguration.java b/src/main/java/io/papermc/paper/configuration/GlobalConfiguration.java
+index 3f5e76e4d..c1eeaca2a 100644
+--- a/src/main/java/io/papermc/paper/configuration/GlobalConfiguration.java
++++ b/src/main/java/io/papermc/paper/configuration/GlobalConfiguration.java
+@@ -51,6 +51,20 @@ public class GlobalConfiguration extends ConfigurationPart {
+ 
+         @Comment("The maximum rate at which chunks will generate for any individual player. Set to -1 to disable this limit.")
+         public double playerMaxChunkGenerateRate = -1.0;
++
++        @PostProcess
++        private void postProcess() {
++            final ChronaXConfiguration.ChunkLoadingSettings chronaXSettings = ChronaXConfiguration.chunkLoadingSettings();
++            if (chronaXSettings.playerMaxChunkSendRate() != null) {
++                this.playerMaxChunkSendRate = chronaXSettings.playerMaxChunkSendRate();
++            }
++            if (chronaXSettings.playerMaxChunkLoadRate() != null) {
++                this.playerMaxChunkLoadRate = chronaXSettings.playerMaxChunkLoadRate();
++            }
++            if (chronaXSettings.playerMaxChunkGenerateRate() != null) {
++                this.playerMaxChunkGenerateRate = chronaXSettings.playerMaxChunkGenerateRate();
++            }
++        }
+     }
+ 
+     public ChunkLoadingAdvanced chunkLoadingAdvanced;
+@@ -73,6 +87,17 @@ public class GlobalConfiguration extends ConfigurationPart {
+             "Set to 0 to let the server configure it automatically per player, or set it to -1 to disable the limit."
+         )
+         public int playerMaxConcurrentChunkGenerates = 0;
++
++        @PostProcess
++        private void postProcess() {
++            final ChronaXConfiguration.ChunkLoadingSettings chronaXSettings = ChronaXConfiguration.chunkLoadingSettings();
++            if (chronaXSettings.playerMaxConcurrentChunkLoads() != null) {
++                this.playerMaxConcurrentChunkLoads = chronaXSettings.playerMaxConcurrentChunkLoads();
++            }
++            if (chronaXSettings.playerMaxConcurrentChunkGenerates() != null) {
++                this.playerMaxConcurrentChunkGenerates = chronaXSettings.playerMaxConcurrentChunkGenerates();
++            }
++        }
+     }
+     static void set(final GlobalConfiguration instance) {
+         GlobalConfiguration.instance = instance;
+@@ -228,6 +253,18 @@ public class GlobalConfiguration extends ConfigurationPart {
+ 
+         @PostProcess
+         private void postProcess() {
++            // ChronaX - root-level override file for chunk system tuning.
++            final ChronaXConfiguration.ChunkSystemSettings chronaXSettings = ChronaXConfiguration.chunkSystemSettings();
++            if (chronaXSettings.ioThreads() != null) {
++                this.ioThreads = chronaXSettings.ioThreads();
++            }
++            if (chronaXSettings.workerThreads() != null) {
++                this.workerThreads = chronaXSettings.workerThreads();
++            }
++            if (chronaXSettings.genParallelism() != null) {
++                this.genParallelism = chronaXSettings.genParallelism();
++            }
++
+             ca.spottedleaf.moonrise.common.util.MoonriseCommon.adjustWorkerThreads(this.workerThreads, this.ioThreads);
+             String newChunkSystemGenParallelism = this.genParallelism;
+             if (newChunkSystemGenParallelism.equalsIgnoreCase("default")) {

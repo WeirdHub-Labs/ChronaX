@@ -8,64 +8,56 @@ import java.nio.file.StandardOpenOption;
 import java.util.Locale;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.Nullable;
 
 public final class ChronaXRootConfig {
-    private static final Logger LOGGER = LogManager.getLogger(ChronaXRootConfig.class);
+    private static final Logger LOGGER = LogManager.getLogger("ChronaXConfig");
     private static final File FILE = new File("chronax.yml");
     private static volatile YamlConfiguration config;
     private static final String DEFAULT_CONTENT = """
             # ChronaX root configuration
-            # This file is read before Paper/Leaf configs and can override selected runtime options.
-            # Keep config/paper-global.yml and config/leaf-global.yml for full advanced tuning.
+            # Performance-first default preset for ChronaX.
+            # Edit values as needed for your hardware/plugin mix.
             config-version: 1
 
             chunk-system:
-              # default = keep paper-global.yml value
-              # default | true | false | on | off | enabled | disabled
-              gen-parallelism: default
-              # default | integer (-1 = auto)
-              io-threads: default
-              # default | integer (-1 = auto)
-              worker-threads: default
+              gen-parallelism: on
+              io-threads: 4
+              worker-threads: 12
 
             chunk-loading:
-              # default = keep paper-global.yml value, -1 = disable rate limit
-              player-max-chunk-send-rate: default
-              # default = keep paper-global.yml value, -1 = disable rate limit
-              player-max-chunk-load-rate: default
-              # default = keep paper-global.yml value, -1 = disable rate limit
-              player-max-chunk-generate-rate: default
-              # default = keep paper-global.yml value, -1 = disable limit
-              player-max-concurrent-chunk-loads: default
-              # default = keep paper-global.yml value, -1 = disable limit
-              player-max-concurrent-chunk-generates: default
+              player-max-chunk-send-rate: 180
+              player-max-chunk-load-rate: 220
+              player-max-chunk-generate-rate: 70
+              player-max-concurrent-chunk-loads: 12
+              player-max-concurrent-chunk-generates: 6
 
             leaf-overrides:
               async:
-                # async-chunk-send: true
-                # async-mob-spawning: true
-                # async-playerdata-save: false
-                # async-pathfinding:
-                #   enabled: true
-                #   max-threads: 0
-                #   keepalive: 60
-                #   queue-size: 0
-                #   reject-policy: FLUSH_ALL
-                # async-entity-tracker:
-                #   enabled: false
-                #   threads: 0
-                # parallel-world-ticking:
-                #   enabled: false
-                #   threads: 8
-                #   log-container-creation-stacktraces: false
-                #   disable-hard-throw: false
-                #   async-unsafe-read-handling: BUFFERED
+                async-chunk-send: true
+                async-mob-spawning: true
+                async-playerdata-save: true
+                async-pathfinding:
+                  enabled: true
+                  max-threads: -2
+                  keepalive: 120
+                  queue-size: 4096
+                  reject-policy: CALLER_RUNS
+                async-entity-tracker:
+                  enabled: true
+                  threads: 4
+                parallel-world-ticking:
+                  enabled: true
+                  threads: 8
+                  log-container-creation-stacktraces: false
+                  disable-hard-throw: false
+                  async-unsafe-read-handling: BUFFERED
               performance:
-                # throttle-hopper-when-full:
-                #   enabled: true
-                #   skip-ticks: 8
+                throttle-hopper-when-full:
+                  enabled: true
+                  skip-ticks: 12
             """;
 
     private ChronaXRootConfig() {
@@ -80,6 +72,10 @@ public final class ChronaXRootConfig {
         final YamlConfiguration yaml = ensureLoaded();
         final Object raw = yaml.get(path);
         if (raw == null) {
+            return null;
+        }
+        if (raw instanceof ConfigurationSection) {
+            // Allow section-style keys for fallback chains without warning noise.
             return null;
         }
         if (raw instanceof Boolean bool) {
@@ -102,6 +98,10 @@ public final class ChronaXRootConfig {
         final YamlConfiguration yaml = ensureLoaded();
         final Object raw = yaml.get(path);
         if (raw == null) {
+            return null;
+        }
+        if (raw instanceof ConfigurationSection) {
+            // Allow section-style keys for fallback chains without warning noise.
             return null;
         }
         if (raw instanceof Number number) {
