@@ -1,18 +1,20 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: ChronaX <chronax@wrd.org>
-Date: Sat, 08 Feb 2026 00:00:00 +0900
+Date: Sun, 8 Feb 2026 00:00:00 +0900
 Subject: [PATCH] ChronaX Panel link
 
-
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
+index a19eee1..638421d 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
-@@ -284,5 +284,6 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -283,6 +283,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+     public volatile boolean abnormalExit; // Paper - Improved watchdog support
      public volatile Thread shutdownThread; // Paper - Improved watchdog support
      public final io.papermc.paper.configuration.PaperConfigurations paperConfigurations; // Paper - add paper configuration files
 +    public org.wrd.chronax.panel.PanelLinker panelLinker; // ChronaX - panel link
      public final org.galemc.gale.configuration.GaleConfigurations galeConfigurations; // Gale - Gale configuration
      public boolean isIteratingOverLevels = false; // Paper - Throw exception on world create while being ticked
+     private final Set<String> pluginsBlockingSleep = new java.util.HashSet<>(); // Paper - API to allow/disallow tick sleeping
 @@ -1015,6 +1016,10 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
              this.server.waitForAsyncTasksShutdown(); // Paper - Wait for Async Tasks during shutdown
          }
@@ -25,6 +27,7 @@ diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/Mi
          this.getConnection().stop();
          this.isSaving = true;
 diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
+index 89fb327..420807e 100644
 --- a/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/net/minecraft/server/dedicated/DedicatedServer.java
 @@ -176,6 +176,13 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
