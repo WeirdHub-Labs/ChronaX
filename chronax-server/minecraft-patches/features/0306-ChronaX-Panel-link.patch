@@ -7,14 +7,13 @@ Subject: [PATCH] ChronaX Panel link
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
-@@ -304,6 +304,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -284,5 +284,6 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
      public volatile Thread shutdownThread; // Paper - Improved watchdog support
      public final io.papermc.paper.configuration.PaperConfigurations paperConfigurations; // Paper - add paper configuration files
 +    public org.wrd.chronax.panel.PanelLinker panelLinker; // ChronaX - panel link
+     public final org.galemc.gale.configuration.GaleConfigurations galeConfigurations; // Gale - Gale configuration
      public boolean isIteratingOverLevels = false; // Paper - Throw exception on world create while being ticked
-     private final Set<String> pluginsBlockingSleep = new java.util.HashSet<>(); // Paper - API to allow/disallow tick sleeping
-     public static final long SERVER_INIT = System.nanoTime(); // Paper - Lag compensation
-@@ -1024,6 +1025,10 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+@@ -1015,6 +1016,10 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
              this.server.waitForAsyncTasksShutdown(); // Paper - Wait for Async Tasks during shutdown
          }
          // CraftBukkit end
@@ -28,7 +27,10 @@ diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/Mi
 diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
 --- a/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/net/minecraft/server/dedicated/DedicatedServer.java
-@@ -266,6 +266,13 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
+@@ -176,6 +176,13 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface
+         galeConfigurations.initializeGlobalConfiguration(this.registryAccess());
+         galeConfigurations.initializeWorldDefaultsConfiguration(this.registryAccess());
+         // Gale end - Gale configuration
 +        // ChronaX start - panel link
 +        org.wrd.chronax.panel.PanelInfo panelInfo = org.wrd.chronax.panel.PanelInfo.loadFromFile(org.wrd.chronax.panel.PanelLinker.INFO_FILE);
 +        if(panelInfo != null) {
