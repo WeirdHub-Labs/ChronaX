@@ -1,0 +1,39 @@
+diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
+index 748bd9650..67b8c2a3d 100644
+--- a/src/main/java/org/bukkit/craftbukkit/Main.java
++++ b/src/main/java/org/bukkit/craftbukkit/Main.java
+@@ -17,6 +17,14 @@ public class Main {
+     public static final java.time.Instant BOOT_TIME = java.time.Instant.now(); // Paper - track initial start time
+     public static boolean useJline = true;
+     public static boolean useConsole = true;
++    private static final String[] CHRONAX_BANNER = new String[] {
++            "   ____ _                               __   __",
++            "  / ___| |__  _ __ ___  _ __   __ _    \\ \\ / /",
++            " | |   | '_ \\| '__/ _ \\| '_ \\ / _` |    \\ V / ",
++            " | |___| | | | | | (_) | | | | (_| |     > <  ",
++            "  \\____|_| |_|_|  \\___/|_| |_|\\__,_|    / . \\ ",
++            "                                        /_/ \\_\\"
++    };
+ 
+     // Paper start - Reset loggers after shutdown
+     static {
+@@ -247,10 +255,19 @@ public class Main {
+                 System.setProperty("library.jansi.version", "Paper"); // Paper - set meaningless jansi version to prevent git builds from crashing on Windows
+                 System.setProperty("jdk.console", "java.base"); // Paper - revert default console provider back to java.base so we can have our own jline
+ 
++                printChronaXBanner();
+                 io.papermc.paper.PaperBootstrap.boot(options);
+             } catch (Throwable t) {
+                 t.printStackTrace();
+             }
+         }
+     }
++
++    private static void printChronaXBanner() {
++        System.out.println();
++        for (String line : CHRONAX_BANNER) {
++            System.out.println(line);
++        }
++        System.out.println();
++    }
+ }

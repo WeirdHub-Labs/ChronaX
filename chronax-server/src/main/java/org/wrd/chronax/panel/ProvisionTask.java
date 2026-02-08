@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.wrd.chronax.panel.provider.ApiProvider;
 import org.wrd.chronax.util.StringUtil;
 
+import net.minecraft.server.MinecraftServer;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.BufferedReader;
@@ -17,6 +19,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.TimerTask;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 public class ProvisionTask extends TimerTask {
     private final Logger logger;
@@ -68,11 +72,22 @@ public class ProvisionTask extends TimerTask {
     }
 
     private String getBody() {
-        JsonObject bodyJson = new JsonObject();
-
-        providers.forEach((provider) -> bodyJson.add(provider.id(), provider.provide()));
-
-        return bodyJson.toString();
+        CompletableFuture<String> future = new CompletableFuture<>();
+        MinecraftServer.getServer().execute(() -> {
+            try {
+                JsonObject bodyJson = new JsonObject();
+                providers.forEach((provider) -> bodyJson.add(provider.id(), provider.provide()));
+                future.complete(bodyJson.toString());
+            } catch (Exception e) {
+                future.completeExceptionally(e);
+            }
+        });
+        try {
+            return future.get(5, TimeUnit.SECONDS);
+        } catch (Exception e) {
+            logger.warn("Failed to collect panel data from main thread", e);
+            return "{}";
+        }
     }
 
     private String getSignature(String timestamp, String body) {

@@ -98,6 +98,9 @@ public class LeafConfig {
         // Create config folder
         createDirectory(I_CONFIG_FOLDER);
 
+        // Load ChronaX root override file before module configs.
+        ChronaXRootConfig.reload();
+
         leafGlobalConfig = new LeafGlobalConfig(init);
 
         // Load config modules

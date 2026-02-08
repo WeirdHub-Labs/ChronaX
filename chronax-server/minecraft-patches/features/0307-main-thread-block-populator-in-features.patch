@@ -1,0 +1,50 @@
+diff --git a/net/minecraft/world/level/chunk/status/ChunkStatusTasks.java b/net/minecraft/world/level/chunk/status/ChunkStatusTasks.java
+index c937fc1..77a21cf 100644
+--- a/net/minecraft/world/level/chunk/status/ChunkStatusTasks.java
++++ b/net/minecraft/world/level/chunk/status/ChunkStatusTasks.java
+@@ -26,6 +26,14 @@ import org.slf4j.Logger;
+ public class ChunkStatusTasks {
+     private static final Logger LOGGER = LogUtils.getLogger();
+ 
++    private static java.util.concurrent.Executor mainThreadExecutor(final WorldGenContext worldGenContext) {
++        final java.util.concurrent.Executor executor = worldGenContext.mainThreadExecutor();
++        if (executor != null) {
++            return executor;
++        }
++        return worldGenContext.level().getChunkSource().mainThreadProcessor;
++    }
++
+     private static boolean isLighted(ChunkAccess chunk) {
+         return chunk.getPersistedStatus().isOrAfter(ChunkStatus.LIGHT) && chunk.isLightCorrect();
+     }
+@@ -146,10 +154,18 @@ public class ChunkStatusTasks {
+             chunk,
+             EnumSet.of(Heightmap.Types.MOTION_BLOCKING, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Heightmap.Types.OCEAN_FLOOR, Heightmap.Types.WORLD_SURFACE)
+         );
+-        WorldGenRegion worldGenRegion = new WorldGenRegion(serverLevel, cache, step, chunk);
+-        worldGenContext.generator().applyBiomeDecoration(worldGenRegion, chunk, serverLevel.structureManager().forWorldGenRegion(worldGenRegion));
++        final WorldGenRegion worldGenRegion = new WorldGenRegion(serverLevel, cache, step, chunk);
++        final var generator = worldGenContext.generator();
++
++        // Keep vanilla decoration off-thread, but run plugin populators on main for Bukkit compatibility.
++        generator.addVanillaDecorations(worldGenRegion, chunk, serverLevel.structureManager().forWorldGenRegion(worldGenRegion));
+         Blender.generateBorderTicks(worldGenRegion, chunk);
+-        return CompletableFuture.completedFuture(chunk);
++
++        return CompletableFuture.supplyAsync(() -> {
++            final WorldGenRegion mainThreadRegion = new WorldGenRegion(serverLevel, cache, step, chunk);
++            generator.applyBiomeDecoration(mainThreadRegion, chunk, serverLevel.structureManager().forWorldGenRegion(mainThreadRegion), false);
++            return chunk;
++        }, mainThreadExecutor(worldGenContext));
+     }
+ 
+     static CompletableFuture<ChunkAccess> initializeLight(
+@@ -202,7 +218,7 @@ public class ChunkStatusTasks {
+             wrapped.registerTickContainerInLevel(serverLevel);
+             wrapped.setUnsavedListener(worldGenContext.unsavedListener());
+             return wrapped;
+-        }, worldGenContext.mainThreadExecutor());
++        }, mainThreadExecutor(worldGenContext));
+     }
+ 
+     public static void postLoadProtoChunk(ServerLevel level, ValueInput.ValueInputList input, ChunkPos pos) { // Paper - rewrite chunk system - add ChunkPos param

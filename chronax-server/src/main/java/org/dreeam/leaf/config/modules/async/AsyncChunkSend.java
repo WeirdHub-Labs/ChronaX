@@ -1,6 +1,7 @@
 package org.dreeam.leaf.config.modules.async;
 
 import org.dreeam.leaf.config.ConfigModules;
+import org.dreeam.leaf.config.ChronaXRootConfig;
 import org.dreeam.leaf.config.EnumConfigCategory;
 
 public class AsyncChunkSend extends ConfigModules {
@@ -9,7 +10,7 @@ public class AsyncChunkSend extends ConfigModules {
         return EnumConfigCategory.ASYNC.getBaseKeyName() + ".async-chunk-send";
     }
 
-    public static boolean enabled = false;
+    public static boolean enabled = true;
     private static boolean asyncChunkSendInitialized;
 
     @Override
@@ -28,5 +29,12 @@ public class AsyncChunkSend extends ConfigModules {
         asyncChunkSendInitialized = true;
 
         enabled = config.getBoolean(getBasePath() + ".enabled", enabled);
+        final Boolean rootEnabled = ChronaXRootConfig.getFirstBoolean(
+            "leaf-overrides.async.async-chunk-send",
+            "leaf-overrides.async.async-chunk-send.enabled"
+        );
+        if (rootEnabled != null) {
+            enabled = rootEnabled;
+        }
     }
 }

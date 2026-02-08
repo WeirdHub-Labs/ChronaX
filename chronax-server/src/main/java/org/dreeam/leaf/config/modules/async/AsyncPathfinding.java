@@ -2,6 +2,7 @@ package org.dreeam.leaf.config.modules.async;
 
 import org.dreeam.leaf.async.path.PathfindTaskRejectPolicy;
 import org.dreeam.leaf.config.ConfigModules;
+import org.dreeam.leaf.config.ChronaXRootConfig;
 import org.dreeam.leaf.config.EnumConfigCategory;
 import org.dreeam.leaf.config.LeafConfig;
 
@@ -11,7 +12,7 @@ public class AsyncPathfinding extends ConfigModules {
         return EnumConfigCategory.ASYNC.getBaseKeyName() + ".async-pathfinding";
     }
 
-    public static boolean enabled = false;
+    public static boolean enabled = true;
     public static int asyncPathfindingMaxThreads = 0;
     public static int asyncPathfindingKeepalive = 60;
     public static int asyncPathfindingQueueSize = 0;
@@ -40,6 +41,31 @@ public class AsyncPathfinding extends ConfigModules {
         asyncPathfindingMaxThreads = config.getInt(getBasePath() + ".max-threads", asyncPathfindingMaxThreads);
         asyncPathfindingKeepalive = config.getInt(getBasePath() + ".keepalive", asyncPathfindingKeepalive);
         asyncPathfindingQueueSize = config.getInt(getBasePath() + ".queue-size", asyncPathfindingQueueSize);
+        final String defaultRejectPolicy = availableProcessors >= 12 && asyncPathfindingQueueSize < 512
+            ? PathfindTaskRejectPolicy.FLUSH_ALL.toString()
+            : PathfindTaskRejectPolicy.CALLER_RUNS.toString();
+        String rejectPolicy = config.getString(getBasePath() + ".reject-policy", defaultRejectPolicy);
+
+        final Boolean rootEnabled = ChronaXRootConfig.getBoolean("leaf-overrides.async.async-pathfinding.enabled");
+        if (rootEnabled != null) {
+            enabled = rootEnabled;
+        }
+        final Integer rootMaxThreads = ChronaXRootConfig.getInt("leaf-overrides.async.async-pathfinding.max-threads");
+        if (rootMaxThreads != null) {
+            asyncPathfindingMaxThreads = rootMaxThreads;
+        }
+        final Integer rootKeepalive = ChronaXRootConfig.getInt("leaf-overrides.async.async-pathfinding.keepalive");
+        if (rootKeepalive != null) {
+            asyncPathfindingKeepalive = rootKeepalive;
+        }
+        final Integer rootQueueSize = ChronaXRootConfig.getInt("leaf-overrides.async.async-pathfinding.queue-size");
+        if (rootQueueSize != null) {
+            asyncPathfindingQueueSize = rootQueueSize;
+        }
+        final String rootRejectPolicy = ChronaXRootConfig.getString("leaf-overrides.async.async-pathfinding.reject-policy");
+        if (rootRejectPolicy != null) {
+            rejectPolicy = rootRejectPolicy;
+        }
 
         if (asyncPathfindingMaxThreads < 0)
             asyncPathfindingMaxThreads = Math.max(availableProcessors + asyncPathfindingMaxThreads, 1);
@@ -53,11 +79,7 @@ public class AsyncPathfinding extends ConfigModules {
         if (asyncPathfindingQueueSize <= 0)
             asyncPathfindingQueueSize = asyncPathfindingMaxThreads * 256;
 
-        asyncPathfindingRejectPolicy = PathfindTaskRejectPolicy.fromString(config.getString(getBasePath() + ".reject-policy",
-            availableProcessors >= 12 && asyncPathfindingQueueSize < 512
-                ? PathfindTaskRejectPolicy.FLUSH_ALL.toString()
-                : PathfindTaskRejectPolicy.CALLER_RUNS.toString())
-        );
+        asyncPathfindingRejectPolicy = PathfindTaskRejectPolicy.fromString(rejectPolicy);
 
         if (enabled) {
             org.dreeam.leaf.async.path.AsyncPathProcessor.init();

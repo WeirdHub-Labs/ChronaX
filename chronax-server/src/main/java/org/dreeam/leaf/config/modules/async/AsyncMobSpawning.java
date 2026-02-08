@@ -1,6 +1,7 @@
 package org.dreeam.leaf.config.modules.async;
 
 import org.dreeam.leaf.config.ConfigModules;
+import org.dreeam.leaf.config.ChronaXRootConfig;
 import org.dreeam.leaf.config.EnumConfigCategory;
 
 public class AsyncMobSpawning extends ConfigModules {
@@ -33,5 +34,12 @@ public class AsyncMobSpawning extends ConfigModules {
         asyncMobSpawningInitialized = true;
 
         enabled = config.getBoolean(getBasePath() + ".enabled", enabled);
+        final Boolean rootEnabled = ChronaXRootConfig.getFirstBoolean(
+            "leaf-overrides.async.async-mob-spawning",
+            "leaf-overrides.async.async-mob-spawning.enabled"
+        );
+        if (rootEnabled != null) {
+            enabled = rootEnabled;
+        }
     }
 }

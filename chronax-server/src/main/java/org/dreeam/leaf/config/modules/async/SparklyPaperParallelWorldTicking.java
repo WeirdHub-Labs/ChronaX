@@ -1,6 +1,7 @@
 package org.dreeam.leaf.config.modules.async;
 
 import org.dreeam.leaf.config.ConfigModules;
+import org.dreeam.leaf.config.ChronaXRootConfig;
 import org.dreeam.leaf.config.EnumConfigCategory;
 import org.dreeam.leaf.config.LeafConfig;
 import org.dreeam.leaf.config.annotations.Experimental;
@@ -32,6 +33,16 @@ public class SparklyPaperParallelWorldTicking extends ConfigModules {
 
         enabled = config.getBoolean(getBasePath() + ".enabled", enabled);
         threads = config.getInt(getBasePath() + ".threads", threads);
+
+        final Boolean rootEnabled = ChronaXRootConfig.getBoolean("leaf-overrides.async.parallel-world-ticking.enabled");
+        if (rootEnabled != null) {
+            enabled = rootEnabled;
+        }
+        final Integer rootThreads = ChronaXRootConfig.getInt("leaf-overrides.async.parallel-world-ticking.threads");
+        if (rootThreads != null) {
+            threads = rootThreads;
+        }
+
         if (enabled) {
             if (threads <= 0) threads = 8;
         } else {
@@ -42,7 +53,19 @@ public class SparklyPaperParallelWorldTicking extends ConfigModules {
         logContainerCreationStacktraces = enabled && logContainerCreationStacktraces;
         disableHardThrow = config.getBoolean(getBasePath() + ".disable-hard-throw", disableHardThrow);
         disableHardThrow = enabled && disableHardThrow;
+        final Boolean rootLogContainerCreationStacktraces = ChronaXRootConfig.getBoolean("leaf-overrides.async.parallel-world-ticking.log-container-creation-stacktraces");
+        if (rootLogContainerCreationStacktraces != null) {
+            logContainerCreationStacktraces = enabled && rootLogContainerCreationStacktraces;
+        }
+        final Boolean rootDisableHardThrow = ChronaXRootConfig.getBoolean("leaf-overrides.async.parallel-world-ticking.disable-hard-throw");
+        if (rootDisableHardThrow != null) {
+            disableHardThrow = enabled && rootDisableHardThrow;
+        }
         asyncUnsafeReadHandling = config.getString(getBasePath() + ".async-unsafe-read-handling", asyncUnsafeReadHandling).toUpperCase();
+        final String rootAsyncUnsafeReadHandlingAfterConfig = ChronaXRootConfig.getString("leaf-overrides.async.parallel-world-ticking.async-unsafe-read-handling");
+        if (rootAsyncUnsafeReadHandlingAfterConfig != null) {
+            asyncUnsafeReadHandling = rootAsyncUnsafeReadHandlingAfterConfig.toUpperCase();
+        }
 
         if (!asyncUnsafeReadHandling.equals("STRICT") && !asyncUnsafeReadHandling.equals("BUFFERED") && !asyncUnsafeReadHandling.equals("DISABLED")) {
             LeafConfig.LOGGER.warn("Invalid value for {}.async-unsafe-read-handling: {}, fallback to STRICT.", getBasePath(), asyncUnsafeReadHandling);
