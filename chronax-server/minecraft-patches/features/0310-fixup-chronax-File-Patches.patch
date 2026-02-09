@@ -1,0 +1,19 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: mini-kio <kiolaaoz@naver.com>
+Date: Mon, 9 Feb 2026 16:39:21 +0900
+Subject: [PATCH] fixup! chronax File Patches
+
+
+diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
+index 843b3d1aa1b9e25c1511c802d53f0a55f2278f8d..be6ba9fe778ecd22ed88635733f30a5d0c0561ac 100644
+--- a/net/minecraft/server/MinecraftServer.java
++++ b/net/minecraft/server/MinecraftServer.java
+@@ -290,7 +290,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+     public static final long SERVER_INIT = System.nanoTime(); // Paper - Lag compensation
+     public boolean lagging = false; // Purpur - Lagging threshold
+     protected boolean upnp = false; // Purpur - UPnP Port Forwarding
+-    public gg.pufferfish.pufferfish.util.AsyncExecutor mobSpawnExecutor = new gg.pufferfish.pufferfish.util.AsyncExecutor("Leaf Async Mob Spawn Thread"); // Pufferfish - optimize mob spawning // Leaf - Fix Pufferfish and Purpur patches - Unify thread name
++    public gg.pufferfish.pufferfish.util.AsyncExecutor mobSpawnExecutor = new gg.pufferfish.pufferfish.util.AsyncExecutor("ChronaX Async Mob Spawn Thread"); // Pufferfish - optimize mob spawning // Leaf - Fix Pufferfish and Purpur patches - Unify thread name
+     public java.util.concurrent.Semaphore serverLevelTickingSemaphore = null; // Leaf - SparklyPaper - parallel world ticking
+     private final java.util.ArrayList<java.util.concurrent.Future<ServerLevel>> parallelWorldTickTasks = new java.util.ArrayList<>(); // ChronaX - reduce per-tick allocations for PWT task tracking
+ 

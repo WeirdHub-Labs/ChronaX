@@ -18,7 +18,7 @@ import org.dreeam.leaf.util.EntitySlice;
 import java.util.concurrent.*;
 
 public final class AsyncTracker {
-    private static final String THREAD_NAME = "Leaf Async Tracker Thread";
+    private static final String THREAD_NAME = "ChronaX Async Tracker Thread";
     public static final boolean ENABLED = MultithreadedTracker.enabled;
     public static final int QUEUE = 1024;
     public static final int MIN_CHUNK = 16;
