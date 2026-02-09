@@ -10,8 +10,6 @@ import org.dreeam.leaf.config.modules.async.AsyncPathfinding;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -27,7 +25,7 @@ import java.util.function.Consumer;
  */
 public class AsyncPathProcessor {
 
-    private static final String THREAD_PREFIX = "Leaf Async Pathfinding";
+    private static final String THREAD_PREFIX = "ChronaX Async Pathfinding";
     private static final Logger LOGGER = LogManager.getLogger(THREAD_PREFIX);
     private static long lastWarnMillis = System.currentTimeMillis();
     public static ThreadPoolExecutor PATH_PROCESSING_EXECUTOR = null;
@@ -42,6 +40,9 @@ public class AsyncPathProcessor {
                 getThreadFactory(),
                 getRejectedPolicy()
             );
+            if (PATH_PROCESSING_EXECUTOR.getKeepAliveTime(TimeUnit.NANOSECONDS) > 0L) {
+                PATH_PROCESSING_EXECUTOR.allowCoreThreadTimeOut(true);
+            }
         } else {
             // Temp no-op
             //throw new IllegalStateException();
@@ -76,11 +77,12 @@ public class AsyncPathProcessor {
     }
 
     private static int getCorePoolSize() {
-        return 1;
+        // Keep core threads aligned with configured max to preserve real parallelism.
+        return Math.max(1, AsyncPathfinding.asyncPathfindingMaxThreads);
     }
 
     private static int getMaxPoolSize() {
-        return AsyncPathfinding.asyncPathfindingMaxThreads;
+        return Math.max(1, AsyncPathfinding.asyncPathfindingMaxThreads);
     }
 
     private static long getKeepAliveTime() {
@@ -103,18 +105,13 @@ public class AsyncPathProcessor {
 
     private static @NotNull RejectedExecutionHandler getRejectedPolicy() {
         return (Runnable rejectedTask, ThreadPoolExecutor executor) -> {
-            BlockingQueue<Runnable> workQueue = executor.getQueue();
+            final BlockingQueue<Runnable> workQueue = executor.getQueue();
             if (!executor.isShutdown()) {
                 switch (AsyncPathfinding.asyncPathfindingRejectPolicy) {
                     case FLUSH_ALL -> {
-                        if (!workQueue.isEmpty()) {
-                            List<Runnable> pendingTasks = new ArrayList<>(workQueue.size());
-
-                            workQueue.drainTo(pendingTasks);
-
-                            for (Runnable pendingTask : pendingTasks) {
-                                pendingTask.run();
-                            }
+                        Runnable pendingTask;
+                        while ((pendingTask = workQueue.poll()) != null) {
+                            pendingTask.run();
                         }
                         rejectedTask.run();
                     }
@@ -123,7 +120,7 @@ public class AsyncPathProcessor {
             }
 
             if (System.currentTimeMillis() - lastWarnMillis > 30000L) {
-                LOGGER.warn("Async pathfinding processor is busy! Pathfinding tasks will be treated as policy defined in config. Increasing max-threads in Leaf config may help.");
+                LOGGER.warn("Async pathfinding processor is busy! Pathfinding tasks will be treated as policy defined in config. Increasing max-threads in ChronaX config may help.");
                 lastWarnMillis = System.currentTimeMillis();
             }
         };

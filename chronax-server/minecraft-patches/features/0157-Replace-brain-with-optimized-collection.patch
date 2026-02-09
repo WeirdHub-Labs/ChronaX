@@ -7,7 +7,7 @@ Co-authored-by: Taiyou06 <kaandindar21@gmail.com>
 Co-authored-by: hayanesuru <hayanesuru@outlook.jp>
 
 diff --git a/net/minecraft/world/entity/ai/Brain.java b/net/minecraft/world/entity/ai/Brain.java
-index 29fdf94..d423f32 100644
+index e3145470b0800db7cba38b2a5b6a295a64650962..a6aca3fd05586de9e9e1c531471a82377fbf9f9d 100644
 --- a/net/minecraft/world/entity/ai/Brain.java
 +++ b/net/minecraft/world/entity/ai/Brain.java
 @@ -45,14 +45,21 @@ public class Brain<E extends LivingEntity> {
@@ -228,7 +228,7 @@ index 29fdf94..d423f32 100644
  
      private boolean activityRequirementsAreMet(Activity activity) {
 diff --git a/net/minecraft/world/entity/schedule/Activity.java b/net/minecraft/world/entity/schedule/Activity.java
-index 5a143bb..7753b2b 100644
+index 5a143bb6fabba3dc4e2272afb0be636d5722ea22..7753b2b2ab00c08dc15444a1caa08faac1d82f0c 100644
 --- a/net/minecraft/world/entity/schedule/Activity.java
 +++ b/net/minecraft/world/entity/schedule/Activity.java
 @@ -32,10 +32,12 @@ public class Activity {

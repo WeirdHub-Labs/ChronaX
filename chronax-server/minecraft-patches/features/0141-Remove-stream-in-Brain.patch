@@ -5,7 +5,7 @@ Subject: [PATCH] Remove stream in Brain
 
 
 diff --git a/net/minecraft/world/entity/ai/Brain.java b/net/minecraft/world/entity/ai/Brain.java
-index 98652c2..29fdf94 100644
+index 7125aa1e46e18e308b398bcd763036b606207394..e3145470b0800db7cba38b2a5b6a295a64650962 100644
 --- a/net/minecraft/world/entity/ai/Brain.java
 +++ b/net/minecraft/world/entity/ai/Brain.java
 @@ -70,13 +70,22 @@ public class Brain<E extends LivingEntity> {

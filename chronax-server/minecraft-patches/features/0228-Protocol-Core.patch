@@ -5,7 +5,7 @@ Subject: [PATCH] Protocol Core
 
 
 diff --git a/net/minecraft/network/protocol/common/custom/CustomPacketPayload.java b/net/minecraft/network/protocol/common/custom/CustomPacketPayload.java
-index 56fd1ed..d2f522e 100644
+index f40836ccba0140348df0525101f4808f16d5a795..11a1cd80cd47b6b9ea4bad5971a18d4b75f03461 100644
 --- a/net/minecraft/network/protocol/common/custom/CustomPacketPayload.java
 +++ b/net/minecraft/network/protocol/common/custom/CustomPacketPayload.java
 @@ -46,6 +46,12 @@ public interface CustomPacketPayload {
@@ -22,7 +22,7 @@ index 56fd1ed..d2f522e 100644
              }
  
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
-index e01c5b8..4fbffd0 100644
+index e01c5b8a20e5e852021ec7db72a690145fcad86c..4fbffd06d23860df912ff216446699e0ab5eb00b 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
 @@ -1801,6 +1801,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
@@ -34,7 +34,7 @@ index e01c5b8..4fbffd0 100644
          for (int i = 0; i < this.tickables.size(); i++) {
              this.tickables.get(i).run();
 diff --git a/net/minecraft/server/level/ServerPlayer.java b/net/minecraft/server/level/ServerPlayer.java
-index 63d0f91..750df3a 100644
+index 1bc4b2989bb78d3ac91cbd397cd6f0d70bf0ddd7..194e08f63e61bc9e32c0a3a4f2731e8c4c78b91a 100644
 --- a/net/minecraft/server/level/ServerPlayer.java
 +++ b/net/minecraft/server/level/ServerPlayer.java
 @@ -810,6 +810,7 @@ public class ServerPlayer extends Player implements ca.spottedleaf.moonrise.patc
@@ -46,7 +46,7 @@ index 63d0f91..750df3a 100644
  
      private void updatePlayerAttributes() {
 diff --git a/net/minecraft/server/network/ServerCommonPacketListenerImpl.java b/net/minecraft/server/network/ServerCommonPacketListenerImpl.java
-index f6aec05..751a733 100644
+index f6aec052d8c76df7cb0b734893a857832a4d29b1..751a73384a6c4c57bf100c040da807e6011297cc 100644
 --- a/net/minecraft/server/network/ServerCommonPacketListenerImpl.java
 +++ b/net/minecraft/server/network/ServerCommonPacketListenerImpl.java
 @@ -190,6 +190,12 @@ public abstract class ServerCommonPacketListenerImpl implements ServerCommonPack
@@ -63,7 +63,7 @@ index f6aec05..751a733 100644
          final byte[] data = discardedPayload.data();
          try {
 diff --git a/net/minecraft/server/players/PlayerList.java b/net/minecraft/server/players/PlayerList.java
-index a04a3d6..37c67a4 100644
+index 3c687a7ad06683e396d05325be976e184eace5dc..acb93d52351aeadeea2b39a44fced128bf2e5b0f 100644
 --- a/net/minecraft/server/players/PlayerList.java
 +++ b/net/minecraft/server/players/PlayerList.java
 @@ -690,6 +690,7 @@ public abstract class PlayerList {

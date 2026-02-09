@@ -1,0 +1,389 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: mini-kio <kiolaaoz@naver.com>
+Date: Mon, 9 Feb 2026 12:28:47 +0900
+Subject: [PATCH] fixup! chronax File Patches
+
+
+diff --git a/ca/spottedleaf/moonrise/patches/chunk_system/player/RegionizedPlayerChunkLoader.java b/ca/spottedleaf/moonrise/patches/chunk_system/player/RegionizedPlayerChunkLoader.java
+index 24f0d13922748eb8a96fd83f14204984becd2513..7b0f9733862d6ee4f98d64e789d1ccc3ba512693 100644
+--- a/ca/spottedleaf/moonrise/patches/chunk_system/player/RegionizedPlayerChunkLoader.java
++++ b/ca/spottedleaf/moonrise/patches/chunk_system/player/RegionizedPlayerChunkLoader.java
+@@ -444,23 +444,26 @@ public final class RegionizedPlayerChunkLoader {
+         }
+ 
+         private void sendUnloadChunkRaw(final int chunkX, final int chunkZ) {
+-            PlatformHooks.get().onChunkUnWatch(this.world, new ChunkPos(chunkX, chunkZ), this.player);
++            final ChunkPos chunkPos = new ChunkPos(chunkX, chunkZ);
++            PlatformHooks.get().onChunkUnWatch(this.world, chunkPos, this.player);
+             // Note: Check PlayerChunkSender#dropChunk for other logic
+             // Note: drop isAlive() check so that chunks properly unload client-side when the player dies
+             ((ChunkSystemChunkHolder)((ChunkSystemServerLevel)this.world).moonrise$getChunkTaskScheduler().chunkHolderManager
+                 .getChunkHolder(chunkX, chunkZ).vanillaChunkHolder).moonrise$removeReceivedChunk(this.player);
++            final ClientboundForgetLevelChunkPacket forgetChunkPacket = new ClientboundForgetLevelChunkPacket(chunkPos);
++            final boolean asyncChunkSend = org.dreeam.leaf.config.modules.async.AsyncChunkSend.enabled;
+             // Leaf start - Async chunk sending
+-            if (org.dreeam.leaf.config.modules.async.AsyncChunkSend.enabled) {
++            if (asyncChunkSend) {
+                 org.dreeam.leaf.async.chunk.AsyncChunkSend.POOL.execute(
+-                    () -> this.player.connection.send(new ClientboundForgetLevelChunkPacket(new ChunkPos(chunkX, chunkZ)))
++                    () -> this.player.connection.send(forgetChunkPacket)
+                 );
+             } else {
+-                this.player.connection.send(new ClientboundForgetLevelChunkPacket(new ChunkPos(chunkX, chunkZ)));
++                this.player.connection.send(forgetChunkPacket);
+             }
+             // Leaf end - Async chunk sending
+             // Paper start - PlayerChunkUnloadEvent
+             if (io.papermc.paper.event.packet.PlayerChunkUnloadEvent.getHandlerList().getRegisteredListeners().length > 0) {
+-                new io.papermc.paper.event.packet.PlayerChunkUnloadEvent(player.getBukkitEntity().getWorld().getChunkAt(new ChunkPos(chunkX, chunkZ).longKey), player.getBukkitEntity()).callEvent();
++                new io.papermc.paper.event.packet.PlayerChunkUnloadEvent(player.getBukkitEntity().getWorld().getChunkAt(chunkPos.longKey), player.getBukkitEntity()).callEvent();
+             }
+             // Paper end - PlayerChunkUnloadEvent
+         }
+diff --git a/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/task/ChunkUpgradeGenericStatusTask.java b/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/task/ChunkUpgradeGenericStatusTask.java
+index 25d8da4773dcee5096053e7e3788bfc224d705a7..6e328b82f052e401736c0f3b7d1088558fef442a 100644
+--- a/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/task/ChunkUpgradeGenericStatusTask.java
++++ b/ca/spottedleaf/moonrise/patches/chunk_system/scheduling/task/ChunkUpgradeGenericStatusTask.java
+@@ -31,6 +31,7 @@ public final class ChunkUpgradeGenericStatusTask extends ChunkProgressionTask im
+     private final ChunkAccess fromChunk;
+     private final ChunkStatus fromStatus;
+     private final ChunkStatus toStatus;
++    private final ChunkSystemChunkStatus toSystemStatus;
+     private final StaticCache2D<GenerationChunkHolder> neighbours;
+ 
+     private final PrioritisedExecutor.PrioritisedTask generateTask;
+@@ -45,11 +46,12 @@ public final class ChunkUpgradeGenericStatusTask extends ChunkProgressionTask im
+         this.fromChunk = chunk;
+         this.fromStatus = chunk.getPersistedStatus();
+         this.toStatus = toStatus;
++        this.toSystemStatus = (ChunkSystemChunkStatus)this.toStatus;
+         this.neighbours = neighbours;
+-        if (((ChunkSystemChunkStatus)this.toStatus).moonrise$isParallelCapable()) {
++        if (this.toSystemStatus.moonrise$isParallelCapable()) {
+             this.generateTask = this.scheduler.parallelGenExecutor.createTask(this, priority);
+         } else {
+-            final int writeRadius = ((ChunkSystemChunkStatus)this.toStatus).moonrise$getWriteRadius();
++            final int writeRadius = this.toSystemStatus.moonrise$getWriteRadius();
+             if (writeRadius < 0) {
+                 this.generateTask = this.scheduler.radiusAwareScheduler.createInfiniteRadiusTask(this, priority);
+             } else {
+@@ -66,7 +68,7 @@ public final class ChunkUpgradeGenericStatusTask extends ChunkProgressionTask im
+     private boolean isEmptyTask() {
+         // must use fromStatus here to avoid any race condition with run() overwriting the status
+         final boolean generation = !this.fromStatus.isOrAfter(this.toStatus);
+-        return (generation && ((ChunkSystemChunkStatus)this.toStatus).moonrise$isEmptyGenStatus()) || (!generation && ((ChunkSystemChunkStatus)this.toStatus).moonrise$isEmptyLoadStatus());
++        return (generation && this.toSystemStatus.moonrise$isEmptyGenStatus()) || (!generation && this.toSystemStatus.moonrise$isEmptyLoadStatus());
+     }
+ 
+     @Override
+@@ -88,7 +90,7 @@ public final class ChunkUpgradeGenericStatusTask extends ChunkProgressionTask im
+         try {
+             generation = !chunk.getPersistedStatus().isOrAfter(this.toStatus);
+             if (generation) {
+-                if (((ChunkSystemChunkStatus)this.toStatus).moonrise$isEmptyGenStatus()) {
++                if (this.toSystemStatus.moonrise$isEmptyGenStatus()) {
+                     if (chunk instanceof ProtoChunk) {
+                         ((ProtoChunk)chunk).setPersistedStatus(this.toStatus);
+                     }
+@@ -104,7 +106,7 @@ public final class ChunkUpgradeGenericStatusTask extends ChunkProgressionTask im
+                                 }
+                         );
+             } else {
+-                if (((ChunkSystemChunkStatus)this.toStatus).moonrise$isEmptyLoadStatus()) {
++                if (this.toSystemStatus.moonrise$isEmptyLoadStatus()) {
+                     completing = true;
+                     this.complete(chunk, null);
+                     return;
+@@ -132,8 +134,9 @@ public final class ChunkUpgradeGenericStatusTask extends ChunkProgressionTask im
+             return;
+         }
+ 
+-        if (!completeFuture.isDone() && !((ChunkSystemChunkStatus)this.toStatus).moonrise$getWarnedAboutNoImmediateComplete().getAndSet(true)) {
+-            LOGGER.warn("Future status not complete after scheduling: " + this.toStatus.toString() + ", generate: " + generation);
++        final boolean expectedAsyncCompletion = generation && this.toStatus == ChunkStatus.FEATURES;
++        if (!expectedAsyncCompletion && !completeFuture.isDone() && !this.toSystemStatus.moonrise$getWarnedAboutNoImmediateComplete().getAndSet(true)) {
++            LOGGER.warn("Future status not complete after scheduling: {}, generate: {}", this.toStatus, generation);
+         }
+ 
+         final ChunkAccess newChunk;
+diff --git a/net/minecraft/network/protocol/game/ClientboundLevelChunkPacketData.java b/net/minecraft/network/protocol/game/ClientboundLevelChunkPacketData.java
+index 8af4c964ce67373f9b911ce13164f48c29a07d85..936b7a5f1180cd7986691f671e1c1f0c92fab8e9 100644
+--- a/net/minecraft/network/protocol/game/ClientboundLevelChunkPacketData.java
++++ b/net/minecraft/network/protocol/game/ClientboundLevelChunkPacketData.java
+@@ -8,7 +8,6 @@ import java.util.List;
+ import java.util.Map;
+ import java.util.Map.Entry;
+ import java.util.function.Consumer;
+-import java.util.stream.Collectors;
+ import javax.annotation.Nullable;
+ import net.minecraft.core.BlockPos;
+ import net.minecraft.core.SectionPos;
+@@ -48,17 +47,19 @@ public class ClientboundLevelChunkPacketData {
+     }
+     public ClientboundLevelChunkPacketData(LevelChunk levelChunk, io.papermc.paper.antixray.ChunkPacketInfo<net.minecraft.world.level.block.state.BlockState> chunkPacketInfo) {
+         // Paper end
+-        this.heightmaps = levelChunk.getHeightmaps()
+-            .stream()
+-            .filter(entry1 -> entry1.getKey().sendToClient())
+-            .collect(Collectors.toMap(Entry::getKey, entry1 -> (long[])entry1.getValue().getRawData().clone()));
++        this.heightmaps = new EnumMap<>(Heightmap.Types.class);
++        for (Entry<Heightmap.Types, Heightmap> entry : levelChunk.getHeightmaps()) {
++            if (entry.getKey().sendToClient()) {
++                this.heightmaps.put(entry.getKey(), entry.getValue().getRawData().clone());
++            }
++        }
+         this.buffer = new byte[calculateChunkSize(levelChunk)];
+         // Paper start - Anti-Xray - Add chunk packet info
+         if (chunkPacketInfo != null) {
+             chunkPacketInfo.setBuffer(this.buffer);
+         }
+         extractChunkData(new FriendlyByteBuf(this.getWriteBuffer()), levelChunk, chunkPacketInfo);
+-        this.blockEntitiesData = Lists.newArrayList();
++        this.blockEntitiesData = Lists.newArrayListWithCapacity(levelChunk.getBlockEntities().size());
+         int totalTileEntities = 0; // Paper - Handle oversized block entities in chunks
+ 
+         for (Entry<BlockPos, BlockEntity> entry : levelChunk.getBlockEntities().entrySet()) {
+@@ -103,7 +104,7 @@ public class ClientboundLevelChunkPacketData {
+             extractChunkData(new FriendlyByteBuf(this.getWriteBuffer()), levelChunk, chunkPacketInfo);
+         }
+ 
+-        this.blockEntitiesData = Lists.newArrayList();
++        this.blockEntitiesData = Lists.newArrayListWithCapacity(blockEntities.length);
+         int totalTileEntities = 0; // Paper - Handle oversized block entities in chunks
+ 
+         for (BlockEntity blockEntity : blockEntities) {
+diff --git a/net/minecraft/server/level/ChunkMap.java b/net/minecraft/server/level/ChunkMap.java
+index e102536a7587a888cd1cd1989b8089367613dddb..8508622e0a23330c875818c622716a78397ec946 100644
+--- a/net/minecraft/server/level/ChunkMap.java
++++ b/net/minecraft/server/level/ChunkMap.java
+@@ -234,7 +234,7 @@ public class ChunkMap extends ChunkStorage implements ChunkHolder.PlayerProvider
+             level
+         );
+         this.setServerViewDistance(serverViewDistance);
+-        this.worldGenContext = new WorldGenContext(level, generator, structureManager, this.lightEngine, null, this::setChunkUnsaved); // Paper - rewrite chunk system
++        this.worldGenContext = new WorldGenContext(level, generator, structureManager, this.lightEngine, mainThreadExecutor, this::setChunkUnsaved); // Paper - rewrite chunk system
+     }
+ 
+     private void setChunkUnsaved(ChunkPos chunkPos) {
+diff --git a/net/minecraft/server/network/PlayerChunkSender.java b/net/minecraft/server/network/PlayerChunkSender.java
+index aa6b900347635857b84460fa8435b81f794f0747..d8e84c4aea9242a6684322a77203e296ac97ec44 100644
+--- a/net/minecraft/server/network/PlayerChunkSender.java
++++ b/net/minecraft/server/network/PlayerChunkSender.java
+@@ -1,12 +1,14 @@
+ package net.minecraft.server.network;
+ 
+-import com.google.common.collect.Comparators;
+ import com.mojang.logging.LogUtils;
++import it.unimi.dsi.fastutil.longs.LongIterator;
+ import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
+ import it.unimi.dsi.fastutil.longs.LongSet;
++import java.util.ArrayList;
+ import java.util.Comparator;
++import java.util.EnumMap;
+ import java.util.List;
+-import java.util.Objects;
++import java.util.PriorityQueue;
+ import net.minecraft.network.protocol.game.ClientboundChunkBatchFinishedPacket;
+ import net.minecraft.network.protocol.game.ClientboundChunkBatchStartPacket;
+ import net.minecraft.network.protocol.game.ClientboundForgetLevelChunkPacket;
+@@ -17,6 +19,7 @@ import net.minecraft.server.level.ServerLevel;
+ import net.minecraft.server.level.ServerPlayer;
+ import net.minecraft.util.Mth;
+ import net.minecraft.world.level.ChunkPos;
++import net.minecraft.world.level.block.entity.BlockEntity;
+ import net.minecraft.world.level.chunk.LevelChunk;
+ import org.slf4j.Logger;
+ 
+@@ -26,6 +29,7 @@ public class PlayerChunkSender {
+     public static final float MAX_CHUNKS_PER_TICK = 64.0F;
+     private static final float START_CHUNKS_PER_TICK = 9.0F;
+     private static final int MAX_UNACKNOWLEDGED_BATCHES = 10;
++    private static final BlockEntity[] EMPTY_BLOCK_ENTITIES = new BlockEntity[0];
+     private final LongSet pendingChunks = new LongOpenHashSet();
+     private final boolean memoryConnection;
+     private float desiredChunksPerTick = 9.0F;
+@@ -33,6 +37,22 @@ public class PlayerChunkSender {
+     private int unacknowledgedBatches;
+     private int maxUnacknowledgedBatches = 1;
+ 
++    private static int distanceSquared(final ChunkPos center, final long chunkKey) {
++        final int dx = ChunkPos.getX(chunkKey) - center.x;
++        final int dz = ChunkPos.getZ(chunkKey) - center.z;
++        return dx * dx + dz * dz;
++    }
++
++    private static final class ChunkCandidate {
++        private final long chunkKey;
++        private final int distanceSq;
++
++        private ChunkCandidate(final long chunkKey, final int distanceSq) {
++            this.chunkKey = chunkKey;
++            this.distanceSq = distanceSq;
++        }
++    }
++
+     public PlayerChunkSender(boolean memoryConnection) {
+         this.memoryConnection = memoryConnection;
+     }
+@@ -63,9 +83,10 @@ public class PlayerChunkSender {
+                     List<LevelChunk> list = this.collectChunksToSend(chunkMap, player.chunkPosition());
+                     if (!list.isEmpty()) {
+                         ServerGamePacketListenerImpl serverGamePacketListenerImpl = player.connection;
++                        final boolean asyncChunkSend = org.dreeam.leaf.config.modules.async.AsyncChunkSend.enabled;
+                         this.unacknowledgedBatches++;
+                         // Leaf start - Async chunk sending
+-                        if (org.dreeam.leaf.config.modules.async.AsyncChunkSend.enabled) {
++                        if (asyncChunkSend) {
+                             org.dreeam.leaf.async.chunk.AsyncChunkSend.POOL.execute(
+                                 () -> serverGamePacketListenerImpl.send(ClientboundChunkBatchStartPacket.INSTANCE)
+                             );
+@@ -79,7 +100,7 @@ public class PlayerChunkSender {
+                         }
+ 
+                         // Leaf start - Async chunk sending
+-                        if (org.dreeam.leaf.config.modules.async.AsyncChunkSend.enabled) {
++                        if (asyncChunkSend) {
+                             org.dreeam.leaf.async.chunk.AsyncChunkSend.POOL.execute(
+                                 () -> serverGamePacketListenerImpl.send(new ClientboundChunkBatchFinishedPacket(list.size()))
+                             );
+@@ -97,10 +118,11 @@ public class PlayerChunkSender {
+     // Paper start - Anti-Xray
+     public static void sendChunk(ServerGamePacketListenerImpl packetListener, ServerLevel level, LevelChunk chunk) {
+         final boolean shouldModify = level.chunkPacketBlockController.shouldModify(packetListener.player, chunk);
++        final boolean asyncChunkSend = org.dreeam.leaf.config.modules.async.AsyncChunkSend.enabled;
+         // Leaf start - Async chunk sending
+-        if (org.dreeam.leaf.config.modules.async.AsyncChunkSend.enabled) {
+-            var blockEntities = chunk.blockEntities.values().toArray(new net.minecraft.world.level.block.entity.BlockEntity[0]);
+-            java.util.Map<net.minecraft.world.level.levelgen.Heightmap.Types, long[]> heightmaps = new java.util.concurrent.ConcurrentHashMap<>();
++        if (asyncChunkSend) {
++            var blockEntities = chunk.blockEntities.values().toArray(EMPTY_BLOCK_ENTITIES);
++            java.util.Map<net.minecraft.world.level.levelgen.Heightmap.Types, long[]> heightmaps = new EnumMap<>(net.minecraft.world.level.levelgen.Heightmap.Types.class);
+ 
+             for (var entry : chunk.getHeightmaps()) {
+                 if (entry.getKey().sendToClient()) {
+@@ -125,24 +147,59 @@ public class PlayerChunkSender {
+     }
+ 
+     private List<LevelChunk> collectChunksToSend(ChunkMap chunkMap, ChunkPos chunkPos) {
+-        int floor = Mth.floor(this.batchQuota);
+-        List<LevelChunk> list;
++        final int floor = Mth.floor(this.batchQuota);
++        final List<LevelChunk> list;
+         if (!this.memoryConnection && this.pendingChunks.size() > floor) {
+-            list = this.pendingChunks
+-                .stream()
+-                .collect(Comparators.least(floor, Comparator.comparingInt(chunkPos::distanceSquared)))
+-                .stream()
+-                .mapToLong(Long::longValue)
+-                .mapToObj(chunkMap::getChunkToSend)
+-                .filter(Objects::nonNull)
+-                .toList();
++            if (floor <= 0) {
++                return List.of();
++            }
++
++            final PriorityQueue<ChunkCandidate> nearestCandidates = new PriorityQueue<>(
++                floor,
++                (left, right) -> Integer.compare(right.distanceSq, left.distanceSq)
++            );
++
++            for (LongIterator iterator = this.pendingChunks.iterator(); iterator.hasNext(); ) {
++                final long chunkKey = iterator.nextLong();
++                final int distanceSq = distanceSquared(chunkPos, chunkKey);
++                if (nearestCandidates.size() < floor) {
++                    nearestCandidates.add(new ChunkCandidate(chunkKey, distanceSq));
++                    continue;
++                }
++
++                final ChunkCandidate farthest = nearestCandidates.peek();
++                if (farthest != null && distanceSq < farthest.distanceSq) {
++                    nearestCandidates.poll();
++                    nearestCandidates.add(new ChunkCandidate(chunkKey, distanceSq));
++                }
++            }
++
++            if (nearestCandidates.isEmpty()) {
++                return List.of();
++            }
++
++            final ArrayList<ChunkCandidate> sortedCandidates = new ArrayList<>(nearestCandidates);
++            sortedCandidates.sort(Comparator.comparingInt(candidate -> candidate.distanceSq));
++            final ArrayList<LevelChunk> chunks = new ArrayList<>(sortedCandidates.size());
++            for (ChunkCandidate candidate : sortedCandidates) {
++                final LevelChunk chunk = chunkMap.getChunkToSend(candidate.chunkKey);
++                if (chunk != null) {
++                    chunks.add(chunk);
++                }
++            }
++            list = chunks;
+         } else {
+-            list = this.pendingChunks
+-                .longStream()
+-                .mapToObj(chunkMap::getChunkToSend)
+-                .filter(Objects::nonNull)
+-                .sorted(Comparator.comparingInt(levelChunk1 -> chunkPos.distanceSquared(levelChunk1.getPos())))
+-                .toList();
++            final ArrayList<LevelChunk> chunks = new ArrayList<>(this.pendingChunks.size());
++            for (LongIterator iterator = this.pendingChunks.iterator(); iterator.hasNext(); ) {
++                final LevelChunk chunk = chunkMap.getChunkToSend(iterator.nextLong());
++                if (chunk != null) {
++                    chunks.add(chunk);
++                }
++            }
++            if (chunks.size() > 1) {
++                chunks.sort(Comparator.comparingInt(levelChunk1 -> chunkPos.distanceSquared(levelChunk1.getPos())));
++            }
++            list = chunks;
+         }
+ 
+         for (LevelChunk levelChunk : list) {
+diff --git a/net/minecraft/world/level/chunk/status/ChunkStatusTasks.java b/net/minecraft/world/level/chunk/status/ChunkStatusTasks.java
+index c937fc1a80e47a694f5c052774f3aee45f0283e6..77a21cff9f9c47a88c989fe15b97f6943742d87d 100644
+--- a/net/minecraft/world/level/chunk/status/ChunkStatusTasks.java
++++ b/net/minecraft/world/level/chunk/status/ChunkStatusTasks.java
+@@ -26,6 +26,14 @@ import org.slf4j.Logger;
+ public class ChunkStatusTasks {
+     private static final Logger LOGGER = LogUtils.getLogger();
+ 
++    private static java.util.concurrent.Executor mainThreadExecutor(final WorldGenContext worldGenContext) {
++        final java.util.concurrent.Executor executor = worldGenContext.mainThreadExecutor();
++        if (executor != null) {
++            return executor;
++        }
++        return worldGenContext.level().getChunkSource().mainThreadProcessor;
++    }
++
+     private static boolean isLighted(ChunkAccess chunk) {
+         return chunk.getPersistedStatus().isOrAfter(ChunkStatus.LIGHT) && chunk.isLightCorrect();
+     }
+@@ -146,10 +154,18 @@ public class ChunkStatusTasks {
+             chunk,
+             EnumSet.of(Heightmap.Types.MOTION_BLOCKING, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Heightmap.Types.OCEAN_FLOOR, Heightmap.Types.WORLD_SURFACE)
+         );
+-        WorldGenRegion worldGenRegion = new WorldGenRegion(serverLevel, cache, step, chunk);
+-        worldGenContext.generator().applyBiomeDecoration(worldGenRegion, chunk, serverLevel.structureManager().forWorldGenRegion(worldGenRegion));
++        final WorldGenRegion worldGenRegion = new WorldGenRegion(serverLevel, cache, step, chunk);
++        final var generator = worldGenContext.generator();
++
++        // Keep vanilla decoration off-thread, but run plugin populators on main for Bukkit compatibility.
++        generator.addVanillaDecorations(worldGenRegion, chunk, serverLevel.structureManager().forWorldGenRegion(worldGenRegion));
+         Blender.generateBorderTicks(worldGenRegion, chunk);
+-        return CompletableFuture.completedFuture(chunk);
++
++        return CompletableFuture.supplyAsync(() -> {
++            final WorldGenRegion mainThreadRegion = new WorldGenRegion(serverLevel, cache, step, chunk);
++            generator.applyBiomeDecoration(mainThreadRegion, chunk, serverLevel.structureManager().forWorldGenRegion(mainThreadRegion), false);
++            return chunk;
++        }, mainThreadExecutor(worldGenContext));
+     }
+ 
+     static CompletableFuture<ChunkAccess> initializeLight(
+@@ -202,7 +218,7 @@ public class ChunkStatusTasks {
+             wrapped.registerTickContainerInLevel(serverLevel);
+             wrapped.setUnsavedListener(worldGenContext.unsavedListener());
+             return wrapped;
+-        }, worldGenContext.mainThreadExecutor());
++        }, mainThreadExecutor(worldGenContext));
+     }
+ 
+     public static void postLoadProtoChunk(ServerLevel level, ValueInput.ValueInputList input, ChunkPos pos) { // Paper - rewrite chunk system - add ChunkPos param

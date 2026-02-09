@@ -20,7 +20,7 @@ Brings the ability to despawn weak-loaded entities once they are ticked,
 a solution for https://github.com/PaperMC/Paper/issues/12986
 
 diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
-index cb1be49..01f7390 100644
+index cb1be4947ea2d85c6dcdc7424a4b712dcce0a40e..01f7390f3fb2a423cec373a2bb5ccbee57278783 100644
 --- a/net/minecraft/server/level/ServerLevel.java
 +++ b/net/minecraft/server/level/ServerLevel.java
 @@ -1509,6 +1509,7 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe
@@ -40,7 +40,7 @@ index cb1be49..01f7390 100644
              for (Entity entity : passengerEntity.getPassengers()) {
                  this.tickPassenger(passengerEntity, entity, isActive); // Paper - EAR 2
 diff --git a/net/minecraft/world/entity/Entity.java b/net/minecraft/world/entity/Entity.java
-index fef5836..e84ff9d 100644
+index 3969d0a073a70de4e0cd6084e41d526cadd800d9..741e576e6429fc80f5aa41b846ae128701e95873 100644
 --- a/net/minecraft/world/entity/Entity.java
 +++ b/net/minecraft/world/entity/Entity.java
 @@ -373,6 +373,7 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
@@ -118,7 +118,7 @@ index fef5836..e84ff9d 100644
      // CraftBukkit start
      public void postTick() {
          // No clean way to break out of ticking once the entity has been copied to a new world, so instead we move the portalling later in the tick cycle
-@@ -2564,6 +2602,7 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
+@@ -2579,6 +2617,7 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
              if (this.maxAirTicks != this.getDefaultMaxAirSupply()) {
                  output.putInt("Bukkit.MaxAirSupply", this.getMaxAirSupply());
              }
@@ -126,7 +126,7 @@ index fef5836..e84ff9d 100644
              output.putInt("Spigot.ticksLived", this.totalEntityAge); // Paper
              // CraftBukkit end
              output.storeNullable("CustomName", ComponentSerialization.CODEC, this.getCustomName());
-@@ -2721,7 +2760,7 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
+@@ -2736,7 +2775,7 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
  
              // CraftBukkit start
              // Spigot start
@@ -135,7 +135,7 @@ index fef5836..e84ff9d 100644
                  this.totalEntityAge = input.getIntOr("Spigot.ticksLived", 0); // Paper
              }
              // Spigot end
-@@ -5320,9 +5359,10 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
+@@ -5335,9 +5374,10 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
  
      @Override
      public boolean shouldBeSaved() {
@@ -148,7 +148,7 @@ index fef5836..e84ff9d 100644
  
      @Override
 diff --git a/net/minecraft/world/entity/projectile/ThrowableProjectile.java b/net/minecraft/world/entity/projectile/ThrowableProjectile.java
-index 4c61f45..be0ebc0 100644
+index 4c61f4552dc64b1347c7b8dfe9502aac11c75888..be0ebc017bfe92fb2916a9e40971ad19614a33b4 100644
 --- a/net/minecraft/world/entity/projectile/ThrowableProjectile.java
 +++ b/net/minecraft/world/entity/projectile/ThrowableProjectile.java
 @@ -44,6 +44,11 @@ public abstract class ThrowableProjectile extends Projectile {

@@ -8,7 +8,7 @@ This implementation utilizes large prime coefficients and Phi mixing (for avalan
 thereby improving lookup performance and mitigating worst-case hash distribution scenarios.
 
 diff --git a/net/minecraft/core/Vec3i.java b/net/minecraft/core/Vec3i.java
-index 8334e92..886da8b 100644
+index 8334e92013722bf2fc7b4c26e38f7ca1e75b6191..886da8b99e344eb352405de421aa77fe2c73b22b 100644
 --- a/net/minecraft/core/Vec3i.java
 +++ b/net/minecraft/core/Vec3i.java
 @@ -47,7 +47,7 @@ public class Vec3i implements Comparable<Vec3i> {

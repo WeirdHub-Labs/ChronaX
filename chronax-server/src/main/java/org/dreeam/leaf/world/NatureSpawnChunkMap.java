@@ -29,6 +29,24 @@ public final class NatureSpawnChunkMap {
     private static final int SIZE_RADIUS = 9;
     private static final int REGION_MASK = 7;
     private static final int REGION_SHIFT = 3;
+    private static final int[][] TABLE_BFS_DX = new int[SIZE_RADIUS][];
+    private static final int[][] TABLE_BFS_DZ = new int[SIZE_RADIUS][];
+
+    static {
+        for (int radius = 0; radius < SIZE_RADIUS; radius++) {
+            final long[] offsets = TABLE_BFS[radius];
+            final int len = offsets.length;
+            final int[] dx = new int[len];
+            final int[] dz = new int[len];
+            for (int i = 0; i < len; i++) {
+                final long packedOffset = offsets[i];
+                dx[i] = ChunkPos.getX(packedOffset);
+                dz[i] = ChunkPos.getZ(packedOffset);
+            }
+            TABLE_BFS_DX[radius] = dx;
+            TABLE_BFS_DZ[radius] = dz;
+        }
+    }
 
     private final LongArrayList[] centersByRadius;
     private final Long2LongOpenHashMap regionBitSets;
@@ -80,17 +98,16 @@ public final class NatureSpawnChunkMap {
         long[] centersRaw = list.elements();
         long cachedKey = ChunkPos.asLong(ChunkPos.getX(centersRaw[0]) >> REGION_SHIFT, ChunkPos.getZ(centersRaw[0]) >> REGION_SHIFT);
         long cachedVal = this.regionBitSets.get(cachedKey);
-        long[] offsets = TABLE_BFS[index];
+        final int[] dx = TABLE_BFS_DX[index];
+        final int[] dz = TABLE_BFS_DZ[index];
         for (int i = 0; i < centersSize; i++) {
             long center = centersRaw[i];
             int cx = ChunkPos.getX(center);
             int cz = ChunkPos.getZ(center);
 
-            for (long packedOffset : offsets) {
-                int dx = ChunkPos.getX(packedOffset);
-                int dz = ChunkPos.getZ(packedOffset);
-                int chunkX = cx + dx;
-                int chunkZ = cz + dz;
+            for (int j = 0, len = dx.length; j < len; j++) {
+                int chunkX = cx + dx[j];
+                int chunkZ = cz + dz[j];
 
                 int regionX = chunkX >> REGION_SHIFT;
                 int regionZ = chunkZ >> REGION_SHIFT;
@@ -118,8 +135,8 @@ public final class NatureSpawnChunkMap {
 
     private int deduplicate(LongArrayList list) {
         int n = list.size();
-        if (n == 0) {
-            return 0;
+        if (n <= 1) {
+            return n;
         }
         list.unstableSort(null);
         long[] centersRaw = list.elements();

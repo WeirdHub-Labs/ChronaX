@@ -3,8 +3,9 @@ From: ChronaX <chronax@wrd.org>
 Date: Sun, 8 Feb 2026 00:00:00 +0900
 Subject: [PATCH] ChronaX Panel link
 
+
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
-index a19eee1..638421d 100644
+index a19eee14eccaa6cbff42b054d803a41a4f00443f..638421d389c74b254339b03e70b8ff6cda77921c 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
 @@ -283,6 +283,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
@@ -27,7 +28,7 @@ index a19eee1..638421d 100644
          this.getConnection().stop();
          this.isSaving = true;
 diff --git a/net/minecraft/server/dedicated/DedicatedServer.java b/net/minecraft/server/dedicated/DedicatedServer.java
-index 89fb327..420807e 100644
+index 89fb3276c50a96bdafb0f100d4eddc476aa4f61d..420807e6f0790b41c13b8aba3021f8f07aa2f5ea 100644
 --- a/net/minecraft/server/dedicated/DedicatedServer.java
 +++ b/net/minecraft/server/dedicated/DedicatedServer.java
 @@ -176,6 +176,13 @@ public class DedicatedServer extends MinecraftServer implements ServerInterface

@@ -139,13 +139,18 @@ public class AsyncPath extends Path {
     }
 
     private void runAllPostProcessing(boolean isTickThread) {
+        if (isTickThread) {
+            Runnable runnable;
+            while ((runnable = this.postProcessing.poll()) != null) {
+                runnable.run();
+            }
+            return;
+        }
+
+        final MinecraftServer server = MinecraftServer.getServer();
         Runnable runnable;
         while ((runnable = this.postProcessing.poll()) != null) {
-            if (isTickThread) {
-                runnable.run();
-            } else {
-                MinecraftServer.getServer().scheduleOnMain(runnable);
-            }
+            server.scheduleOnMain(runnable);
         }
     }
 
