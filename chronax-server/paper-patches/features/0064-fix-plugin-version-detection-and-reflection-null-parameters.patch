@@ -1,3 +1,8 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: mini-kio <kiolaaoz@naver.com>
+Date: Mon, 9 Feb 2026 16:27:00 +0900
+Subject: [PATCH] fix plugin version detection and reflection null parameters
+
 diff --git a/src/main/java/io/papermc/paper/pluginremap/reflect/PaperReflection.java b/src/main/java/io/papermc/paper/pluginremap/reflect/PaperReflection.java
 index 92bc8e493..cd6db2c58 100644
 --- a/src/main/java/io/papermc/paper/pluginremap/reflect/PaperReflection.java

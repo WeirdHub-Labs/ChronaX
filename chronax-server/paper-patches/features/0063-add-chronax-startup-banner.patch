@@ -1,3 +1,8 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: mini-kio <kiolaaoz@naver.com>
+Date: Mon, 9 Feb 2026 16:26:00 +0900
+Subject: [PATCH] add chronax startup banner
+
 diff --git a/src/main/java/org/bukkit/craftbukkit/Main.java b/src/main/java/org/bukkit/craftbukkit/Main.java
 index 748bd9650..67b8c2a3d 100644
 --- a/src/main/java/org/bukkit/craftbukkit/Main.java

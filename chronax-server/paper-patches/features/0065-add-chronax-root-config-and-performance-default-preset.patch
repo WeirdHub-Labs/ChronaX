@@ -1,3 +1,8 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: mini-kio <kiolaaoz@naver.com>
+Date: Mon, 9 Feb 2026 16:28:00 +0900
+Subject: [PATCH] add chronax root config and performance default preset
+
 diff --git a/src/main/java/io/papermc/paper/configuration/ChronaXConfiguration.java b/src/main/java/io/papermc/paper/configuration/ChronaXConfiguration.java
 new file mode 100644
 index 000000000..f4a11bd4b

@@ -1,3 +1,8 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: mini-kio <kiolaaoz@naver.com>
+Date: Mon, 9 Feb 2026 16:25:00 +0900
+Subject: [PATCH] default redstone eigencraft
+
 diff --git a/src/main/java/io/papermc/paper/configuration/WorldConfiguration.java b/src/main/java/io/papermc/paper/configuration/WorldConfiguration.java
 index 74d0c6ed2..ac3043e57 100644
 --- a/src/main/java/io/papermc/paper/configuration/WorldConfiguration.java
