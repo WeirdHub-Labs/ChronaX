@@ -1,0 +1,46 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: mini-kio <kiolaaoz@naver.com>
+Date: Mon, 9 Feb 2026 15:21:33 +0900
+Subject: [PATCH] fixup! chronax File Patches
+
+
+diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
+index 638421d389c74b254339b03e70b8ff6cda77921c..843b3d1aa1b9e25c1511c802d53f0a55f2278f8d 100644
+--- a/net/minecraft/server/MinecraftServer.java
++++ b/net/minecraft/server/MinecraftServer.java
+@@ -292,6 +292,7 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+     protected boolean upnp = false; // Purpur - UPnP Port Forwarding
+     public gg.pufferfish.pufferfish.util.AsyncExecutor mobSpawnExecutor = new gg.pufferfish.pufferfish.util.AsyncExecutor("Leaf Async Mob Spawn Thread"); // Pufferfish - optimize mob spawning // Leaf - Fix Pufferfish and Purpur patches - Unify thread name
+     public java.util.concurrent.Semaphore serverLevelTickingSemaphore = null; // Leaf - SparklyPaper - parallel world ticking
++    private final java.util.ArrayList<java.util.concurrent.Future<ServerLevel>> parallelWorldTickTasks = new java.util.ArrayList<>(); // ChronaX - reduce per-tick allocations for PWT task tracking
+ 
+     public static <S extends MinecraftServer> S spin(Function<Thread, S> threadFunction) {
+         ca.spottedleaf.dataconverter.minecraft.datatypes.MCTypeRegistry.init(); // Paper - rewrite data converter system
+@@ -1755,7 +1756,8 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+ 
+         this.isIteratingOverLevels = true; // Paper - Throw exception on world create while being ticked
+         // Leaf start - SparklyPaper - parallel world ticking
+-        java.util.ArrayDeque<java.util.concurrent.Future<ServerLevel>> tasks = new java.util.ArrayDeque<>();
++        final java.util.ArrayList<java.util.concurrent.Future<ServerLevel>> tasks = this.parallelWorldTickTasks;
++        tasks.clear();
+         try {
+             for (ServerLevel serverLevel : this.getAllLevels()) {
+                 serverLevel.hasPhysicsEvent = org.bukkit.event.block.BlockPhysicsEvent.getHandlerList().getRegisteredListeners().length > 0; // Paper - BlockPhysicsEvent
+@@ -1792,13 +1794,15 @@ public abstract class MinecraftServer extends ReentrantBlockableEventLoop<TickTa
+                 serverLevel.explosionDensityCache.clear(); // Paper - Optimize explosions
+             }
+ 
+-            while (!tasks.isEmpty()) {
+-                ServerLevel serverLevel = tasks.pop().get(); // Leaf - thread unsafe chunk map
++            for (int i = 0, len = tasks.size(); i < len; ++i) {
++                ServerLevel serverLevel = tasks.get(i).get(); // Leaf - thread unsafe chunk map
+                 serverLevel.getChunkSource().fullChunksNonSync.setThread(); // Leaf - thread unsafe chunk map
+                 serverLevel.moonrise$getChunkTaskScheduler().chunkHolderManager.chunkHoldersNoSync.setThread(); // Leaf - thread unsafe chunk map
+             }
+         } catch (java.lang.InterruptedException | java.util.concurrent.ExecutionException e) {
+             throw new RuntimeException(e); // Propagate exception
++        } finally {
++            tasks.clear();
+         }
+         // Leaf end - SparklyPaper - parallel world ticking
+         this.isIteratingOverLevels = false; // Paper - Throw exception on world create while being ticked
