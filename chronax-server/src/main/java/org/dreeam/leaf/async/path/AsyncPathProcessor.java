@@ -82,7 +82,7 @@ public class AsyncPathProcessor {
         final int queueSize = executor.getQueue().size();
         double mspt = 0.0D;
         if (MinecraftServer.getServer() != null) {
-            mspt = MinecraftServer.getServer().getAverageTickTime();
+            mspt = MinecraftServer.getServer().getAverageTickTimeNanos() / 1_000_000.0D;
         }
 
         int targetThreads = configuredMaxThreads;

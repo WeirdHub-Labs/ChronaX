@@ -49,7 +49,7 @@ public class ProvisionTask extends TimerTask {
         }
 
         final ProvisionResult result = provisionOnce();
-        if (result.success()) {
+        if (result.isSuccess()) {
             onSuccess();
             return;
         }
@@ -81,16 +81,16 @@ public class ProvisionTask extends TimerTask {
 
             int responseCode = connection.getResponseCode();
             if (responseCode == 200) {
-                return ProvisionResult.success();
+                return ProvisionResult.ok();
             }
 
             final String responseBody = readResponseBody(connection);
             if (responseBody.isBlank()) {
-                return ProvisionResult.failure("panel returned HTTP " + responseCode + " without response body");
+                return ProvisionResult.fail("panel returned HTTP " + responseCode + " without response body");
             }
-            return ProvisionResult.failure("panel returned HTTP " + responseCode + " (" + responseBody + ")");
+            return ProvisionResult.fail("panel returned HTTP " + responseCode + " (" + responseBody + ")");
         } catch (IOException e) {
-            return ProvisionResult.failure("panel did not respond (" + e.getClass().getSimpleName() + ": " + e.getMessage() + ")");
+            return ProvisionResult.fail("panel did not respond (" + e.getClass().getSimpleName() + ": " + e.getMessage() + ")");
         } finally {
             if (connection != null) {
                 connection.disconnect();
@@ -179,12 +179,12 @@ public class ProvisionTask extends TimerTask {
         }
     }
 
-    private record ProvisionResult(boolean success, String reason) {
-        private static ProvisionResult success() {
+    private record ProvisionResult(boolean isSuccess, String reason) {
+        private static ProvisionResult ok() {
             return new ProvisionResult(true, "");
         }
 
-        private static ProvisionResult failure(String reason) {
+        private static ProvisionResult fail(String reason) {
             return new ProvisionResult(false, reason);
         }
     }

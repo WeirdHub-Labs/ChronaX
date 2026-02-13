@@ -86,7 +86,7 @@ public final class AsyncTracker {
             final int queueDepth = TRACKER_EXECUTOR.channel.length();
             double mspt = 0.0D;
             if (MinecraftServer.getServer() != null) {
-                mspt = MinecraftServer.getServer().getAverageTickTime();
+                mspt = MinecraftServer.getServer().getAverageTickTimeNanos() / 1_000_000.0D;
             }
 
             if (mspt >= 55.0D) {
