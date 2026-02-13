@@ -11,6 +11,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -23,9 +24,16 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 public class ProvisionTask extends TimerTask {
+    private static final int CONNECTION_TIMEOUT_MILLIS = 5000;
+    private static final long FAST_RETRY_WINDOW_MILLIS = TimeUnit.MINUTES.toMillis(1);
+    private static final long SLOW_RETRY_INTERVAL_MILLIS = TimeUnit.HOURS.toMillis(1);
+
     private final Logger logger;
     private final PanelLinker linker;
     private final List<ApiProvider> providers;
+    private long firstFailureAtMillis = -1L;
+    private long nextAttemptAtMillis = 0L;
+    private boolean slowRetryModeAnnounced;
 
     public ProvisionTask(Logger logger, PanelLinker linker, List<ApiProvider> providers) {
         this.logger = logger;
@@ -35,14 +43,32 @@ public class ProvisionTask extends TimerTask {
 
     @Override
     public void run() {
+        final long now = System.currentTimeMillis();
+        if (now < nextAttemptAtMillis) {
+            return;
+        }
+
+        final ProvisionResult result = provisionOnce();
+        if (result.success()) {
+            onSuccess();
+            return;
+        }
+
+        onFailure(now, result.reason());
+    }
+
+    private ProvisionResult provisionOnce() {
         String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
         String body = getBody();
         String signature = getSignature(timestamp, body);
+        HttpURLConnection connection = null;
 
         try {
-            HttpURLConnection connection = (HttpURLConnection) linker.apiURL().openConnection();
+            connection = (HttpURLConnection) linker.apiURL().openConnection();
             connection.setRequestMethod("POST");
             connection.setDoOutput(true);
+            connection.setConnectTimeout(CONNECTION_TIMEOUT_MILLIS);
+            connection.setReadTimeout(CONNECTION_TIMEOUT_MILLIS);
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("X-Server-Id", linker.info().serverId());
             connection.setRequestProperty("X-Timestamp", timestamp);
@@ -54,21 +80,72 @@ public class ProvisionTask extends TimerTask {
             }
 
             int responseCode = connection.getResponseCode();
-            if(responseCode == 200) return;
-
-            try(BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                StringBuilder response = new StringBuilder();
-
-                String inputLine;
-                while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
-                }
-
-                logger.warn("Failed to link panel ( Code : {} )", responseCode);
+            if (responseCode == 200) {
+                return ProvisionResult.success();
             }
+
+            final String responseBody = readResponseBody(connection);
+            if (responseBody.isBlank()) {
+                return ProvisionResult.failure("panel returned HTTP " + responseCode + " without response body");
+            }
+            return ProvisionResult.failure("panel returned HTTP " + responseCode + " (" + responseBody + ")");
         } catch (IOException e) {
-            logger.warn("Failed to link panel", e);
+            return ProvisionResult.failure("panel did not respond (" + e.getClass().getSimpleName() + ": " + e.getMessage() + ")");
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
+    }
+
+    private String readResponseBody(HttpURLConnection connection) {
+        final InputStream stream = connection.getErrorStream();
+        if (stream == null) {
+            return "";
+        }
+
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
+            final StringBuilder response = new StringBuilder();
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            return response.toString();
+        } catch (IOException ignored) {
+            return "";
+        }
+    }
+
+    private void onSuccess() {
+        if (firstFailureAtMillis != -1L) {
+            logger.info("Panel response restored. Returning to normal 5-second provisioning interval.");
+        }
+
+        firstFailureAtMillis = -1L;
+        nextAttemptAtMillis = 0L;
+        slowRetryModeAnnounced = false;
+    }
+
+    private void onFailure(long now, String reason) {
+        if (firstFailureAtMillis == -1L) {
+            firstFailureAtMillis = now;
+        }
+
+        final long elapsed = now - firstFailureAtMillis;
+        if (elapsed < FAST_RETRY_WINDOW_MILLIS) {
+            nextAttemptAtMillis = now + PanelLinker.PROVISION_INTERVAL;
+            logger.warn("Panel request failed: {}. Retrying every 5 seconds for up to 1 minute.", reason);
+            return;
+        }
+
+        nextAttemptAtMillis = now + SLOW_RETRY_INTERVAL_MILLIS;
+        if (!slowRetryModeAnnounced) {
+            slowRetryModeAnnounced = true;
+            logger.warn("Panel request has failed for over 1 minute: {}. Switching to hourly retry (1 attempt per hour).", reason);
+            return;
+        }
+
+        logger.warn("Panel request failed: {}. Next retry will be attempted in 1 hour.", reason);
     }
 
     private String getBody() {
@@ -99,6 +176,16 @@ public class ProvisionTask extends TimerTask {
             return StringUtil.bytesToHex(mac.doFinal(signTarget.getBytes(StandardCharsets.UTF_8)));
         } catch (InvalidKeyException | NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private record ProvisionResult(boolean success, String reason) {
+        private static ProvisionResult success() {
+            return new ProvisionResult(true, "");
+        }
+
+        private static ProvisionResult failure(String reason) {
+            return new ProvisionResult(false, reason);
         }
     }
 }

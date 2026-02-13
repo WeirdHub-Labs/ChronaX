@@ -17,6 +17,7 @@ public class MultithreadedTracker extends ConfigModules {
     @Experimental
     public static boolean enabled = false;
     public static int threads = 0;
+    public static boolean adaptiveThreadScaling = true;
     private static boolean asyncMultithreadedTrackerInitialized;
 
     @Override
@@ -37,6 +38,7 @@ public class MultithreadedTracker extends ConfigModules {
 
         enabled = config.getBoolean(getBasePath() + ".enabled", ChronaXRuntimeProfile.defaultAsyncEntityTrackerEnabled());
         threads = config.getInt(getBasePath() + ".threads", ChronaXRuntimeProfile.defaultAsyncEntityTrackerThreads());
+        adaptiveThreadScaling = config.getBoolean(getBasePath() + ".adaptive-thread-scaling", adaptiveThreadScaling);
         final Boolean rootEnabled = ChronaXRootConfig.getBoolean("leaf-overrides.async.async-entity-tracker.enabled");
         if (rootEnabled != null) {
             enabled = rootEnabled;
@@ -44,6 +46,10 @@ public class MultithreadedTracker extends ConfigModules {
         final Integer rootThreads = ChronaXRootConfig.getInt("leaf-overrides.async.async-entity-tracker.threads");
         if (rootThreads != null) {
             threads = rootThreads;
+        }
+        final Boolean rootAdaptiveThreadScaling = ChronaXRootConfig.getBoolean("leaf-overrides.async.async-entity-tracker.adaptive-thread-scaling");
+        if (rootAdaptiveThreadScaling != null) {
+            adaptiveThreadScaling = rootAdaptiveThreadScaling;
         }
         int aval = ChronaXRuntimeProfile.threadBudget();
         if (threads < 0) {

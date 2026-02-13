@@ -17,6 +17,7 @@ public class AsyncPathfinding extends ConfigModules {
     public static int asyncPathfindingMaxThreads = 0;
     public static int asyncPathfindingKeepalive = 60;
     public static int asyncPathfindingQueueSize = 0;
+    public static boolean adaptiveThreadScaling = true;
     public static PathfindTaskRejectPolicy asyncPathfindingRejectPolicy = PathfindTaskRejectPolicy.FLUSH_ALL;
     private static boolean asyncPathfindingInitialized;
 
@@ -43,6 +44,7 @@ public class AsyncPathfinding extends ConfigModules {
         asyncPathfindingMaxThreads = config.getInt(getBasePath() + ".max-threads", defaultThreads);
         asyncPathfindingKeepalive = config.getInt(getBasePath() + ".keepalive", asyncPathfindingKeepalive);
         asyncPathfindingQueueSize = config.getInt(getBasePath() + ".queue-size", asyncPathfindingQueueSize);
+        adaptiveThreadScaling = config.getBoolean(getBasePath() + ".adaptive-thread-scaling", adaptiveThreadScaling);
         final String defaultRejectPolicy = PathfindTaskRejectPolicy.CALLER_RUNS.toString();
         String rejectPolicy = config.getString(getBasePath() + ".reject-policy", defaultRejectPolicy);
 
@@ -65,6 +67,10 @@ public class AsyncPathfinding extends ConfigModules {
         final String rootRejectPolicy = ChronaXRootConfig.getString("leaf-overrides.async.async-pathfinding.reject-policy");
         if (rootRejectPolicy != null) {
             rejectPolicy = rootRejectPolicy;
+        }
+        final Boolean rootAdaptiveThreadScaling = ChronaXRootConfig.getBoolean("leaf-overrides.async.async-pathfinding.adaptive-thread-scaling");
+        if (rootAdaptiveThreadScaling != null) {
+            adaptiveThreadScaling = rootAdaptiveThreadScaling;
         }
 
         if (asyncPathfindingMaxThreads < 0)

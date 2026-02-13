@@ -27,7 +27,10 @@ public class AsyncPathProcessor {
 
     private static final String THREAD_PREFIX = "ChronaX Async Pathfinding";
     private static final Logger LOGGER = LogManager.getLogger(THREAD_PREFIX);
+    private static final long SCALING_CHECK_INTERVAL_MILLIS = 5000L;
     private static long lastWarnMillis = System.currentTimeMillis();
+    private static volatile long lastScalingCheckMillis;
+    private static volatile int activeThreads;
     public static ThreadPoolExecutor PATH_PROCESSING_EXECUTOR = null;
 
     public static void init() {
@@ -43,6 +46,7 @@ public class AsyncPathProcessor {
             if (PATH_PROCESSING_EXECUTOR.getKeepAliveTime(TimeUnit.NANOSECONDS) > 0L) {
                 PATH_PROCESSING_EXECUTOR.allowCoreThreadTimeOut(true);
             }
+            activeThreads = Math.max(1, AsyncPathfinding.asyncPathfindingMaxThreads);
         } else {
             // Temp no-op
             //throw new IllegalStateException();
@@ -50,6 +54,7 @@ public class AsyncPathProcessor {
     }
 
     protected static CompletableFuture<Void> queue(@NotNull AsyncPath path) {
+        maybeScaleThreadPool();
         return CompletableFuture.runAsync(path::process, PATH_PROCESSING_EXECUTOR)
             .orTimeout(60L, TimeUnit.SECONDS)
             .exceptionally(throwable -> {
@@ -58,6 +63,54 @@ public class AsyncPathProcessor {
                 } else LOGGER.warn("Error occurred while processing async path", throwable);
                 return null;
             });
+    }
+
+    private static void maybeScaleThreadPool() {
+        final ThreadPoolExecutor executor = PATH_PROCESSING_EXECUTOR;
+        if (executor == null || !AsyncPathfinding.adaptiveThreadScaling) {
+            return;
+        }
+
+        final long now = System.currentTimeMillis();
+        if (now - lastScalingCheckMillis < SCALING_CHECK_INTERVAL_MILLIS) {
+            return;
+        }
+        lastScalingCheckMillis = now;
+
+        final int configuredMaxThreads = Math.max(1, AsyncPathfinding.asyncPathfindingMaxThreads);
+        final int queueCapacity = Math.max(AsyncPathfinding.asyncPathfindingQueueSize, 1);
+        final int queueSize = executor.getQueue().size();
+        double mspt = 0.0D;
+        if (MinecraftServer.getServer() != null) {
+            mspt = MinecraftServer.getServer().getAverageTickTime();
+        }
+
+        int targetThreads = configuredMaxThreads;
+        if (mspt >= 55.0D) {
+            targetThreads = Math.max(1, configuredMaxThreads / 2);
+        } else if (mspt >= 45.0D) {
+            targetThreads = Math.max(1, (configuredMaxThreads * 3) / 4);
+        }
+
+        if (queueSize > (queueCapacity * 3) / 4) {
+            targetThreads = configuredMaxThreads;
+        } else if (queueSize < Math.max(queueCapacity / 8, 1)) {
+            targetThreads = Math.max(1, Math.min(targetThreads, configuredMaxThreads / 2));
+        }
+
+        targetThreads = Math.max(1, Math.min(targetThreads, configuredMaxThreads));
+        if (targetThreads == activeThreads) {
+            return;
+        }
+
+        if (targetThreads > activeThreads) {
+            executor.setMaximumPoolSize(targetThreads);
+            executor.setCorePoolSize(targetThreads);
+        } else {
+            executor.setCorePoolSize(targetThreads);
+            executor.setMaximumPoolSize(targetThreads);
+        }
+        activeThreads = targetThreads;
     }
 
     /**

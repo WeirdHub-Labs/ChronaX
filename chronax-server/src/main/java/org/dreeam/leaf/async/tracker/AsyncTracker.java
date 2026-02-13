@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ChunkMap;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -19,7 +20,9 @@ import java.util.concurrent.*;
 
 public final class AsyncTracker {
     private static final String THREAD_NAME = "ChronaX Async Tracker Thread";
+    private static final long SCALING_CHECK_INTERVAL_MILLIS = 5000L;
     public static final boolean ENABLED = MultithreadedTracker.enabled;
+    public static final boolean ADAPTIVE_SCALING = MultithreadedTracker.adaptiveThreadScaling;
     public static final int QUEUE = 1024;
     public static final int MIN_CHUNK = 16;
     public static final int THREADS = MultithreadedTracker.threads;
@@ -28,6 +31,8 @@ public final class AsyncTracker {
         QUEUE,
         THREAD_NAME
     ) : null;
+    private static volatile int activeThreads = Math.max(1, THREADS);
+    private static volatile long lastScalingCheckMillis;
 
     private Future<TrackerCtx>[] fut;
     private final TrackerCtx local;
@@ -47,6 +52,7 @@ public final class AsyncTracker {
     }
 
     public void tick(ServerLevel world) {
+        final int threads = resolveActiveThreads();
         handlePlayerVelocity(world);
         ServerEntityLookup entityLookup = (ServerEntityLookup) world.moonrise$getEntityLookup();
         ca.spottedleaf.moonrise.common.list.ReferenceList<Entity> trackerEntities = entityLookup.trackerEntities;
@@ -58,7 +64,7 @@ public final class AsyncTracker {
         Entity[] entities = new Entity[trackerEntitiesSize];
         System.arraycopy(trackerEntitiesRaw, 0, entities, 0, trackerEntitiesSize);
         EntitySlice slice = new EntitySlice(entities);
-        EntitySlice[] slices = entities.length <= THREADS * MIN_CHUNK ? slice.chunks(MIN_CHUNK) : slice.splitEvenly(THREADS);
+        EntitySlice[] slices = entities.length <= threads * MIN_CHUNK ? slice.chunks(MIN_CHUNK) : slice.splitEvenly(threads);
         @SuppressWarnings("unchecked")
         Future<TrackerCtx>[] futures = new Future[slices.length];
         for (int i = 0; i < futures.length; i++) {
@@ -66,6 +72,39 @@ public final class AsyncTracker {
         }
         TRACKER_EXECUTOR.unpack();
         this.fut = futures;
+    }
+
+    private static int resolveActiveThreads() {
+        if (!ADAPTIVE_SCALING || THREADS <= 1 || TRACKER_EXECUTOR == null) {
+            return Math.max(1, THREADS);
+        }
+
+        final long now = System.currentTimeMillis();
+        if (now - lastScalingCheckMillis >= SCALING_CHECK_INTERVAL_MILLIS) {
+            lastScalingCheckMillis = now;
+            int target = Math.max(1, THREADS);
+            final int queueDepth = TRACKER_EXECUTOR.channel.length();
+            double mspt = 0.0D;
+            if (MinecraftServer.getServer() != null) {
+                mspt = MinecraftServer.getServer().getAverageTickTime();
+            }
+
+            if (mspt >= 55.0D) {
+                target = Math.max(1, THREADS / 2);
+            } else if (mspt >= 45.0D) {
+                target = Math.max(1, (THREADS * 3) / 4);
+            }
+
+            if (queueDepth > Math.max(QUEUE / 2, 1)) {
+                target = THREADS;
+            } else if (queueDepth < Math.max(THREADS, 4) && mspt < 35.0D) {
+                target = Math.max(1, Math.min(target, THREADS / 2));
+            }
+
+            activeThreads = Math.max(1, Math.min(target, THREADS));
+        }
+
+        return activeThreads;
     }
 
     private static void handlePlayerVelocity(ServerLevel world) {

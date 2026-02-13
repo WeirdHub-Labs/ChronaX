@@ -34,6 +34,7 @@ public final class ChronaXRootConfig {
               worker-threads: 12
 
             chunk-loading:
+              adaptive-rates: true
               player-max-chunk-send-rate: 180
               player-max-chunk-load-rate: 220
               player-max-chunk-generate-rate: 70
@@ -48,12 +49,14 @@ public final class ChronaXRootConfig {
                 async-pathfinding:
                   enabled: default
                   max-threads: default
+                  adaptive-thread-scaling: true
                   keepalive: 120
                   queue-size: default
                   reject-policy: CALLER_RUNS
                 async-entity-tracker:
                   enabled: default
                   threads: default
+                  adaptive-thread-scaling: true
                 parallel-world-ticking:
                   enabled: default
                   threads: default
