@@ -3,6 +3,7 @@ package org.dreeam.leaf.config.modules.async;
 import org.dreeam.leaf.async.path.PathfindTaskRejectPolicy;
 import org.dreeam.leaf.config.ConfigModules;
 import org.dreeam.leaf.config.ChronaXRootConfig;
+import org.dreeam.leaf.config.ChronaXRuntimeProfile;
 import org.dreeam.leaf.config.EnumConfigCategory;
 import org.dreeam.leaf.config.LeafConfig;
 
@@ -36,14 +37,13 @@ public class AsyncPathfinding extends ConfigModules {
         }
         asyncPathfindingInitialized = true;
 
-        final int availableProcessors = Runtime.getRuntime().availableProcessors();
-        enabled = config.getBoolean(getBasePath() + ".enabled", enabled);
-        asyncPathfindingMaxThreads = config.getInt(getBasePath() + ".max-threads", asyncPathfindingMaxThreads);
+        final int threadBudget = ChronaXRuntimeProfile.threadBudget();
+        final int defaultThreads = ChronaXRuntimeProfile.defaultAsyncPathfindingThreads();
+        enabled = config.getBoolean(getBasePath() + ".enabled", ChronaXRuntimeProfile.defaultAsyncPathfindingEnabled());
+        asyncPathfindingMaxThreads = config.getInt(getBasePath() + ".max-threads", defaultThreads);
         asyncPathfindingKeepalive = config.getInt(getBasePath() + ".keepalive", asyncPathfindingKeepalive);
         asyncPathfindingQueueSize = config.getInt(getBasePath() + ".queue-size", asyncPathfindingQueueSize);
-        final String defaultRejectPolicy = availableProcessors >= 12 && asyncPathfindingQueueSize < 512
-            ? PathfindTaskRejectPolicy.FLUSH_ALL.toString()
-            : PathfindTaskRejectPolicy.CALLER_RUNS.toString();
+        final String defaultRejectPolicy = PathfindTaskRejectPolicy.CALLER_RUNS.toString();
         String rejectPolicy = config.getString(getBasePath() + ".reject-policy", defaultRejectPolicy);
 
         final Boolean rootEnabled = ChronaXRootConfig.getBoolean("leaf-overrides.async.async-pathfinding.enabled");
@@ -68,16 +68,18 @@ public class AsyncPathfinding extends ConfigModules {
         }
 
         if (asyncPathfindingMaxThreads < 0)
-            asyncPathfindingMaxThreads = Math.max(availableProcessors + asyncPathfindingMaxThreads, 1);
+            asyncPathfindingMaxThreads = Math.max(threadBudget + asyncPathfindingMaxThreads, 1);
         else if (asyncPathfindingMaxThreads == 0)
-            asyncPathfindingMaxThreads = Math.max(availableProcessors / 4, 1);
+            asyncPathfindingMaxThreads = Math.max(defaultThreads, 1);
         if (!enabled)
             asyncPathfindingMaxThreads = 0;
-        else
+        else {
+            asyncPathfindingMaxThreads = Math.max(asyncPathfindingMaxThreads, 1);
             LeafConfig.LOGGER.info("Using {} threads for Async Pathfinding", asyncPathfindingMaxThreads);
+        }
 
         if (asyncPathfindingQueueSize <= 0)
-            asyncPathfindingQueueSize = asyncPathfindingMaxThreads * 256;
+            asyncPathfindingQueueSize = Math.max(asyncPathfindingMaxThreads * (ChronaXRuntimeProfile.isCompatibilityFirst() ? 128 : 256), 256);
 
         asyncPathfindingRejectPolicy = PathfindTaskRejectPolicy.fromString(rejectPolicy);
 

@@ -24,6 +24,9 @@ ChronaX includes parallel execution paths for server performance:
 - Chunk-system parallel generation controls (`chunk-system.gen-parallelism`).
 - Chunk-system thread tuning (`chunk-system.io-threads`, `chunk-system.worker-threads`).
 - Optional parallel world ticking (`leaf-overrides.async.parallel-world-ticking`).
+- Runtime profile presets for compatibility/performance balance (`runtime-profile`).
+- Shared CPU thread budgeting for async subsystems (`thread-budget.*`).
+- Buffered read drain limits for PWT (`max-buffered-read-requests`, `max-read-requests-per-tick`).
 
 Example defaults from `chronax.yml`:
 

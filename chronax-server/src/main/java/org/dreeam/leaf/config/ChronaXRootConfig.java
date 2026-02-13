@@ -18,9 +18,15 @@ public final class ChronaXRootConfig {
     private static volatile YamlConfiguration config;
     private static final String DEFAULT_CONTENT = """
             # ChronaX root configuration
-            # Performance-first default preset for ChronaX.
+            # Compatibility-first default preset for ChronaX.
             # Edit values as needed for your hardware/plugin mix.
-            config-version: 1
+            # runtime-profile: compatibility-first | balanced | max-throughput
+            config-version: 2
+            runtime-profile: compatibility-first
+
+            thread-budget:
+              reserve-cpu-threads: 2
+              hard-cap: default
 
             chunk-system:
               gen-parallelism: on
@@ -36,24 +42,26 @@ public final class ChronaXRootConfig {
 
             leaf-overrides:
               async:
-                async-chunk-send: true
-                async-mob-spawning: true
-                async-playerdata-save: true
+                async-chunk-send: false
+                async-mob-spawning: false
+                async-playerdata-save: false
                 async-pathfinding:
-                  enabled: true
-                  max-threads: -2
+                  enabled: false
+                  max-threads: default
                   keepalive: 120
-                  queue-size: 4096
+                  queue-size: default
                   reject-policy: CALLER_RUNS
                 async-entity-tracker:
-                  enabled: true
-                  threads: 4
+                  enabled: false
+                  threads: default
                 parallel-world-ticking:
-                  enabled: true
-                  threads: 8
+                  enabled: false
+                  threads: default
                   log-container-creation-stacktraces: false
                   disable-hard-throw: false
                   async-unsafe-read-handling: BUFFERED
+                  max-buffered-read-requests: default
+                  max-read-requests-per-tick: default
               performance:
                 throttle-hopper-when-full:
                   enabled: true
@@ -108,6 +116,10 @@ public final class ChronaXRootConfig {
             return number.intValue();
         }
         if (raw instanceof String str) {
+            final String normalized = str.trim().toLowerCase(Locale.ROOT);
+            if ("default".equals(normalized)) {
+                return null;
+            }
             try {
                 return Integer.parseInt(str.trim());
             } catch (final NumberFormatException ignored) {

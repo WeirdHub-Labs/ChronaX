@@ -2,6 +2,7 @@ package org.dreeam.leaf.config.modules.async;
 
 import org.dreeam.leaf.config.ConfigModules;
 import org.dreeam.leaf.config.ChronaXRootConfig;
+import org.dreeam.leaf.config.ChronaXRuntimeProfile;
 import org.dreeam.leaf.config.EnumConfigCategory;
 import org.dreeam.leaf.config.LeafConfig;
 import org.dreeam.leaf.config.annotations.Experimental;
@@ -14,13 +15,15 @@ public class SparklyPaperParallelWorldTicking extends ConfigModules {
 
     @Experimental
     public static boolean enabled = false;
-    public static int threads = 8;
+    public static int threads = 0;
     public static boolean logContainerCreationStacktraces = false;
     public static boolean disableHardThrow = false;
     @Deprecated
     public static Boolean runAsyncTasksSync;
     // STRICT, BUFFERED, DISABLED
     public static String asyncUnsafeReadHandling = "BUFFERED";
+    public static int maxBufferedReadRequests = 32768;
+    public static int maxReadRequestsPerTick = 8192;
 
     @Override
     public void onLoaded() {
@@ -31,8 +34,11 @@ public class SparklyPaperParallelWorldTicking extends ConfigModules {
                 **实验性功能**
                 启用并行世界处理以提高多核 CPU 使用率.""");
 
-        enabled = config.getBoolean(getBasePath() + ".enabled", enabled);
-        threads = config.getInt(getBasePath() + ".threads", threads);
+        final int defaultThreads = ChronaXRuntimeProfile.defaultParallelWorldTickingThreads();
+        enabled = config.getBoolean(getBasePath() + ".enabled", ChronaXRuntimeProfile.defaultParallelWorldTickingEnabled());
+        threads = config.getInt(getBasePath() + ".threads", defaultThreads);
+        maxBufferedReadRequests = config.getInt(getBasePath() + ".max-buffered-read-requests", ChronaXRuntimeProfile.defaultPwtMaxBufferedReadRequests());
+        maxReadRequestsPerTick = config.getInt(getBasePath() + ".max-read-requests-per-tick", ChronaXRuntimeProfile.defaultPwtMaxReadRequestsPerTick());
 
         final Boolean rootEnabled = ChronaXRootConfig.getBoolean("leaf-overrides.async.parallel-world-ticking.enabled");
         if (rootEnabled != null) {
@@ -42,11 +48,25 @@ public class SparklyPaperParallelWorldTicking extends ConfigModules {
         if (rootThreads != null) {
             threads = rootThreads;
         }
+        final Integer rootMaxBufferedReadRequests = ChronaXRootConfig.getInt("leaf-overrides.async.parallel-world-ticking.max-buffered-read-requests");
+        if (rootMaxBufferedReadRequests != null) {
+            maxBufferedReadRequests = rootMaxBufferedReadRequests;
+        }
+        final Integer rootMaxReadRequestsPerTick = ChronaXRootConfig.getInt("leaf-overrides.async.parallel-world-ticking.max-read-requests-per-tick");
+        if (rootMaxReadRequestsPerTick != null) {
+            maxReadRequestsPerTick = rootMaxReadRequestsPerTick;
+        }
 
         if (enabled) {
-            if (threads <= 0) threads = 8;
+            if (threads <= 0) threads = Math.max(defaultThreads, 1);
         } else {
             threads = 0;
+        }
+        if (maxBufferedReadRequests <= 0) {
+            maxBufferedReadRequests = ChronaXRuntimeProfile.defaultPwtMaxBufferedReadRequests();
+        }
+        if (maxReadRequestsPerTick <= 0) {
+            maxReadRequestsPerTick = ChronaXRuntimeProfile.defaultPwtMaxReadRequestsPerTick();
         }
 
         logContainerCreationStacktraces = config.getBoolean(getBasePath() + ".log-container-creation-stacktraces", logContainerCreationStacktraces);

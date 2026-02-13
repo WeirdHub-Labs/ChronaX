@@ -2,6 +2,7 @@ package org.dreeam.leaf.config.modules.async;
 
 import org.dreeam.leaf.config.ConfigModules;
 import org.dreeam.leaf.config.ChronaXRootConfig;
+import org.dreeam.leaf.config.ChronaXRuntimeProfile;
 import org.dreeam.leaf.config.EnumConfigCategory;
 
 public class AsyncPlayerDataSave extends ConfigModules {
@@ -19,7 +20,7 @@ public class AsyncPlayerDataSave extends ConfigModules {
             """
                 异步保存玩家数据.""");
 
-        enabled = config.getBoolean(getBasePath() + ".enabled", enabled);
+        enabled = config.getBoolean(getBasePath() + ".enabled", ChronaXRuntimeProfile.defaultAsyncPlayerDataSaveEnabled());
         final Boolean rootEnabled = ChronaXRootConfig.getFirstBoolean(
             "leaf-overrides.async.async-playerdata-save",
             "leaf-overrides.async.async-playerdata-save.enabled"
