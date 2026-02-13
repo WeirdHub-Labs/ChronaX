@@ -21,11 +21,11 @@ public final class ChronaXRootConfig {
             # Compatibility-first default preset for ChronaX.
             # Edit values as needed for your hardware/plugin mix.
             # runtime-profile: compatibility-first | balanced | max-throughput
-            config-version: 2
+            config-version: 3
             runtime-profile: compatibility-first
 
             thread-budget:
-              reserve-cpu-threads: 2
+              reserve-cpu-threads: default
               hard-cap: default
 
             chunk-system:
@@ -42,20 +42,20 @@ public final class ChronaXRootConfig {
 
             leaf-overrides:
               async:
-                async-chunk-send: false
-                async-mob-spawning: false
-                async-playerdata-save: false
+                async-chunk-send: default
+                async-mob-spawning: default
+                async-playerdata-save: default
                 async-pathfinding:
-                  enabled: false
+                  enabled: default
                   max-threads: default
                   keepalive: 120
                   queue-size: default
                   reject-policy: CALLER_RUNS
                 async-entity-tracker:
-                  enabled: false
+                  enabled: default
                   threads: default
                 parallel-world-ticking:
-                  enabled: false
+                  enabled: default
                   threads: default
                   log-container-creation-stacktraces: false
                   disable-hard-throw: false
@@ -91,6 +91,9 @@ public final class ChronaXRootConfig {
         }
         if (raw instanceof String str) {
             final String normalized = str.trim().toLowerCase(Locale.ROOT);
+            if ("default".equals(normalized)) {
+                return null;
+            }
             if ("true".equals(normalized)) {
                 return true;
             }

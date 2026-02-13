@@ -1,0 +1,37 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: mini-kio <kiolaaoz@naver.com>
+Date: Fri, 13 Feb 2026 22:59:58 +0900
+Subject: [PATCH] Make PWT buffered read queue bounded and configurable
+
+
+diff --git a/net/minecraft/server/level/ServerLevel.java b/net/minecraft/server/level/ServerLevel.java
+index 01f7390f3fb2a423cec373a2bb5ccbee57278783..4643322cdd691ce8d0d872f0a450070b68760746 100644
+--- a/net/minecraft/server/level/ServerLevel.java
++++ b/net/minecraft/server/level/ServerLevel.java
+@@ -209,7 +209,7 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe
+     private final RandomSequences randomSequences;
+     // Leaf start - SparklyPaper - parallel world ticking
+     public final java.util.concurrent.ExecutorService tickExecutor;
+-    public final java.util.concurrent.ConcurrentLinkedQueue<org.dreeam.leaf.async.world.WorldReadRequest> asyncReadRequestQueue;
++    public final java.util.Queue<org.dreeam.leaf.async.world.WorldReadRequest> asyncReadRequestQueue;
+     private volatile boolean isShuttingDown = false; // Shutdown handling for async reads
+     // Leaf end - SparklyPaper - parallel world ticking
+ 
+@@ -712,7 +712,7 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe
+         // Leaf start - SparklyPaper - parallel world ticking
+         if (org.dreeam.leaf.config.modules.async.SparklyPaperParallelWorldTicking.enabled) {
+             this.tickExecutor = java.util.concurrent.Executors.newSingleThreadExecutor(new org.dreeam.leaf.async.world.SparklyPaperServerLevelTickExecutorThreadFactory(getWorld().getName()));
+-            this.asyncReadRequestQueue = new java.util.concurrent.ConcurrentLinkedQueue<>();
++            this.asyncReadRequestQueue = new java.util.concurrent.ArrayBlockingQueue<>(Math.max(1024, org.dreeam.leaf.config.modules.async.SparklyPaperParallelWorldTicking.maxBufferedReadRequests));
+         } else {
+             this.tickExecutor = null;
+             this.asyncReadRequestQueue = null;
+@@ -783,7 +783,7 @@ public class ServerLevel extends Level implements ServerEntityGetter, WorldGenLe
+         org.dreeam.leaf.async.world.WorldReadRequest request;
+         int processed = 0;
+         // Limit processing per tick to avoid stalling the tick loop
+-        int maxToProcess = 16384; // Consider making this configurable
++        int maxToProcess = Math.max(256, org.dreeam.leaf.config.modules.async.SparklyPaperParallelWorldTicking.maxReadRequestsPerTick);
+ 
+         while (processed < maxToProcess && (request = this.asyncReadRequestQueue.poll()) != null) {
+             processed++;
